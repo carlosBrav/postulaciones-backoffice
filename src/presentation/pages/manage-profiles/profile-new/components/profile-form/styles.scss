@@ -1,0 +1,16 @@
+@import '../../../../../../assets/media.scss';
+
+.form-profile{
+  width: 60%; 
+  @include respond-below(lg) {
+    width: 40%;
+  }
+
+  @include respond-below(md2) {
+    width: 40%;
+  }
+
+  @include respond-below(md) {
+    width: 40%;
+  }
+}

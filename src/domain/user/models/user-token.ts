@@ -1,0 +1,1 @@
+export {User} from '@domain/authentication/models'
