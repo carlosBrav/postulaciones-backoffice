@@ -1,12 +1,10 @@
-import React, { Suspense, useContext, useEffect } from 'react'
+import React, { Suspense } from 'react'
 import { FullScreenLoader } from '@presentation/components/full-screen-loader/full-screen-loader'
 import { HashRouter, Navigate, Route, Routes } from 'react-router-dom'
 import {
   Login,
-  ManageParticipants,
-  ManageProjects,
   MainComponent,
-  WelcomeComponent,
+  WelcomeComponent
 } from '@presentation/pages/modules'
 import { AuthenticationFactory } from '@main/factories/login-factory'
 import AuthenticationProvider from '@presentation/pages/authentication/context/authentication-provider'
@@ -16,28 +14,34 @@ import { ProfileFactory } from '@main/factories/profile-factory'
 import { UserFactory } from '@main/factories/user-factory'
 import { ManageUsersRouter } from '@presentation/pages/manage-users/manage-users-router'
 import { ManageProfileRouter } from '@presentation/pages/manage-profiles/manage-profile-router'
+import { ManageProjectsRouter } from '@presentation/pages/manage-projects/manage-projects-router'
+import { ManageParticipantRouter } from '@presentation/pages/manage-participants/manage-participant-router'
 
 function ManageRoutes() {
   const repositories = {
     auth: AuthenticationFactory,
-    user: UserFactory,
+    user: UserFactory
   }
 
   return (
     <Routes>
-      <Route index path="/encuesta" element={<Login auth={repositories.auth} />} />
+      <Route
+        index
+        path="/encuesta"
+        element={<Login auth={repositories.auth} />}
+      />
 
       <Route path="/dashboard" element={<MainComponent />}>
         <Route index element={<WelcomeComponent />} />
-        <Route path="manage-participants/*" element={<ManageParticipants />} />
+        <Route
+          path="manage-participants/*"
+          element={<ManageParticipantRouter />}
+        />
         <Route path="manage-profiles/*" element={<ManageProfileRouter />} />
-        <Route path="manage-projects/*" element={<ManageProjects />} />
+        <Route path="manage-projects/*" element={<ManageProjectsRouter />} />
         <Route path="manage-users/*" element={<ManageUsersRouter />} />
       </Route>
-      <Route
-        path="*"
-        element={<Navigate to="/encuesta" replace />}
-    />
+      <Route path="*" element={<Navigate to="/encuesta" replace />} />
     </Routes>
   )
 }
@@ -45,7 +49,7 @@ function ManageRoutes() {
 export default function AppRouter() {
   const repositories = {
     parameter: ParameterFactory,
-    profile: ProfileFactory,
+    profile: ProfileFactory
   }
   return (
     <Suspense fallback={<FullScreenLoader />}>

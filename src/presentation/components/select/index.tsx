@@ -38,10 +38,8 @@ export default function SelectComponent({
       name={`${name}` as `${string}`}
       control={control}
       render={({ field }) => (
-        <FormControl fullWidth error={error}>
-           <InputLabel id={idLabel}>
-            {label}
-          </InputLabel>
+        <FormControl fullWidth error={error} sx={{ height: '56px' }}>
+          <InputLabel id={idLabel}>{label}</InputLabel>
           <Select
             label={label}
             id={idSelect}

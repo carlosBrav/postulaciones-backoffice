@@ -129,19 +129,18 @@ export default function EnhancedTable<T>({
                           inputProps={{
                             'aria-labelledby': labelId
                           }}
-                          sx={{'&.Mui-checked': {
-                            color: '#572364',
-                          },}}
+                          sx={{
+                            '&.Mui-checked': {
+                              color: '#572364'
+                            }
+                          }}
                         />
                       </TableCell>
-                      {
-                        fields.map((val)=>  <TableCell align="left">{row[`${val}`]}</TableCell>)
-                      }
-                      
-                      {/* <TableCell align="left">
-                        {row['nombre']}
-                      </TableCell> */}
-                      
+                      {fields.map((val, index) => (
+                        <TableCell key={index} align="left">
+                          {row[`${val}`]}
+                        </TableCell>
+                      ))}
                     </TableRow>
                   )
                 })}

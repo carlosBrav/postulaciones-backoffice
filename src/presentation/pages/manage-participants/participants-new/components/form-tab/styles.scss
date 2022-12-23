@@ -1,0 +1,23 @@
+@import '../../../../../../assets/media.scss';
+
+.form-tab {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 35px;
+  padding-left: 15px;
+  padding-right: 15px;
+  background-color: #F8F0FA;
+  cursor: pointer;
+
+  &__selected{
+    background-color: #572364;
+  }
+
+  &__text{
+    @include respond-below(md) {
+      font-size: 10px !important;
+    }
+  }
+}

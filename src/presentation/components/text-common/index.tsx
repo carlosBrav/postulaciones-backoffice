@@ -5,16 +5,24 @@ import { Typography } from '@mui/material'
 type Props = {
   text: string
   fontSize: string
-  type: 'primary' | 'secondary' | "normal"
+  type: 'primary' | 'secondary' | 'normal' | string
+  className?: string
 }
 
-const TextCommon = ({ text = '', fontSize = '', type = "primary" }: Props) => {
-
+const TextCommon = ({
+  text = '',
+  fontSize = '',
+  type = 'primary',
+  className = ''
+}: Props) => {
   const handleColor = () => {
-    switch(type){
-      case 'primary': return '#572364'
-      case 'secondary': return '#FFFFFF'
-      default: return '#444444'
+    switch (type) {
+      case 'primary':
+        return '#572364'
+      case 'secondary':
+        return '#FFFFFF'
+      default:
+        return '#444444'
     }
   }
 
@@ -25,6 +33,7 @@ const TextCommon = ({ text = '', fontSize = '', type = "primary" }: Props) => {
       fontSize={fontSize}
       color={handleColor()}
       fontWeight="bold"
+      className={className}
     >
       {text}
     </Typography>

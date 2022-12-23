@@ -25,8 +25,8 @@ function UserForm({repository}: Props) {
     file,
     idTipDoc,
     isLoadingCreate
-  } = useFormUser({repository})
-  console.log('type_document ', type_document)
+  } = useFormUser({ repository })
+
   return (
     <Box width="100%" marginTop="30px">
       <form className="form-user" onSubmit={handleSubmit(onSubmit)}>
@@ -51,7 +51,7 @@ function UserForm({repository}: Props) {
                 control={control}
                 id="number_document"
                 type="text"
-                maxLength={idTipDoc === "00001" ? 8 : 9}
+                maxLength={idTipDoc === '00001' ? 8 : 9}
                 helperText={errors?.numDoc?.message as string}
               />
             </Box>
@@ -163,7 +163,11 @@ function UserForm({repository}: Props) {
           </Grid>
           <Grid item container xs={12}>
             <Box width="100%" maxWidth="200px">
-              <ButtonComponent disabled={isLoadingCreate} title="Guardar" type="submit" />
+              <ButtonComponent
+                disabled={isLoadingCreate}
+                title="Guardar"
+                type="submit"
+              />
             </Box>
           </Grid>
         </Grid>

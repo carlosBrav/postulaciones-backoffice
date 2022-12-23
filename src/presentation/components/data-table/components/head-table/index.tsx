@@ -14,7 +14,7 @@ export default function EnhancedTableHead(props: EnhancedTableProps) {
   const { onSelectAllClick, numSelected, rowCount, headCells } = props
 
   return (
-    <TableHead style={{backgroundColor:'#572364'}}>
+    <TableHead style={{  backgroundColor:  '#572364'  }}>
       <TableRow>
         <TableCell padding="checkbox">
           <Checkbox
@@ -34,7 +34,7 @@ export default function EnhancedTableHead(props: EnhancedTableProps) {
         </TableCell>
         {headCells.map((headCell) => (
           <TableCell
-            style={{color: '#FFFFFF'}}
+            style={{  color: '#FFFFFF'  }}
             key={headCell.id}
             align={'left'}
             padding={headCell.disablePadding ? 'none' : 'normal'}

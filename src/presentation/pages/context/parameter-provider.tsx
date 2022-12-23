@@ -7,6 +7,8 @@ import useProfile from '@main/adapters/profile/use-profile'
 import { Selector } from '@domain/common/model/selector'
 import {Toaster} from 'react-hot-toast';
 import { User } from '@domain/user'
+import { ProjectResponse } from '@domain/project'
+import { ParticipantResponse } from '@domain/participant'
 
 type Props = {
   parameter: ParameterRepository
@@ -18,6 +20,11 @@ function ParameterProvider({ children, parameter, profile }: Props) {
   const [typeProfiles, setTypeProfiles] = useState<Selector[]>([])
   const [listUsers,setListUsers] = useState<User[]>([])
   const [listProfiles, setListProfiles] = useState<Profile[]>([])
+  const [listProjects, setListProjects] = useState<ProjectResponse[]>([])
+  const [listParticipants, setListParticipants] = useState<
+    ParticipantResponse[]
+  >([])
+
   const { isLoading, isSuccess, data } = useParameter(parameter)
   const {
     isLoading: isLoadingProfile,
@@ -55,11 +62,15 @@ function ParameterProvider({ children, parameter, profile }: Props) {
       value={{
         setListUsers,
         setListProfiles,
+        setListProjects,
+        setListParticipants,
+        listProjects,
+        listParticipants,
         listProfiles,
         listUsers,
-        type_document:typeDocument,
-        type_profiles:typeProfiles,
-        isLoading: isLoadingProfile || isLoading,
+        type_document: typeDocument,
+        type_profiles: typeProfiles,
+        isLoading: isLoadingProfile || isLoading
       }}
     >
       {children}

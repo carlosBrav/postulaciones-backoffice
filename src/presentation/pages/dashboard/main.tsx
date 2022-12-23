@@ -35,8 +35,8 @@ export default function MainComponent() {
         open={open}
         title={'¡Bienvenido!'}
       />
-      <DrawerMainComponent onClick={handleDrawerClose} open={open}/>
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+      <DrawerMainComponent onClick={handleDrawerClose} open={open} />
+      <Box component="main" sx={{ flexGrow: 1, p: 2 }}>
         <DrawerHeader />
         <Outlet />
       </Box>

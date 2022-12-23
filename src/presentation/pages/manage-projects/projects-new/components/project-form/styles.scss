@@ -1,0 +1,17 @@
+@import '../../../../../../assets/media.scss';
+
+.project-user{
+  width: 60%;
+
+  @include respond-below(lg) {
+    width: 80%;
+  }
+
+  @include respond-below(md2) {
+    width: 85%;
+  }
+
+  @include respond-below(md) {
+    width: 95%;
+  }
+}
