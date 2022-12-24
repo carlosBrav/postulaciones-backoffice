@@ -24,7 +24,7 @@ export class ParameterUseCase implements ParameterRepository {
       map(this._parameterMapping.toCriteria),
       catchError((error) => this._parameterMapping.toError(error))
     )
-    return firstValueFrom(source$)
+    return firstValueFrom(source$) as Promise<Criteria[]>
   }
 
   getAll = (types_param: string): Promise<any> => {

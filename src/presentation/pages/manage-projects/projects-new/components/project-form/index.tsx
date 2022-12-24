@@ -94,17 +94,6 @@ function ProjectForm({ repository }: Props) {
                 helperText={errors?.terminos?.message as string}
               />
             </Box>
-            <Box marginBottom="20px">
-              <InputTextComponent
-                label="Landing"
-                name="landing"
-                control={control}
-                id="landing"
-                type="text"
-                maxLength={9}
-                helperText={errors?.landing?.message as string}
-              />
-            </Box>
           </Grid>
 
           <Grid item container xs={12}>
