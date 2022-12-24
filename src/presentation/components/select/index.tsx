@@ -3,7 +3,7 @@ import {
   FormHelperText,
   InputLabel,
   MenuItem,
-  Select,
+  Select
 } from '@mui/material'
 import React from 'react'
 import { Controller } from 'react-hook-form'
@@ -20,6 +20,7 @@ type Props = {
   helperText?: string
   placeholder?: string
   label?: string
+  disabled?: boolean
 }
 export default function SelectComponent({
   idLabel = '',
@@ -30,8 +31,9 @@ export default function SelectComponent({
   name = '',
   error = false,
   helperText = '',
-  placeholder='',
-  label=''
+  placeholder = '',
+  label = '',
+  disabled = false
 }: Props) {
   return (
     <Controller
@@ -41,6 +43,7 @@ export default function SelectComponent({
         <FormControl fullWidth error={error} sx={{ height: '56px' }}>
           <InputLabel id={idLabel}>{label}</InputLabel>
           <Select
+            disabled={disabled}
             label={label}
             id={idSelect}
             multiple={multiple}
