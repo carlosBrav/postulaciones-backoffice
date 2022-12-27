@@ -1,14 +1,13 @@
 import React, { useContext } from 'react'
 import SelectComponent from '@presentation/components/select'
 import InputTextComponent from '@presentation/components/input-text'
+import InputNumberComponent from '@presentation/components/input-text/number'
 import CheckBoxComponent from '@presentation/components/checkbox'
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
 import DatePickerComponent from '@presentation/components/date-picker'
 import { ParameterManageContext } from '@presentation/pages/context/parameter-context'
-import { ParameterRepository } from '@domain/parameter'
 import { useCriteriaGeneral } from './hooks/use-criteria-general'
-import { useCriteriaSalud } from '../form-salud/hooks/use-criteria-salud'
 
 type Props = {
   control: any
@@ -17,7 +16,7 @@ type Props = {
   defaultFecVenc?: string
   handleFecNac: (data: string) => void
   handleFecVenc: (data: string) => void
-  parameter: ParameterRepository
+  id?: string
 }
 
 function FormGeneral({
@@ -27,11 +26,9 @@ function FormGeneral({
   defaultFecVenc = '',
   handleFecNac = () => {},
   handleFecVenc = () => {},
-  parameter
+  id = ''
 }: Props) {
-  const { type_document } = useContext(ParameterManageContext)
-  const { isLoadingEdad, edad } = useCriteriaGeneral(parameter)
-  useCriteriaSalud(parameter)
+  const {  type_document  } = useCriteriaGeneral()
 
   return (
     <Grid container>
@@ -138,12 +135,11 @@ function FormGeneral({
         </Grid>
         <Grid item md={4} xs={12}>
           <Box marginBottom="20px">
-            <InputTextComponent
+            <InputNumberComponent
               label="Años de emprendimiento"
               name="aniosEmprendimiento"
               control={control}
               id="aniosEmprendimiento"
-              type="text"
               helperText={errors?.aniosEmprendimiento?.message as string}
             />
           </Box>
@@ -158,14 +154,11 @@ function FormGeneral({
             />
           </Box>
           <Box marginBottom="20px">
-            <SelectComponent
+            <InputNumberComponent
+              label="Edad"
               name="edad"
               control={control}
-              data={edad}
-              idLabel="edad_label"
-              idSelect="edad_select"
-              label="Edad"
-              error={!!errors?.edad}
+              id="edad"
               helperText={errors?.edad?.message as string}
             />
           </Box>

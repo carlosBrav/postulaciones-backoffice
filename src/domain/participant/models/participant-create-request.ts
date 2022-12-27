@@ -1,6 +1,6 @@
 import { BaseModel } from '@domain/common/model/base-model'
-import { SaludProteccion } from './salud-proteccion'
-import { MediosVida } from './medios-vida'
+import { SaludProteccionRequest } from './salud-proteccion-request'
+import { MediosVidaRequest } from './medios-vida-request'
 
 class ParticipantCreateRequest extends BaseModel {
   idTipDoc: string = ''
@@ -21,8 +21,8 @@ class ParticipantCreateRequest extends BaseModel {
   flagVentaInternet: boolean = false
   idUsuCrea: number = 0
   fotoBase64: string = ''
-  saludProteccion: SaludProteccion = new SaludProteccion()
-  mediosVida: MediosVida = new MediosVida()
+  saludProteccion: SaludProteccionRequest = new SaludProteccionRequest()
+  mediosVida: MediosVidaRequest = new MediosVidaRequest()
 }
 
 export { ParticipantCreateRequest }

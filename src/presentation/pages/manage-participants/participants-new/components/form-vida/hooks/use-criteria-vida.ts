@@ -1,55 +1,61 @@
 import useCriteria from '@main/adapters/parameter/use-criteria'
 import { TYPE_PARAMETER, TYPE_CALCULO } from '@domain/parameter/constants'
 import { ParameterRepository } from '@domain/parameter'
+import { Selector } from '@domain/common/model/selector'
 import { useContext, useEffect, useState } from 'react'
 import { ParameterManageContext } from '@presentation/pages/context/parameter-context'
-import { Selector } from '@domain/common/model/selector'
 
-function useCriteriaSalud() {
+function useCriteriaVida() {
   const {
-    isLoadingSalud,
-    saludEdad,
-    saludSexo,
-    saludOtrosDep,
-    saludCondicAloj,
-    saludRedSoportePeru,
-    saludNivelEduc,
-    saludIngresoPromMen,
-    saludIdentGenero,
-    saludOrientacSexual,
-    saludEmbarazo,
-    saludHacinamiento,
-    saludCondicMigrat,
-    saludCondicLaboral,
-    saludDependientes,
-    saludCondicFisica,
-    saludSobrevVBG,
-    saludDocumentPosee,
-    saludSeguroSalud,
-    saludNacionalidad
+    isLoadingVida,
+    vidaCondicAloj,
+    vidaSexo,
+    vidaOtrosDep,
+    vidaRedSoportePeru,
+    vidaNivelEduc,
+    vidaIngresoPromMen,
+    vidaIdentGenero,
+    vidaOrientacSexual,
+    vidaEmbarazo,
+    vidaHacinamiento,
+    vidaCondicMigrat,
+    vidaCondicLaboral,
+    vidaDependientes,
+    vidaCondicFisica,
+    vidaSobrevVBG,
+    vidaDocumentPosee,
+    vidaSeguroSalud,
+    vidaNacionalidad,
+    vidaEdad,
+    vidaHorasTrabajo,
+    vidaFamDirectos,
+    vidaTipoResidencia
   } = useContext(ParameterManageContext)
 
   return {
-    isLoadingSalud,
-    saludEdad,
-    saludSexo,
-    saludOtrosDep,
-    saludCondicAloj,
-    saludRedSoportePeru,
-    saludNivelEduc,
-    saludIngresoPromMen,
-    saludIdentGenero,
-    saludOrientacSexual,
-    saludEmbarazo,
-    saludHacinamiento,
-    saludCondicMigrat,
-    saludCondicLaboral,
-    saludDependientes,
-    saludCondicFisica,
-    saludSobrevVBG,
-    saludDocumentPosee,
-    saludSeguroSalud,
-    saludNacionalidad
+    isLoadingVida,
+    vidaCondicAloj,
+    vidaSexo,
+    vidaOtrosDep,
+    vidaRedSoportePeru,
+    vidaNivelEduc,
+    vidaIngresoPromMen,
+    vidaIdentGenero,
+    vidaOrientacSexual,
+    vidaEmbarazo,
+    vidaHacinamiento,
+    vidaCondicMigrat,
+    vidaCondicLaboral,
+    vidaDependientes,
+    vidaCondicFisica,
+    vidaSobrevVBG,
+    vidaDocumentPosee,
+    vidaSeguroSalud,
+    vidaNacionalidad,
+    vidaEdad,
+    vidaHorasTrabajo,
+    vidaFamDirectos,
+    vidaTipoResidencia
   }
   // const [edad, setEdad] = useState<Selector[]>([])
   // const [sexo, setSexo] = useState<Selector[]>([])
@@ -70,13 +76,60 @@ function useCriteriaSalud() {
   // const [documentPosee, setDocumentPosee] = useState<Selector[]>([])
   // const [seguroSalud, setSeguroSalud] = useState<Selector[]>([])
   // const [nacionalidad, setNacionalidad] = useState<Selector[]>([])
-
+  // const [famDirectos, setFamDirectos] = useState<Selector[]>([])
+  // const [horasTrabajo, setHorasTrabajo] = useState<Selector[]>([])
+  // const [tipoResidencia, setTipoResidencia] = useState<Selector[]>([])
+  // const {
+  //   isLoading: isLoadingTR,
+  //   isSuccess: isSuccessTR,
+  //   data: dataTR
+  // } = useCriteria(TYPE_CALCULO.vida, TYPE_PARAMETER.tipo_residencia, repository)
+  // useEffect(() => {
+  //   if (isSuccessTR && dataTR && dataTR?.length > 0) {
+  //     setTipoResidencia(
+  //       dataTR.map((val) =>
+  //         Selector.fromJson({ value: val.codigo, label: val.descripcion })
+  //       )
+  //     )
+  //   }
+  // }, [isSuccessTR, dataTR])
+  // const {
+  //   isLoading: isLoadingHT,
+  //   isSuccess: isSuccessHT,
+  //   data: dataHT
+  // } = useCriteria(TYPE_CALCULO.vida, TYPE_PARAMETER.horas_trabajo, repository)
+  // useEffect(() => {
+  //   if (isSuccessHT && dataHT && dataHT?.length > 0) {
+  //     setHorasTrabajo(
+  //       dataHT.map((val) =>
+  //         Selector.fromJson({ value: val.codigo, label: val.descripcion })
+  //       )
+  //     )
+  //   }
+  // }, [isSuccessHT, dataHT])
+  // const {
+  //   isLoading: isLoadingFD,
+  //   isSuccess: isSuccessFD,
+  //   data: dataFD
+  // } = useCriteria(
+  //   TYPE_CALCULO.vida,
+  //   TYPE_PARAMETER.familiares_directos,
+  //   repository
+  // )
+  // useEffect(() => {
+  //   if (isSuccessFD && dataFD && dataFD?.length > 0) {
+  //     setFamDirectos(
+  //       dataFD.map((val) =>
+  //         Selector.fromJson({ value: val.codigo, label: val.descripcion })
+  //       )
+  //     )
+  //   }
+  // }, [isSuccessFD, dataFD])
   // const {
   //   isLoading: isLoadingEdad,
   //   isSuccess: isSuccessEdad,
   //   data: dataEdad
-  // } = useCriteria(TYPE_CALCULO.salud, TYPE_PARAMETER.edad, repository)
-
+  // } = useCriteria(TYPE_CALCULO.vida, TYPE_PARAMETER.edad, repository)
   // useEffect(() => {
   //   if (isSuccessEdad && dataEdad && dataEdad?.length > 0) {
   //     setEdad(
@@ -86,13 +139,11 @@ function useCriteriaSalud() {
   //     )
   //   }
   // }, [isSuccessEdad, dataEdad])
-
   // const {
   //   isLoading: isLoadingSexo,
   //   isSuccess: isSuccessSexo,
   //   data: dataSexo
-  // } = useCriteria(TYPE_CALCULO.salud, TYPE_PARAMETER.sexo, repository)
-
+  // } = useCriteria(TYPE_CALCULO.vida, TYPE_PARAMETER.sexo, repository)
   // useEffect(() => {
   //   if (isSuccessSexo && dataSexo && dataSexo?.length > 0) {
   //     setSexo(
@@ -102,13 +153,11 @@ function useCriteriaSalud() {
   //     )
   //   }
   // }, [isSuccessSexo, dataSexo])
-
   // const {
   //   isLoading: isLoadingOD,
   //   isSuccess: isSuccessOD,
   //   data: dataOD
-  // } = useCriteria(TYPE_CALCULO.salud, TYPE_PARAMETER.otros_dep, repository)
-
+  // } = useCriteria(TYPE_CALCULO.vida, TYPE_PARAMETER.otros_dep, repository)
   // useEffect(() => {
   //   if (isSuccessOD && dataOD && dataOD?.length > 0) {
   //     setOtrosDep(
@@ -118,13 +167,11 @@ function useCriteriaSalud() {
   //     )
   //   }
   // }, [isSuccessOD, dataOD])
-
   // const {
   //   isLoading: isLoadingCA,
   //   isSuccess: isSuccessCA,
   //   data: dataCA
-  // } = useCriteria(TYPE_CALCULO.salud, TYPE_PARAMETER.condic_alojam, repository)
-
+  // } = useCriteria(TYPE_CALCULO.vida, TYPE_PARAMETER.condic_alojam, repository)
   // useEffect(() => {
   //   if (isSuccessCA && dataCA && dataCA?.length > 0) {
   //     setCondicAloj(
@@ -134,13 +181,11 @@ function useCriteriaSalud() {
   //     )
   //   }
   // }, [isSuccessCA, dataCA])
-
   // const {
   //   isLoading: isLoadingRSP,
   //   isSuccess: isSuccessRSP,
   //   data: dataRSP
-  // } = useCriteria(TYPE_CALCULO.salud, TYPE_PARAMETER.red_sop_peru, repository)
-
+  // } = useCriteria(TYPE_CALCULO.vida, TYPE_PARAMETER.red_sop_peru, repository)
   // useEffect(() => {
   //   if (isSuccessRSP && dataRSP && dataRSP?.length > 0) {
   //     setRedSoportePeru(
@@ -150,17 +195,11 @@ function useCriteriaSalud() {
   //     )
   //   }
   // }, [isSuccessRSP, dataRSP])
-
   // const {
   //   isLoading: isLoadingNE,
   //   isSuccess: isSuccessNE,
   //   data: dataNE
-  // } = useCriteria(
-  //   TYPE_CALCULO.salud,
-  //   TYPE_PARAMETER.nivel_educativo,
-  //   repository
-  // )
-
+  // } = useCriteria(TYPE_CALCULO.vida, TYPE_PARAMETER.nivel_educativo, repository)
   // useEffect(() => {
   //   if (isSuccessNE && dataNE && dataNE?.length > 0) {
   //     setNivelEduc(
@@ -170,17 +209,15 @@ function useCriteriaSalud() {
   //     )
   //   }
   // }, [isSuccessNE, dataNE])
-
   // const {
   //   isLoading: isLoadingIPM,
   //   isSuccess: isSuccessIPM,
   //   data: dataIPM
   // } = useCriteria(
-  //   TYPE_CALCULO.salud,
+  //   TYPE_CALCULO.vida,
   //   TYPE_PARAMETER.ing_prom_mensual,
   //   repository
   // )
-
   // useEffect(() => {
   //   if (isSuccessIPM && dataIPM && dataIPM?.length > 0) {
   //     setIngresoPromMen(
@@ -190,13 +227,11 @@ function useCriteriaSalud() {
   //     )
   //   }
   // }, [isSuccessIPM, dataIPM])
-
   // const {
   //   isLoading: isLoadingIG,
   //   isSuccess: isSuccessIG,
   //   data: dataIG
-  // } = useCriteria(TYPE_CALCULO.salud, TYPE_PARAMETER.ident_genero, repository)
-
+  // } = useCriteria(TYPE_CALCULO.vida, TYPE_PARAMETER.ident_genero, repository)
   // useEffect(() => {
   //   if (isSuccessIG && dataIG && dataIG?.length > 0) {
   //     setIdentGenero(
@@ -206,13 +241,11 @@ function useCriteriaSalud() {
   //     )
   //   }
   // }, [isSuccessIG, dataIG])
-
   // const {
   //   isLoading: isLoadingOS,
   //   isSuccess: isSuccessOS,
   //   data: dataOS
-  // } = useCriteria(TYPE_CALCULO.salud, TYPE_PARAMETER.orientac_sex, repository)
-
+  // } = useCriteria(TYPE_CALCULO.vida, TYPE_PARAMETER.orientac_sex, repository)
   // useEffect(() => {
   //   if (isSuccessOS && dataOS && dataOS?.length > 0) {
   //     setOrientacionSexual(
@@ -222,13 +255,11 @@ function useCriteriaSalud() {
   //     )
   //   }
   // }, [isSuccessOS, dataOS])
-
   // const {
   //   isLoading: isLoadingLact,
   //   isSuccess: isSuccessLact,
   //   data: dataLact
-  // } = useCriteria(TYPE_CALCULO.salud, TYPE_PARAMETER.embarazo, repository)
-
+  // } = useCriteria(TYPE_CALCULO.vida, TYPE_PARAMETER.embarazo, repository)
   // useEffect(() => {
   //   if (isSuccessLact && dataLact && dataLact?.length > 0) {
   //     setEmbarazo(
@@ -238,13 +269,11 @@ function useCriteriaSalud() {
   //     )
   //   }
   // }, [isSuccessLact, dataLact])
-
   // const {
   //   isLoading: isLoadingHac,
   //   isSuccess: isSuccessHac,
   //   data: dataHac
-  // } = useCriteria(TYPE_CALCULO.salud, TYPE_PARAMETER.hacinamiento, repository)
-
+  // } = useCriteria(TYPE_CALCULO.vida, TYPE_PARAMETER.hacinamiento, repository)
   // useEffect(() => {
   //   if (isSuccessHac && dataHac && dataHac?.length > 0) {
   //     setHacinamiento(
@@ -254,17 +283,15 @@ function useCriteriaSalud() {
   //     )
   //   }
   // }, [isSuccessHac, dataHac])
-
   // const {
   //   isLoading: isLoadingCM,
   //   isSuccess: isSuccessCM,
   //   data: dataCM
   // } = useCriteria(
-  //   TYPE_CALCULO.salud,
+  //   TYPE_CALCULO.vida,
   //   TYPE_PARAMETER.condic_migratoria,
   //   repository
   // )
-
   // useEffect(() => {
   //   if (isSuccessCM && dataCM && dataCM?.length > 0) {
   //     setCondicMigrat(
@@ -274,17 +301,15 @@ function useCriteriaSalud() {
   //     )
   //   }
   // }, [isSuccessCM, dataCM])
-
   // const {
   //   isLoading: isLoadingCL,
   //   isSuccess: isSuccessCL,
   //   data: dataCL
   // } = useCriteria(
-  //   TYPE_CALCULO.salud,
+  //   TYPE_CALCULO.vida,
   //   TYPE_PARAMETER.condicion_laboral,
   //   repository
   // )
-
   // useEffect(() => {
   //   if (isSuccessCL && dataCL && dataCL?.length > 0) {
   //     setCondicLaboral(
@@ -294,13 +319,11 @@ function useCriteriaSalud() {
   //     )
   //   }
   // }, [isSuccessCL, dataCL])
-
   // const {
   //   isLoading: isLoadingDep,
   //   isSuccess: isSuccessDep,
   //   data: dataDep
-  // } = useCriteria(TYPE_CALCULO.salud, TYPE_PARAMETER.dep_men_5, repository)
-
+  // } = useCriteria(TYPE_CALCULO.vida, TYPE_PARAMETER.dep_men_5, repository)
   // useEffect(() => {
   //   if (isSuccessDep && dataDep && dataDep?.length > 0) {
   //     setDependientes(
@@ -310,13 +333,11 @@ function useCriteriaSalud() {
   //     )
   //   }
   // }, [isSuccessDep, dataDep])
-
   // const {
   //   isLoading: isLoadingCF,
   //   isSuccess: isSuccessCF,
   //   data: dataCF
-  // } = useCriteria(TYPE_CALCULO.salud, TYPE_PARAMETER.condic_fisica, repository)
-
+  // } = useCriteria(TYPE_CALCULO.vida, TYPE_PARAMETER.condic_fisica, repository)
   // useEffect(() => {
   //   if (isSuccessCF && dataCF && dataCF?.length > 0) {
   //     setCondicFisica(
@@ -326,13 +347,11 @@ function useCriteriaSalud() {
   //     )
   //   }
   // }, [isSuccessCF, dataCF])
-
   // const {
   //   isLoading: isLoadingSVBG,
   //   isSuccess: isSuccessSVBG,
   //   data: dataSVBG
-  // } = useCriteria(TYPE_CALCULO.salud, TYPE_PARAMETER.sobrev_vbg, repository)
-
+  // } = useCriteria(TYPE_CALCULO.vida, TYPE_PARAMETER.sobrev_vbg, repository)
   // useEffect(() => {
   //   if (isSuccessSVBG && dataSVBG && dataSVBG?.length > 0) {
   //     setSobrevVBG(
@@ -342,17 +361,11 @@ function useCriteriaSalud() {
   //     )
   //   }
   // }, [isSuccessSVBG, dataSVBG])
-
   // const {
   //   isLoading: isLoadingDP,
   //   isSuccess: isSuccessDP,
   //   data: dataDP
-  // } = useCriteria(
-  //   TYPE_CALCULO.salud,
-  //   TYPE_PARAMETER.documento_posee,
-  //   repository
-  // )
-
+  // } = useCriteria(TYPE_CALCULO.vida, TYPE_PARAMETER.documento_posee, repository)
   // useEffect(() => {
   //   if (isSuccessDP && dataDP && dataDP?.length > 0) {
   //     setDocumentPosee(
@@ -362,13 +375,11 @@ function useCriteriaSalud() {
   //     )
   //   }
   // }, [isSuccessDP, dataDP])
-
   // const {
   //   isLoading: isLoadingSS,
   //   isSuccess: isSuccessSS,
   //   data: dataSS
-  // } = useCriteria(TYPE_CALCULO.salud, TYPE_PARAMETER.seguro_salud, repository)
-
+  // } = useCriteria(TYPE_CALCULO.vida, TYPE_PARAMETER.seguro_salud, repository)
   // useEffect(() => {
   //   if (isSuccessSS && dataSS && dataSS?.length > 0) {
   //     setSeguroSalud(
@@ -378,13 +389,11 @@ function useCriteriaSalud() {
   //     )
   //   }
   // }, [isSuccessSS, dataSS])
-
   // const {
   //   isLoading: isLoadingNac,
   //   isSuccess: isSuccessNac,
   //   data: dataNac
-  // } = useCriteria(TYPE_CALCULO.salud, TYPE_PARAMETER.nacionalidad, repository)
-
+  // } = useCriteria(TYPE_CALCULO.vida, TYPE_PARAMETER.nacionalidad, repository)
   // useEffect(() => {
   //   if (isSuccessNac && dataNac && dataNac?.length > 0) {
   //     setNacionalidad(
@@ -394,54 +403,58 @@ function useCriteriaSalud() {
   //     )
   //   }
   // }, [isSuccessNac, dataNac])
-
-  // useEffect(()  =>  {
-  //   if  (id)  {
+  // useEffect(() => {
+  //   if (id) {
   //     editValues()
   //   }
-  // },  [id])
-
-  return {
-    // isLoading:
-    //   isLoadingSexo ||
-    //   isLoadingOD ||
-    //   isLoadingCA ||
-    //   isLoadingRSP ||
-    //   isLoadingNE ||
-    //   isLoadingIPM ||
-    //   isLoadingIG ||
-    //   isLoadingOS ||
-    //   isLoadingLact ||
-    //   isLoadingHac ||
-    //   isLoadingCM ||
-    //   isLoadingCL ||
-    //   isLoadingDep ||
-    //   isLoadingCF ||
-    //   isLoadingSVBG ||
-    //   isLoadingDP ||
-    //   isLoadingSS ||
-    //   isLoadingNac ||
-    //   isLoadingEdad,
-    // condicAloj,
-    // edad,
-    // sexo,
-    // otrosDep,
-    // redSoportePeru,
-    // nivelEduc,
-    // ingresoPromMen,
-    // identGenero,
-    // orientacSexual,
-    // embarazo,
-    // hacinamiento,
-    // condicMigrat,
-    // condicLaboral,
-    // dependientes,
-    // condicFisica,
-    // sobrevVBG,
-    // documentPosee,
-    // seguroSalud,
-    // nacionalidad
-  }
+  // }, [id])
+  // return {
+  //   isLoading:
+  //     isLoadingSexo ||
+  //     isLoadingOD ||
+  //     isLoadingCA ||
+  //     isLoadingRSP ||
+  //     isLoadingNE ||
+  //     isLoadingIPM ||
+  //     isLoadingIG ||
+  //     isLoadingOS ||
+  //     isLoadingLact ||
+  //     isLoadingHac ||
+  //     isLoadingCM ||
+  //     isLoadingCL ||
+  //     isLoadingDep ||
+  //     isLoadingCF ||
+  //     isLoadingSVBG ||
+  //     isLoadingDP ||
+  //     isLoadingSS ||
+  //     isLoadingNac ||
+  //     isLoadingEdad ||
+  //     isLoadingHT ||
+  //     isLoadingFD ||
+  //     isLoadingTR,
+  //   condicAloj,
+  //   sexo,
+  //   otrosDep,
+  //   redSoportePeru,
+  //   nivelEduc,
+  //   ingresoPromMen,
+  //   identGenero,
+  //   orientacSexual,
+  //   embarazo,
+  //   hacinamiento,
+  //   condicMigrat,
+  //   condicLaboral,
+  //   dependientes,
+  //   condicFisica,
+  //   sobrevVBG,
+  //   documentPosee,
+  //   seguroSalud,
+  //   nacionalidad,
+  //   edad,
+  //   horasTrabajo,
+  //   famDirectos,
+  //   tipoResidencia
+  // }
 }
 
-export { useCriteriaSalud }
+export { useCriteriaVida }

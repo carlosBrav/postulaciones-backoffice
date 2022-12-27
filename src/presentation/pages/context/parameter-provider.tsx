@@ -9,6 +9,8 @@ import { Toaster } from 'react-hot-toast'
 import { User } from '@domain/user'
 import { ProjectResponse } from '@domain/project'
 import { ParticipantResponse } from '@domain/participant'
+import { useSaludData } from '@presentation/pages/hooks/use-salud-data'
+import { useVidaData } from '@presentation/pages/hooks/use-vida-data'
 
 type Props = {
   parameter: ParameterRepository
@@ -24,25 +26,55 @@ function ParameterProvider({ children, parameter, profile }: Props) {
   const [listParticipants, setListParticipants] = useState<
     ParticipantResponse[]
   >([])
-  const [edad, setEdad] = useState<Selector[]>([])
-  const [sexo, setSexo] = useState<Selector[]>([])
-  const [otrosDep, setOtrosDep] = useState<Selector[]>([])
-  const [condicAloj, setCondicAloj] = useState<Selector[]>([])
-  const [redSoportePeru, setRedSoportePeru] = useState<Selector[]>([])
-  const [nivelEduc, setNivelEduc] = useState<Selector[]>([])
-  const [ingresoPromMen, setIngresoPromMen] = useState<Selector[]>([])
-  const [identGenero, setIdentGenero] = useState<Selector[]>([])
-  const [orientacSexual, setOrientacionSexual] = useState<Selector[]>([])
-  const [embarazo, setEmbarazo] = useState<Selector[]>([])
-  const [hacinamiento, setHacinamiento] = useState<Selector[]>([])
-  const [condicMigrat, setCondicMigrat] = useState<Selector[]>([])
-  const [condicLaboral, setCondicLaboral] = useState<Selector[]>([])
-  const [dependientes, setDependientes] = useState<Selector[]>([])
-  const [condicFisica, setCondicFisica] = useState<Selector[]>([])
-  const [sobrevVBG, setSobrevVBG] = useState<Selector[]>([])
-  const [documentPosee, setDocumentPosee] = useState<Selector[]>([])
-  const [seguroSalud, setSeguroSalud] = useState<Selector[]>([])
-  const [nacionalidad, setNacionalidad] = useState<Selector[]>([])
+
+  const {
+    isLoadingSalud,
+    saludEdad,
+    saludSexo,
+    saludOtrosDep,
+    saludCondicAloj,
+    saludRedSoportePeru,
+    saludNivelEduc,
+    saludIngresoPromMen,
+    saludIdentGenero,
+    saludOrientacSexual,
+    saludEmbarazo,
+    saludHacinamiento,
+    saludCondicMigrat,
+    saludCondicLaboral,
+    saludDependientes,
+    saludCondicFisica,
+    saludSobrevVBG,
+    saludDocumentPosee,
+    saludSeguroSalud,
+    saludNacionalidad
+  } = useSaludData(parameter)
+
+  const {
+    isLoadingVida,
+    vidaCondicAloj,
+    vidaSexo,
+    vidaOtrosDep,
+    vidaRedSoportePeru,
+    vidaNivelEduc,
+    vidaIngresoPromMen,
+    vidaIdentGenero,
+    vidaOrientacSexual,
+    vidaEmbarazo,
+    vidaHacinamiento,
+    vidaCondicMigrat,
+    vidaCondicLaboral,
+    vidaDependientes,
+    vidaCondicFisica,
+    vidaSobrevVBG,
+    vidaDocumentPosee,
+    vidaSeguroSalud,
+    vidaNacionalidad,
+    vidaEdad,
+    vidaHorasTrabajo,
+    vidaFamDirectos,
+    vidaTipoResidencia
+  } = useVidaData(parameter)
 
   const { isLoading, isSuccess, data } = useParameter(parameter)
   const {
@@ -83,52 +115,57 @@ function ParameterProvider({ children, parameter, profile }: Props) {
   return (
     <ParameterManageContext.Provider
       value={{
-        setEdad,
         setListUsers,
         setListProfiles,
         setListProjects,
         setListParticipants,
-        setSexo,
-        setOtrosDep,
-        setCondicAloj,
-        setRedSoportePeru,
-        setNivelEduc,
-        setIngresoPromMen,
-        setIdentGenero,
-        setOrientacionSexual,
-        setEmbarazo,
-        setHacinamiento,
-        setCondicMigrat,
-        setCondicLaboral,
-        setDependientes,
-        setCondicFisica,
-        setSobrevVBG,
-        setDocumentPosee,
-        setSeguroSalud,
-        setNacionalidad,
-        edad,
-        sexo,
-        otrosDep,
-        condicAloj,
-        redSoportePeru,
-        nivelEduc,
-        ingresoPromMen,
-        identGenero,
-        orientacSexual,
-        embarazo,
-        hacinamiento,
-        condicMigrat,
-        condicLaboral,
-        dependientes,
-        condicFisica,
-        sobrevVBG,
-        documentPosee,
-        seguroSalud,
-        nacionalidad,
+        isLoadingSalud,
+        saludEdad,
+        saludSexo,
+        saludOtrosDep,
+        saludCondicAloj,
+        saludRedSoportePeru,
+        saludNivelEduc,
+        saludIngresoPromMen,
+        saludIdentGenero,
+        saludOrientacSexual,
+        saludEmbarazo,
+        saludHacinamiento,
+        saludCondicMigrat,
+        saludCondicLaboral,
+        saludDependientes,
+        saludCondicFisica,
+        saludSobrevVBG,
+        saludDocumentPosee,
+        saludSeguroSalud,
+        saludNacionalidad,
         listProjects,
         listParticipants,
         listProfiles,
         listUsers,
+        isLoadingVida,
+        vidaCondicAloj,
+        vidaSexo,
+        vidaOtrosDep,
+        vidaRedSoportePeru,
+        vidaNivelEduc,
+        vidaIngresoPromMen,
+        vidaIdentGenero,
+        vidaOrientacSexual,
+        vidaEmbarazo,
+        vidaHacinamiento,
+        vidaCondicMigrat,
+        vidaCondicLaboral,
+        vidaDependientes,
+        vidaCondicFisica,
+        vidaSobrevVBG,
+        vidaDocumentPosee,
+        vidaSeguroSalud,
+        vidaNacionalidad,
+        vidaEdad,
+        vidaHorasTrabajo,
+        vidaFamDirectos,
+        vidaTipoResidencia,
         type_document: typeDocument,
         type_profiles: typeProfiles,
         isLoading: isLoadingProfile || isLoading

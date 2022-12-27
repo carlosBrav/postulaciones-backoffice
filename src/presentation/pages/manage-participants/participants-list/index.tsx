@@ -6,6 +6,7 @@ import HeaderComponent from '@presentation/components/header'
 import { Box } from '@mui/material'
 import DataTable from '@presentation/components/data-table'
 import { headCells } from '@presentation/pages/manage-participants/constants'
+import ModalComponent from '@presentation/components/modal'
 
 type Props = {
   repository: ParticipantRepository
@@ -19,7 +20,9 @@ function ParticipantsList({ repository }: Props) {
     setOpenDelete,
     listParticipants,
     participantsSelected,
-    setParticipantsSelected
+    setParticipantsSelected,
+    openDelete,
+    handleDelete
   } = useParticipantList(repository)
 
   return isLoadingParticipants ? (
@@ -50,15 +53,15 @@ function ParticipantsList({ repository }: Props) {
           headCells={headCells}
         />
       </Box>
-      {/* {openDelete && (
+      {openDelete && (
         <ModalComponent
-          onAccept={handleDeleteProfile}
+          onAccept={handleDelete}
           onCancel={() => setOpenDelete(false)}
           open={openDelete}
-          title="Eliminar perfil"
+          title="Eliminar participante"
           description="¿Está seguro de querer eliminar(los)?"
         />
-      )} */}
+      )}
     </>
   )
 }

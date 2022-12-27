@@ -51,13 +51,13 @@ export default function SelectComponent({
             {...field}
           >
             {data.map((val: any) => (
-              <MenuItem value={val.value} key={val.value}>
+              <MenuItem value={val.value} key={`${val.value}-${val.label}`}>
                 {val.label}
               </MenuItem>
             ))}
           </Select>
 
-          <FormHelperText>{helperText}</FormHelperText>
+          <FormHelperText style={{  marginTop: 1  }}>{helperText}</FormHelperText>
         </FormControl>
       )}
     />

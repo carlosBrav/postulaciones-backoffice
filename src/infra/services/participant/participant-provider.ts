@@ -9,12 +9,11 @@ import {
   HttpRequest,
   HttpResponse
 } from '@core/http/http-client'
-import { ProjectRequest, ProjectUpdate } from '@domain/project/models'
 
 export class ParticipantService implements ParticipantProvider {
-  private readonly msName = '/getParticipante'
-  private readonly msNameCreate = '/setParticipante'
-  private readonly msNameDelete = '/delParticipante'
+  private readonly msName = 'getParticipante'
+  private readonly msNameCreate = 'setParticipante'
+  private readonly msNameDelete = 'delParticipante'
 
   constructor(private _httpClient: HttpClient) {}
 
@@ -30,13 +29,13 @@ export class ParticipantService implements ParticipantProvider {
     return this._httpClient.request(request) as any
   }
   delete(
-    idParticipant: string,
+    idParticipante: number,
     idUsuMod: string
   ): Promise<HttpResponse<Record<string, unknown>>> {
     const request: HttpRequest<Record<string, unknown>> = {
       url: `${this.msNameDelete}`,
       method: HttpMethod.POST,
-      body: { idParticipant, idUsuMod },
+      body: { idParticipante, idUsuMod },
       headers: this._httpClient.getPrivateHeader()
     }
     return this._httpClient.request(request) as any

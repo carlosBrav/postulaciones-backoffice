@@ -1,6 +1,8 @@
 import { BaseModel } from '@domain/common/model/base-model'
 
 class ParticipantForm extends BaseModel {
+  idUsuCrea: number = 0
+  idParticipante: number = 0
   idTipDoc: string = ''
   nombre: string = ''
   apellido: string = ''

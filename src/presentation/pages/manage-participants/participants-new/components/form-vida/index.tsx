@@ -1,36 +1,44 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import SelectComponent from '@presentation/components/select'
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
-import { ParameterManageContext } from '@presentation/pages/context/parameter-context'
+import { useCriteriaVida } from './hooks/use-criteria-vida'
+import { ParameterRepository } from '@domain/parameter'
 
 type Props = {
   control: any
   errors: any
 }
 
-function FormVida({ control, errors }: Props) {
+function FormVida({
+  control,
+  errors,
+}: Props) {
   const {
-    condicAloj,
-    sexo,
-    otrosDep,
-    redSoportePeru,
-    nivelEduc,
-    ingresoPromMen,
-    identGenero,
-    orientacSexual,
-    embarazo,
-    hacinamiento,
-    condicMigrat,
-    condicLaboral,
-    dependientes,
-    condicFisica,
-    sobrevVBG,
-    documentPosee,
-    seguroSalud,
-    nacionalidad,
-    edad
-  } = useContext(ParameterManageContext)
+    isLoadingVida,
+        vidaCondicAloj,
+        vidaSexo,
+        vidaOtrosDep,
+        vidaRedSoportePeru,
+        vidaNivelEduc,
+        vidaIngresoPromMen,
+        vidaIdentGenero,
+        vidaOrientacSexual,
+        vidaEmbarazo,
+        vidaHacinamiento,
+        vidaCondicMigrat,
+        vidaCondicLaboral,
+        vidaDependientes,
+        vidaCondicFisica,
+        vidaSobrevVBG,
+        vidaDocumentPosee,
+        vidaSeguroSalud,
+        vidaNacionalidad,
+        vidaEdad,
+        vidaHorasTrabajo,
+        vidaFamDirectos,
+        vidaTipoResidencia,
+  } = useCriteriaVida()
   return (
     <Grid container>
       <Grid item container spacing={2} xs={12}>
@@ -39,7 +47,7 @@ function FormVida({ control, errors }: Props) {
             <SelectComponent
               name="vida_idSexo"
               control={control}
-              data={sexo}
+              data={vidaSexo}
               idLabel="sexo_label"
               idSelect="sexo_select"
               label="Sexo"
@@ -51,7 +59,7 @@ function FormVida({ control, errors }: Props) {
             <SelectComponent
               name="vida_idOtrosDependientes"
               control={control}
-              data={otrosDep}
+              data={vidaOtrosDep}
               idLabel="otros_dep_label"
               idSelect="otros_dep_select"
               label="Otros Dependientes"
@@ -63,7 +71,7 @@ function FormVida({ control, errors }: Props) {
             <SelectComponent
               name="vida_idCondAlojamiento"
               control={control}
-              data={condicAloj}
+              data={vidaCondicAloj}
               idLabel="cond_alojam_label"
               idSelect="cond_alojam_select"
               label="Condición de Alojamiento"
@@ -75,7 +83,7 @@ function FormVida({ control, errors }: Props) {
             <SelectComponent
               name="vida_idRedSoporte"
               control={control}
-              data={redSoportePeru}
+              data={vidaRedSoportePeru}
               idLabel="red_soporte_label"
               idSelect="red_soporte_select"
               label="Red de Soporte en Perú"
@@ -87,7 +95,7 @@ function FormVida({ control, errors }: Props) {
             <SelectComponent
               name="vida_idNivelEducativo"
               control={control}
-              data={nivelEduc}
+              data={vidaNivelEduc}
               idLabel="nivel_educativo_label"
               idSelect="nivel_educativo_select"
               label="Nivel Educativo"
@@ -99,7 +107,7 @@ function FormVida({ control, errors }: Props) {
             <SelectComponent
               name="vida_idEdad"
               control={control}
-              data={edad}
+              data={vidaEdad}
               idLabel="edad_label"
               idSelect="edad_select"
               label="Edad"
@@ -111,7 +119,7 @@ function FormVida({ control, errors }: Props) {
             <SelectComponent
               name="vida_idFamDirectos"
               control={control}
-              data={[]}
+              data={vidaFamDirectos}
               idLabel="idFamDirectos_label"
               idSelect="idFamDirectos_select"
               label="Familiares Directos"
@@ -125,7 +133,7 @@ function FormVida({ control, errors }: Props) {
             <SelectComponent
               name="vida_idOrientacion"
               control={control}
-              data={orientacSexual}
+              data={vidaOrientacSexual}
               idLabel="orientac_sex_label"
               idSelect="orientac_sex_select"
               label="Orientación sexual"
@@ -137,7 +145,7 @@ function FormVida({ control, errors }: Props) {
             <SelectComponent
               name="vida_idEmbarazo"
               control={control}
-              data={embarazo}
+              data={vidaEmbarazo}
               idLabel="embarazo_label"
               idSelect="embarazo_select"
               label="Embarazo | Lactancia"
@@ -149,7 +157,7 @@ function FormVida({ control, errors }: Props) {
             <SelectComponent
               name="vida_idHacimiento"
               control={control}
-              data={hacinamiento}
+              data={vidaHacinamiento}
               idLabel="hacinamiento_label"
               idSelect="hacinamiento_select"
               label="Hacinamiento"
@@ -161,7 +169,7 @@ function FormVida({ control, errors }: Props) {
             <SelectComponent
               name="vida_idCondMigratoria"
               control={control}
-              data={condicMigrat}
+              data={vidaCondicMigrat}
               idLabel="cond_migrat_label"
               idSelect="cond_migrat_select"
               label="Condición Migratoria"
@@ -173,7 +181,7 @@ function FormVida({ control, errors }: Props) {
             <SelectComponent
               name="vida_idCondLaboral"
               control={control}
-              data={condicLaboral}
+              data={vidaCondicLaboral}
               idLabel="condic_laboral_label"
               idSelect="condic_laboral_select"
               label="Condición Laboral"
@@ -185,7 +193,7 @@ function FormVida({ control, errors }: Props) {
             <SelectComponent
               name="vida_idNacionalidad"
               control={control}
-              data={nacionalidad}
+              data={vidaNacionalidad}
               idLabel="nacionalidad_label"
               idSelect="nacionalidad_select"
               label="Nacionalidad"
@@ -197,7 +205,7 @@ function FormVida({ control, errors }: Props) {
             <SelectComponent
               name="vida_idIdentGenero"
               control={control}
-              data={identGenero}
+              data={vidaIdentGenero}
               idLabel="identidad_genero_label"
               idSelect="identidad_genero_select"
               label="Identidad de Género"
@@ -211,7 +219,7 @@ function FormVida({ control, errors }: Props) {
             <SelectComponent
               name="vida_idDependientes"
               control={control}
-              data={dependientes}
+              data={vidaDependientes}
               idLabel="dependientes_label"
               idSelect="dependientes_select"
               label="Dependientes (menores de 5 años)"
@@ -223,7 +231,7 @@ function FormVida({ control, errors }: Props) {
             <SelectComponent
               name="vida_idCondFisica"
               control={control}
-              data={condicFisica}
+              data={vidaCondicFisica}
               idLabel="condicion_fisica_label"
               idSelect="condicion_fisica_select"
               label="Condición Física"
@@ -235,7 +243,7 @@ function FormVida({ control, errors }: Props) {
             <SelectComponent
               name="vida_idSobreviviente"
               control={control}
-              data={sobrevVBG}
+              data={vidaSobrevVBG}
               idLabel="sobreviviente_vbg_label"
               idSelect="sobreviviente_vbg_select"
               label="Sobreviviente de VBG"
@@ -247,7 +255,7 @@ function FormVida({ control, errors }: Props) {
             <SelectComponent
               name="vida_idDocPosee"
               control={control}
-              data={documentPosee}
+              data={vidaDocumentPosee}
               idLabel="doc_posee_label"
               idSelect="doc_posee_select"
               label="Documento que posee"
@@ -259,7 +267,7 @@ function FormVida({ control, errors }: Props) {
             <SelectComponent
               name="vida_idIngresoProm"
               control={control}
-              data={ingresoPromMen}
+              data={vidaIngresoPromMen}
               idLabel="ingreso_prom_label"
               idSelect="ingreso_prom_select"
               label="Ingreso Promedio Mensual"
@@ -271,7 +279,7 @@ function FormVida({ control, errors }: Props) {
             <SelectComponent
               name="vida_idTipoResidencia"
               control={control}
-              data={[]}
+              data={vidaTipoResidencia}
               idLabel="tipo_residencia_label"
               idSelect="tipo_residencia_select"
               label="Tipo de Residencia"
@@ -283,7 +291,7 @@ function FormVida({ control, errors }: Props) {
             <SelectComponent
               name="vida_idHorasTrabajo"
               control={control}
-              data={[]}
+              data={vidaHorasTrabajo}
               idLabel="horas_trabajo_label"
               idSelect="horas_trabajo_select"
               label="Horas de Trabajo Diarias"

@@ -27,4 +27,9 @@ export class ParticipantMapping {
     const { listParticipante } = json as any
     return listParticipante.map((val: any) => ParticipantResponse.fromJson(val))
   }
+
+  toParticipant = (json: Record<string, unknown>[]): ParticipantResponse => {
+    const { participante } = json as any
+    return ParticipantResponse.fromJson({ participante })
+  }
 }

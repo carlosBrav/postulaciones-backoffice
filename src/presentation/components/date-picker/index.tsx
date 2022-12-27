@@ -21,23 +21,23 @@ export default function DatePickerComponent({
 
   const handleDatePicker = (date: Date) => {
     setInitValue(date)
-    onHandleDate(format(date, 'dd-MM-yyyy'))
+    onHandleDate(format(date, 'dd/MM/yyyy'))
   }
 
   useEffect(() => {
     if (value !== '') {
-      setInitValue(parse(value, 'dd-MM-yyyy', new Date()))
+      setInitValue(parse(value, 'dd/MM/yyyy', new Date()))
     }
   }, [])
 
   return (
-    <LocalizationProvider locale={es} dateAdapter={AdapterDateFns}>
+    <LocalizationProvider adapterLocale={es} dateAdapter={AdapterDateFns}>
       <Box width="100%">
         <DatePicker
           className="data-picker"
           key={'init'}
           label={title}
-          inputFormat="dd-MM-yyyy"
+          inputFormat="dd/MM/yyyy"
           value={initValue as Date}
           onChange={(newValue) => {
             handleDatePicker(newValue as Date)

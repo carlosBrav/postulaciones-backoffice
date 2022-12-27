@@ -24,7 +24,7 @@ function ParticipantsNew({ repository, parameter }: Props) {
         titleButton="Regresar"
         onClick={handleBack}
       />
-      <FormParticipant parameter={parameter} repository={repository} />
+      <FormParticipant id={id} parameter={parameter} repository={repository} />
     </>
   )
 }

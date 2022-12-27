@@ -7,10 +7,10 @@ export interface ParticipantProvider {
     participant: ParticipantCreateRequest
   ): Promise<HttpResponse<Record<string, unknown>>>
   delete(
-    idParticipant: string,
+    idParticipant: number,
     idUsuMod: string
   ): Promise<HttpResponse<Record<string, unknown>>>
   update(
-    project: ParticipantUpdateRequest
+    participant: ParticipantUpdateRequest
   ): Promise<HttpResponse<Record<string, unknown>>>
 }

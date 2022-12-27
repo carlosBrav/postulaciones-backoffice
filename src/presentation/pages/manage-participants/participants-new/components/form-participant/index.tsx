@@ -2,20 +2,18 @@ import React, { useContext, useState } from 'react'
 import Box from '@mui/material/Box'
 import FormTab from '../form-tab'
 import './styles.scss'
-import { useForm } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup'
 import ButtonComponent from '@presentation/components/button'
 import FormGeneral from '@presentation/pages/manage-participants/participants-new/components/form-general'
 import FormSalud from '@presentation/pages/manage-participants/participants-new/components/form-salud'
 import FormVida from '@presentation/pages/manage-participants/participants-new/components/form-vida'
-import { useValidationParticipant } from '@presentation/pages/manage-participants/participants-new/hooks/use-validation-participant'
-import { ParticipantForm, ParticipantRepository } from '@domain/participant'
-import { ParameterManageContext } from '@presentation/pages/context/parameter-context'
 import { ParameterRepository } from '@domain/parameter'
+import { ParticipantRepository } from '@domain/participant'
+import { useFormParticipant } from './hooks/use-form-participant'
 
 type Props = {
   repository: ParticipantRepository
   parameter: ParameterRepository
+  id?: string
 }
 
 const titles_tap = [
@@ -24,27 +22,22 @@ const titles_tap = [
   'INFORMACION MEDIOS DE VIDA'
 ]
 
-function FormParticipant({ repository, parameter }: Props) {
-  const [tab, setTab] = useState<number>(0)
+function FormParticipant({ repository, parameter, id }: Props) {
   const {
+    tab,
+    setTab,
     handleSubmit,
+    onSubmit,
+    handleSetValueFecNac,
+    handleSetValueFecVenc,
+    editValuesGeneral,
+    editValuesSalud,
+    editValuesVida,
     control,
-    setValue,
-    watch,
-    formState: { errors }
-  } = useForm({
-    resolver: yupResolver(useValidationParticipant),
-    defaultValues: new ParticipantForm()
-  })
-
-  const handleSetValueFecNac = (data: string) => {
-    setValue('fecNacimiento', data)
-  }
-
-  const handleSetValueFecVenc = (data: string) => {
-    setValue('fecVencimiento', data)
-  }
-
+    errors,
+    fecNacimiento,
+    fecVencimiento
+  } = useFormParticipant(repository, id as string)
   return (
     <Box width="100%" marginTop="30px">
       <Box width="100%" display="flex" flexDirection="column">
@@ -58,7 +51,7 @@ function FormParticipant({ repository, parameter }: Props) {
             />
           ))}
         </Box>
-        <form className="form-participants">
+        <form className="form-participants" onSubmit={handleSubmit(onSubmit)}>
           <Box width="100%" display="flex" flexDirection="column">
             <Box
               width="100%"
@@ -67,23 +60,26 @@ function FormParticipant({ repository, parameter }: Props) {
             >
               {tab === 0 && (
                 <FormGeneral
-                  defaultFecNac=""
-                  defaultFecVenc=""
+                  defaultFecNac={fecNacimiento}
+                  defaultFecVenc={fecVencimiento}
                   handleFecNac={handleSetValueFecNac}
                   handleFecVenc={handleSetValueFecVenc}
                   control={control}
                   errors={errors}
-                  parameter={parameter}
                 />
               )}
               {tab === 1 && (
                 <FormSalud
-                  parameter={parameter}
                   control={control}
                   errors={errors}
                 />
               )}
-              {tab === 2 && <FormVida control={control} errors={errors} />}
+              {tab === 2 && (
+                <FormVida
+                  control={control}
+                  errors={errors}
+                />
+              )}
             </Box>
             <Box width="100%" marginTop="30px">
               <Box maxWidth="150px">

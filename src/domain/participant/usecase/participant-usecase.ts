@@ -26,17 +26,17 @@ export class ParticipnatUseCase implements ParticipantRepository {
   create(participant: ParticipantCreateRequest): Promise<ParticipantResponse> {
     const source$ = from(this._participantProvider.create(participant)).pipe(
       map((response: any) => response.body),
-      map(this._participantMapping.toParticipants),
+      map(this._participantMapping.toParticipant),
       catchError((error: any) => this._participantMapping.toError(error))
     )
     return firstValueFrom(source$) as Promise<ParticipantResponse>
   }
 
-  delete(projects: string[], idUsuMod: string): Promise<boolean> {
-    const source$ = of(projects).pipe(
+  delete(participants: number[], idUsuMod: string): Promise<boolean> {
+    const source$ = of(participants).pipe(
       mergeMap((_participantsId: any) => {
-        const deletes$ = _participantsId.map((project: string) =>
-          from(this._participantProvider.delete(project, idUsuMod))
+        const deletes$ = _participantsId.map((participant: number) =>
+          from(this._participantProvider.delete(participant, idUsuMod))
         )
         return forkJoin(deletes$)
       }),
