@@ -17,11 +17,15 @@ type Props<T> = {
   setRowsSelected: (value: T[]) => void
   redirectEdit: () => void
   handleOnOpen: () => void
+  handleEmail?: () => void
+  handleCheckList?: () => void
   idField: string
   fields: string[]
   headCells: any[]
   isEditable?: boolean
   isDeleteAble?: boolean
+  isMailAble?: boolean
+  isCheckList?: boolean
 }
 
 export default function EnhancedTable<T>({
@@ -30,11 +34,15 @@ export default function EnhancedTable<T>({
   setRowsSelected = () => {},
   redirectEdit = () => {},
   handleOnOpen = () => {},
+  handleEmail = () => {},
+  handleCheckList = () => {},
   idField = 'id',
   fields = [],
   headCells = [],
   isEditable = true,
-  isDeleteAble = true
+  isDeleteAble = true,
+  isMailAble = false,
+  isCheckList = false
 }: Props<T>) {
   const [page, setPage] = React.useState(0)
   const [rowsPerPage, setRowsPerPage] = React.useState(15)
@@ -93,6 +101,10 @@ export default function EnhancedTable<T>({
           handleOnOpen={handleOnOpen}
           isEditable={isEditable}
           isDeleteAble={isDeleteAble}
+          isCheckList={isCheckList}
+          isMailAble={isMailAble}
+          handleCheckList={handleCheckList}
+          handleEmail={handleEmail}
         />
         <TableContainer>
           <Table

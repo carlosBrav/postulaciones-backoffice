@@ -1,5 +1,10 @@
 import { HttpResponse } from '@core/http/http-client'
-import { ProjectRequest, ProjectUpdate } from '../models'
+import {
+  ProjectParticipantCreateReq,
+  ProjectRequest,
+  ProjectUpdate,
+  ProjectParticipantDeleteRequest
+} from '../models'
 
 export interface ProjectProvider {
   getAll(): Promise<HttpResponse<Record<string, unknown>>>
@@ -12,4 +17,13 @@ export interface ProjectProvider {
   ): Promise<HttpResponse<Record<string, unknown>>>
   update(profile: ProjectUpdate): Promise<HttpResponse<Record<string, unknown>>>
   getById(projectId: string): Promise<HttpResponse<Record<string, unknown>>>
+  getParticipants(
+    projectId: string
+  ): Promise<HttpResponse<Record<string, unknown>>>
+  addParticipants(
+    participants: ProjectParticipantCreateReq
+  ): Promise<HttpResponse<Record<string, unknown>>>
+  deleteParticipants(
+    participants: ProjectParticipantDeleteRequest
+  ): Promise<HttpResponse<Record<string, unknown>>>
 }

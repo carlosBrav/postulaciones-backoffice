@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Box, DialogActions, DialogContent } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close'
 import Dialog from '@mui/material/Dialog'
@@ -10,22 +10,72 @@ import { ParticipantResponse } from '@domain/participant'
 import { ButtonCustom } from '@presentation/components/button/buton-common'
 import { InputTextCustom } from '@presentation/components/input-text/custom'
 import TextCommon from '@presentation/components/text-common'
+import { ProjectParticipantCreateReq, ProjectParticipantRequest } from '@domain/project'
 
 type Props = {
   open: boolean
   onCancel: () => void
-  onAccept: () => void
+  onAccept: (data: ProjectParticipantCreateReq) => void
+  idsSelected: string[]
+  id?: string
+  idCurrentUsuario?: number
 }
 
 function ModalParticipants({
   open,
   onCancel = () => {},
-  onAccept = () => {}
+  onAccept = (data: ProjectParticipantCreateReq) => {},
+  idsSelected = [],
+  id = '',
+  idCurrentUsuario = 0
 }: Props) {
   const { listParticipants } = useContext(ParameterManageContext)
   const [participantsSelected, setParticipantsSelected] = useState<any[]>([])
-  const [openDelete, setOpenDelete] = useState<boolean>(false)
   const [search, setSearch] = useState<string>('')
+  const [participants, setParticipants] = useState<ParticipantResponse[]>([])
+  const [participantsFilter, setParticipantsFilter] = useState<
+    ParticipantResponse[]
+  >([])
+
+  const handleAccept = () => {
+    const ppcObject = new ProjectParticipantCreateReq()
+    ppcObject.idProyecto = +id
+    ppcObject.listProyectoParticipante = participantsSelected.map((val)=> ProjectParticipantRequest.fromJson({
+      idParticipante: val.idParticipante,
+      idEstado: "00001",
+      idResultado: "00003",
+      idUsuCrea: idCurrentUsuario
+    }))
+    onAccept(ppcObject)
+  }
+
+  useEffect(() => {
+    setParticipants(
+      listParticipants.filter(
+        (val) => !idsSelected.find((value)=> value === val.numDoc)
+      )
+    )
+  }, [])
+
+  useEffect(()=>{
+    if(participants.length>0){
+      setParticipantsFilter([...participants])
+    }
+  },[participants])
+
+  useEffect(() => {
+    if (search.length === 0) {
+      setParticipantsFilter([...participants])
+    } else {
+      setParticipantsFilter(
+        participants.filter(
+          (val) =>
+            val.nomCompleto.toUpperCase().includes(search.toUpperCase()) ||
+            val.numDoc.includes(search)
+        )
+      )
+    }
+  }, [search])
 
   return (
     <Dialog open={open} fullWidth maxWidth="lg">
@@ -61,13 +111,13 @@ function ModalParticipants({
           </Box>
           <Box width="100%" marginTop="30px">
             <DataTable<ParticipantResponse>
-              rows={listParticipants as ParticipantResponse[]}
+              rows={participantsFilter as ParticipantResponse[]}
               rowsSelected={participantsSelected}
               isEditable={false}
               isDeleteAble={false}
               setRowsSelected={setParticipantsSelected}
               redirectEdit={() => {}}
-              handleOnOpen={() => setOpenDelete(true)}
+              handleOnOpen={() => {}}
               idField="idParticipante"
               fields={[
                 'idParticipante',
@@ -94,7 +144,7 @@ function ModalParticipants({
                 disabled={participantsSelected.length === 0}
                 title={'Aceptar'}
                 type="button"
-                onClick={onAccept}
+                onClick={handleAccept}
               />
             </Box>
           </Box>

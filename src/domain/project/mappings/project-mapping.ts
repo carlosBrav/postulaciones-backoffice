@@ -28,6 +28,18 @@ export class ProjectMapping {
     return listProyecto.map((val: any) => ProjectResponse.fromJson(val))
   }
 
+  toProjectById = (json: Record<string, unknown>[]): ProjectResponse => {
+    const { listProyecto } = json as any
+    return ProjectResponse.fromJson({ ...listProyecto[0] }) as ProjectResponse
+  }
+
+  toParticipants = (json: Record<string, unknown>[]): ProjectResponse[] => {
+    const { listProyectoParticipante } = json as any
+    return listProyectoParticipante.map((val: any) =>
+      ProjectResponse.fromJson(val)
+    )
+  }
+
   toProject = (json: Record<string, unknown>[]): ProjectResponse => {
     const { proyecto } = json as any
     return ProjectResponse.fromJson({ ...proyecto })

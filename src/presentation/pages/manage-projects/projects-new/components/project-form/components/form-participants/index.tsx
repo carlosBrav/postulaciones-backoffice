@@ -1,25 +1,71 @@
-import React, { useContext, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Box, Grid } from '@mui/material'
 import { ButtonCustom } from '@presentation/components/button/buton-common'
-import InputTextComponent from '@presentation/components/input-text'
-import { ParameterManageContext } from '@presentation/pages/context/parameter-context'
+import { InputTextCustom } from '@presentation/components/input-text/custom'
 import DataTable from '@presentation/components/data-table'
 import { participantsProyectCells } from '@presentation/pages/manage-projects/constants'
-import { ParticipantResponse } from '@domain/participant'
-import { Participante } from '@domain/project'
+import { Participante, ProjectParticipantCreateReq, ProjectParticipantDelete, ProjectParticipantDeleteRequest } from '@domain/project'
 import { ModalParticipants } from '../modal-participants'
+import ModalComponent from '@presentation/components/modal'
 
 type Props = {
-  control: any
-  errors: any
+  handleAddParticipants: (data: ProjectParticipantCreateReq) => void
+  handleDeleteParticipants: (data: ProjectParticipantDeleteRequest) => void
   participantes?: Participante[]
+  id?: string
+  idCurrentUsuario?: number
 }
 
-function FormParticipants({ control, errors, participantes = [] }: Props) {
-  const { listParticipants } = useContext(ParameterManageContext)
+function FormParticipants({
+  handleAddParticipants = (data: ProjectParticipantCreateReq) => {},
+  handleDeleteParticipants = (data: ProjectParticipantDeleteRequest) => {},
+  participantes = [],
+  id = '',
+  idCurrentUsuario = 0
+}: Props) {
   const [participantsSelected, setParticipantsSelected] = useState<any[]>([])
   const [openDelete, setOpenDelete] = useState<boolean>(false)
   const [openModal, setOpenModal] = useState<boolean>(false)
+  const [participantesFilter, setParticipantesFilter] = useState<
+    Participante[]
+  >([])
+  const [search, setSearch] = useState<string>('')
+
+  useEffect(() => {
+    if (participantes && participantes.length > 0) {
+      setParticipantesFilter([...participantes])
+    }
+  }, [participantes])
+
+  useEffect(() => {
+    if (search.length === 0) {
+      setParticipantesFilter([...participantes])
+    } else {
+      setParticipantesFilter(
+        participantesFilter.filter(
+          (val) =>
+            val.nomParticipante.toUpperCase().includes(search.toUpperCase()) ||
+            val.numDoc.includes(search)
+        )
+      )
+    }
+  }, [search])
+
+  const handleAcceptModal = (data: ProjectParticipantCreateReq) => {
+    handleAddParticipants(data)
+    setOpenModal(false)
+  }
+
+  const handleDelete = () => {
+    const deleteObject = new ProjectParticipantDeleteRequest()
+    deleteObject.idProyecto = +id
+    deleteObject.listProyectoParticipante = participantsSelected.map((val)=> ProjectParticipantDelete.fromJson({
+      idParticipante: val.idParticipante
+    }))
+    handleDeleteParticipants(deleteObject)
+    setParticipantsSelected([])
+    setOpenDelete(false)
+  }
 
   return (
     <Grid container spacing={2}>
@@ -40,17 +86,20 @@ function FormParticipants({ control, errors, participantes = [] }: Props) {
         </Box>
       </Grid>
       <Grid item md={6} xs={12}>
-        <InputTextComponent
-          control={control}
-          id="search"
-          name="search"
-          placeholder="Buscar participantes por nombre o código"
+        <InputTextCustom
+          label="Buscar participantes por nombre o código"
+          onChange={setSearch}
+          value={search}
         />
       </Grid>
       <Grid item xs={12}>
         <DataTable<Participante>
-          rows={participantes as Participante[]}
+          rows={participantesFilter as Participante[]}
           isEditable={false}
+          isCheckList={true}
+          isMailAble={true}
+          handleCheckList={() => {}}
+          handleEmail={() => {}}
           rowsSelected={participantsSelected}
           setRowsSelected={setParticipantsSelected}
           redirectEdit={() => {}}
@@ -71,11 +120,25 @@ function FormParticipants({ control, errors, participantes = [] }: Props) {
           headCells={participantsProyectCells}
         />
       </Grid>
+      {openDelete && (
+        <ModalComponent
+          onAccept={handleDelete}
+          onCancel={() => setOpenDelete(false)}
+          open={openDelete}
+          title="Eliminar participante"
+          description="¿Está seguro de querer eliminar(los)?"
+        />
+      )}
       {openModal && (
         <ModalParticipants
-          onAccept={() => setOpenModal(false)}
+          idCurrentUsuario={idCurrentUsuario}
+          id={id}
+          onAccept={handleAcceptModal}
           onCancel={() => setOpenModal(false)}
           open={openModal}
+          idsSelected={participantesFilter.map(
+            (val) => val.numDoc
+          )}
         />
       )}
     </Grid>

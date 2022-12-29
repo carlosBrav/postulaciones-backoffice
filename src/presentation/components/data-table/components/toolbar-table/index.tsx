@@ -1,7 +1,7 @@
 import DeleteIcon from '@mui/icons-material/Delete'
 import EditIcon from '@mui/icons-material/Edit'
-import PublishIcon from '@mui/icons-material/Publish'
-import VisibilityIcon from '@mui/icons-material/Visibility'
+import EmailIcon from '@mui/icons-material/Email'
+import BallotIcon from '@mui/icons-material/Ballot'
 import Box from '@mui/material/Box'
 import IconButton from '@mui/material/IconButton'
 import Toolbar from '@mui/material/Toolbar'
@@ -14,8 +14,12 @@ interface EnhancedTableToolbarProps {
   numSelected: number
   redirectEdit: () => void
   handleOnOpen: () => void
+  handleEmail?: () => void
+  handleCheckList?: () => void
   isEditable?: boolean
   isDeleteAble?: boolean
+  isMailAble?: boolean
+  isCheckList?: boolean
 }
 
 export default function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
@@ -23,8 +27,12 @@ export default function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
     numSelected,
     redirectEdit,
     handleOnOpen,
+    handleEmail = () => {},
+    handleCheckList = () => {},
     isEditable = true,
-    isDeleteAble = true
+    isDeleteAble = true,
+    isMailAble = false,
+    isCheckList = false,
   } = props
 
   return numSelected ? (
@@ -51,6 +59,23 @@ export default function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
             }`}
           </Typography>
           <Box>
+
+          {isMailAble && (
+              <Tooltip title="Enviar email">
+                <IconButton onClick={handleEmail}>
+                  <EmailIcon color="primary" />
+                </IconButton>
+              </Tooltip>
+            )}
+
+          {isCheckList && (
+              <Tooltip title="Listar">
+                <IconButton onClick={handleCheckList}>
+                  <BallotIcon color="success" />
+                </IconButton>
+              </Tooltip>
+            )}
+
             {isDeleteAble && (
               <Tooltip title="Eliminar">
                 <IconButton onClick={handleOnOpen}>

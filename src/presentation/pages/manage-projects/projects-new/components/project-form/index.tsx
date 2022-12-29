@@ -24,7 +24,12 @@ function ProjectForm({ repository, id = '' }: Props) {
     control,
     errors,
     isLoadingCreate,
+    handleRefetchParticProj,
+    handleAddParticipants,
+    handleDeleteParticipants,
+    participantsProject,
     participants,
+    idCurrentUsuario,
     tab
   } = useFormProject({ repository })
 
@@ -51,9 +56,11 @@ function ProjectForm({ repository, id = '' }: Props) {
             {tab === 0 && <FormGeneral control={control} errors={errors} />}
             {tab === 1 && (
               <FormParticipants
-                control={control}
-                errors={errors}
-                participantes={participants}
+                handleAddParticipants={handleAddParticipants}
+                id={id}
+                participantes={participantsProject}
+                idCurrentUsuario={idCurrentUsuario}
+                handleDeleteParticipants={handleDeleteParticipants}
               />
             )}
           </Box>
