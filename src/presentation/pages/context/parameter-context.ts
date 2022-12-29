@@ -7,6 +7,7 @@ import { ParticipantResponse } from '@domain/participant'
 
 type ParameterContext = {
   isLoading: boolean
+  estadoProyecto: Selector[]
   type_document: Selector[]
   type_profiles: Selector[]
   listUsers: User[]
@@ -65,6 +66,7 @@ const defaultContent: ParameterContext = {
   isLoadingVida: false,
   isLoading: false,
   isLoadingSalud: false,
+  estadoProyecto: [],
   type_document: [],
   type_profiles: [],
   listUsers: [],

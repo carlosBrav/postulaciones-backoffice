@@ -4,4 +4,5 @@ export interface ProjectRepository {
   create(project: ProjectRequest): Promise<ProjectResponse>
   delete(projects: string[], idUsuMod: string): Promise<boolean>
   update(project: ProjectUpdate): Promise<boolean>
+  getById(projectId: string): Promise<ProjectResponse>
 }

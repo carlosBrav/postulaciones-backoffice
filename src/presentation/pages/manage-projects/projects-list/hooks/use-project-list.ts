@@ -16,12 +16,6 @@ export default function useProjectList(repository: ProjectRepository) {
     isSuccess: isSuccessProjects
   } = useProjects(repository)
 
-  // const {
-  //   isLoading: isLoadingDelete,
-  //   isSuccess: isSuccessDelete,
-  //   mutate: mutateDelete
-  // } = useProfilesDelete(repository,`${getAuthToken(import.meta.env.VITE_APP_PARAM_AUTH as string)?.idUsuario}`)
-
   const [openDelete, setOpenDelete] = useState<boolean>(false)
   const [projectsSelected, setProjectsSelected] = useState<any[]>([])
   const { listProjects, setListProjects } = useContext(ParameterManageContext)

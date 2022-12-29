@@ -1,5 +1,5 @@
 import { BaseModel } from '@domain/common/model/base-model'
-import { Foto, Video } from '@domain/project/models'
+import { Foto, Video, Evaluacion, Participante } from '@domain/project/models'
 
 class ProjectResponse extends BaseModel {
   idProyecto: number = 0
@@ -13,6 +13,8 @@ class ProjectResponse extends BaseModel {
   dscEstado: string = ''
   listFoto: Foto[] = []
   listVideo: Video[] = []
+  listEvaluacion: Evaluacion[] = []
+  listParticipante: Participante[] = []
 }
 
 export { ProjectResponse }

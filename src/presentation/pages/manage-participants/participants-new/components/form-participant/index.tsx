@@ -1,6 +1,6 @@
-import React, { useContext, useState } from 'react'
+import React from 'react'
 import Box from '@mui/material/Box'
-import FormTab from '../form-tab'
+import FormTab from '@presentation/components/form-tab'
 import './styles.scss'
 import ButtonComponent from '@presentation/components/button'
 import FormGeneral from '@presentation/pages/manage-participants/participants-new/components/form-general'
@@ -30,13 +30,13 @@ function FormParticipant({ repository, parameter, id }: Props) {
     onSubmit,
     handleSetValueFecNac,
     handleSetValueFecVenc,
-    editValuesGeneral,
-    editValuesSalud,
-    editValuesVida,
     control,
     errors,
     fecNacimiento,
-    fecVencimiento
+    fecVencimiento,
+    flagAccesoTecno,
+    flagEmprendimiento,
+    flagVentaInternet
   } = useFormParticipant(repository, id as string)
   return (
     <Box width="100%" marginTop="30px">
@@ -64,22 +64,15 @@ function FormParticipant({ repository, parameter, id }: Props) {
                   defaultFecVenc={fecVencimiento}
                   handleFecNac={handleSetValueFecNac}
                   handleFecVenc={handleSetValueFecVenc}
+                  flagAccesoTecno={flagAccesoTecno}
+                  flagEmprendimiento={flagEmprendimiento}
+                  flagVentaInternet={flagVentaInternet}
                   control={control}
                   errors={errors}
                 />
               )}
-              {tab === 1 && (
-                <FormSalud
-                  control={control}
-                  errors={errors}
-                />
-              )}
-              {tab === 2 && (
-                <FormVida
-                  control={control}
-                  errors={errors}
-                />
-              )}
+              {tab === 1 && <FormSalud control={control} errors={errors} />}
+              {tab === 2 && <FormVida control={control} errors={errors} />}
             </Box>
             <Box width="100%" marginTop="30px">
               <Box maxWidth="150px">

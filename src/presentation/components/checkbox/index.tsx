@@ -8,21 +8,21 @@ type Props = {
   name: string
   control: any
   label: string
+  defaultValue: boolean
 }
 
-function CheckBoxGroup({ name, control, label }: Props) {
+function CheckBoxGroup({ name, control, label, defaultValue }: Props) {
   return (
     <Controller
       name={`${name}` as `${string}`}
       control={control}
       render={({ field }) => (
-        <FormControlLabel control={<Checkbox {...field} />} label={label} />
+        <FormControlLabel
+          control={<Checkbox {...field} checked={defaultValue} />}
+          label={label}
+        />
       )}
     />
-    // <FormGroup>
-    //   <FormControlLabel control={<Checkbox defaultChecked />} label="Label" />
-    //   <FormControlLabel control={<Checkbox />} label="Disabled" />
-    // </FormGroup>
   )
 }
 

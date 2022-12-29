@@ -22,7 +22,7 @@ function ProjectsNew({ repository }: Props) {
         titleButton="Regresar"
         onClick={handleBack}
       />
-      <FormProject repository={repository} />
+      <FormProject repository={repository} id={id} />
     </>
   )
 }

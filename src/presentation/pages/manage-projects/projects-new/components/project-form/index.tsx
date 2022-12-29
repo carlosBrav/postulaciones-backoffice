@@ -1,111 +1,68 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Box, Grid } from '@mui/material'
 import SelectComponent from '@presentation/components/select'
 import InputTextComponent from '@presentation/components/input-text'
 import ButtonComponent from '@presentation/components/button'
 import useFormProject from '@presentation/pages/manage-projects/projects-new/components/project-form/hooks/use-form-project'
 import './styles.scss'
+import FormTab from '@presentation/components/form-tab'
 import { ProjectRepository } from '@domain/project'
+import { FormGeneral } from '@presentation/pages/manage-projects/projects-new/components/project-form/components/form-general'
+import { FormParticipants } from '@presentation/pages/manage-projects/projects-new/components/project-form/components/form-participants'
+import { titles_tab, Tab } from '@presentation/pages/manage-projects/constants'
 
 type Props = {
   repository: ProjectRepository
+  id?: string
 }
 
-function ProjectForm({ repository }: Props) {
-  const { handleSubmit, onSubmit, control, errors, isLoadingCreate } =
-    useFormProject({ repository })
+function ProjectForm({ repository, id = '' }: Props) {
+  const {
+    handleSubmit,
+    onSubmit,
+    setTab,
+    control,
+    errors,
+    isLoadingCreate,
+    participants,
+    tab
+  } = useFormProject({ repository })
 
   return (
-    <Box width="100%" marginTop="30px">
+    <Box width="100%" marginTop="30px" display="flex" flexDirection="column">
+      <Box width="100%" display="flex" flexDirection="row">
+        {titles_tab.map((val, index) => (
+          <FormTab
+            key={index}
+            text={val.label}
+            isSelected={tab === index}
+            onClick={() => setTab(index)}
+            disabled={index > 0 ? !id : val.disabled}
+          />
+        ))}
+      </Box>
       <form className="form-user" onSubmit={handleSubmit(onSubmit)}>
-        <Grid container spacing={2}>
-          <Grid item md={6} xs={12}>
-            <Box marginBottom="20px">
-              <SelectComponent
-                name="idEstado"
+        <Box width="100%" display="flex" flexDirection="column">
+          <Box
+            width="100%"
+            padding="20px 10px 10px 10px"
+            style={{ border: '1px solid rgba(0, 0, 0, 0.12)' }}
+          >
+            {tab === 0 && <FormGeneral control={control} errors={errors} />}
+            {tab === 1 && (
+              <FormParticipants
                 control={control}
-                data={[]}
-                idLabel="idEstado_label"
-                idSelect="idEstado_select"
-                label="Estado"
-                error={!!errors?.idEstado}
-                helperText={errors?.idEstado?.message as string}
+                errors={errors}
+                participantes={participants}
               />
+            )}
+          </Box>
+          <Box width="100%" marginTop="30px">
+            <Box maxWidth="150px">
+              <ButtonComponent type="submit" title="Guardar" />
             </Box>
-            <Box marginBottom="20px">
-              <InputTextComponent
-                label="Código"
-                name="codigo"
-                control={control}
-                id="codigo"
-                type="text"
-                helperText={errors?.codigo?.message as string}
-              />
-            </Box>
-            <Box marginBottom="20px">
-              <InputTextComponent
-                label="Nombre"
-                name="nombre"
-                control={control}
-                id="nombre"
-                type="text"
-                helperText={errors?.nombre?.message as string}
-              />
-            </Box>
-            <Box marginBottom="20px">
-              <InputTextComponent
-                label="Descripción"
-                name="descripcion"
-                control={control}
-                id="descripcion"
-                type="text"
-                helperText={errors?.descripcion?.message as string}
-              />
-            </Box>
-            <Box marginBottom="20px">
-              <InputTextComponent
-                label="Jefe"
-                name="jefe"
-                control={control}
-                id="jefe"
-                type="text"
-                helperText={errors?.jefe?.message as string}
-              />
-            </Box>
-          </Grid>
-          <Grid item md={6} xs={12}>
-            <Box marginBottom="20px">
-              <InputTextComponent
-                label="Términos"
-                name="terminos"
-                control={control}
-                id="terminos"
-                type="text"
-                helperText={errors?.terminos?.message as string}
-              />
-            </Box>
-            <Box marginBottom="20px">
-              <InputTextComponent
-                label="Landing"
-                name="terminos"
-                control={control}
-                id="terminos"
-                type="text"
-                helperText={errors?.terminos?.message as string}
-              />
-            </Box>
-          </Grid>
-
-          <Grid item container xs={12}>
-            <Box width="100%" maxWidth="200px">
-              <ButtonComponent
-                disabled={isLoadingCreate}
-                title="Guardar"
-                type="submit"
-              />
-            </Box>
-          </Grid>
-        </Grid>
+          </Box>
+        </Box>
       </form>
     </Box>
   )

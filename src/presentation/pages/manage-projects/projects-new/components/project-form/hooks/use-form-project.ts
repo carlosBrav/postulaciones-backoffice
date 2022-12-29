@@ -1,14 +1,15 @@
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useContext, useEffect, useState } from 'react'
-import { ParameterManageContext } from '@presentation/pages/context/parameter-context'
 import useAuthToken from '@presentation/pages/hooks/use-auth-token/use-auth-token'
 import useCreateProject from '@main/adapters/project/use-create-project'
 import useUpdateProject from '@main/adapters/project/use-update-project'
 import { validateProjectForm } from '../hooks/use-validation-form-project'
 import { toast } from 'react-hot-toast'
 import { useNavigate, useParams } from 'react-router-dom'
-import { ProjectRepository, ProjectForm } from '@domain/project'
+import { ProjectRepository, ProjectForm, ProjectRequest } from '@domain/project'
+import { ParameterManageContext } from '@presentation/pages/context/parameter-context'
+import { Participante } from '@domain/project/models'
 
 type Props = {
   repository: ProjectRepository
@@ -18,12 +19,14 @@ function useFormProject({ repository }: Props) {
   const params = useParams()
   const { id } = params
   let toastId: string
+  const [tab, setTab] = useState<number>(0)
+  const [participants, setParticipants] = useState<Participante[]>([])
   const navigate = useNavigate()
   const { getAuthToken } = useAuthToken()
   const {
     isLoading: isLoadingCreate,
-    mutate,
-    isSuccess
+    mutate: mutateCreate,
+    isSuccess: isSuccessCreate
   } = useCreateProject(repository)
 
   const {
@@ -41,19 +44,21 @@ function useFormProject({ repository }: Props) {
     resolver: yupResolver(validateProjectForm),
     defaultValues: new ProjectForm()
   })
-  // const { type_document, type_profiles, listUsers } = useContext(
-  //   ParameterManageContext
-  // )
+  const authToken = getAuthToken(import.meta.env.VITE_APP_PARAM_AUTH)
+
+  const { listProjects } = useContext(ParameterManageContext)
 
   const onSubmit = (data: ProjectForm) => {
-    console.log('data ', data)
-    // const authToken = getAuthToken(import.meta.env.VITE_APP_PARAM_AUTH)
-    // if (id) {
-
-    // } else {
-
-    // }
+    const projectRequest = ProjectRequest.fromJson({
+      ...data
+    }) as ProjectRequest
+    projectRequest.idUsuCrea = authToken?.idUsuario as number
+    mutateCreate(projectRequest)
   }
+
+  useEffect(() => {
+    setValue('idEstado', '00001')
+  }, [])
 
   useEffect(() => {
     if (isLoadingUpdate) {
@@ -76,45 +81,34 @@ function useFormProject({ repository }: Props) {
   }, [isLoadingCreate])
 
   useEffect(() => {
-    if (isSuccess) {
+    if (isSuccessCreate) {
       toast.dismiss(toastId)
       toast.success('Proyecto creado')
       navigate('/dashboard/manage-projects')
     }
-  }, [isSuccess])
+  }, [isSuccessCreate])
 
-  useEffect(() => {
-    if (id) {
-      // const authToken = getAuthToken(import.meta.env.VITE_APP_PARAM_AUTH)
-      // const userToEdit = listUsers.find((val) => `${val.idUsuario}` === id)
-      // setValue('idTipDoc', userToEdit?.idTipDoc as string)
-      // setValue('idPerfil', `${userToEdit?.idPerfil}`)
-      // setValue('idUsuCrea', `${authToken?.idUsuario}`)
-      // setValue('numDoc', userToEdit?.numDoc as string)
-      // setValue('codigo', userToEdit?.codigo as string)
-      // setValue('nombre', userToEdit?.nombre as string)
-      // setValue('apePat', userToEdit?.apePat as string)
-      // setValue('apeMat', userToEdit?.apeMat as string)
-      // setValue('email', userToEdit?.email as string)
-      // setValue('celular', userToEdit?.celular as string)
-      // setValue('login', userToEdit?.login as string)
-      // setValue('clave', userToEdit?.clave as string)
-      // setValue('file_string', userToEdit?.fotoURL as string)
-      // setValue('file', userToEdit?.fotoURL as string)
+  useEffect(()=>{
+    if(id){
+      const project = listProjects.find((val) => `${val.idProyecto}` === id)
+      setValue("codigo",project?.codigo as string)
+      setValue("nombre", project?.nombre as string)
+      setValue("descripcion", project?.descripcion as string)
+      setValue("jefe",project?.jefe as string)
+      setValue('idEstado', project?.idEstado as string)
+      setValue('flagLanding',project?.flagLanding as boolean)
+      setParticipants(project?.listParticipante as Participante[])
     }
-  }, [id])
+  },[id])
 
   return {
     control,
     errors,
-    // type_document,
-    // type_profiles,
-    // file,
-    // idTipDoc,
     isLoadingCreate,
+    tab,
+    participants,
+    setTab,
     handleSubmit,
-    // handleFileChange,
-    // handleFileClear,
     onSubmit
   }
 }

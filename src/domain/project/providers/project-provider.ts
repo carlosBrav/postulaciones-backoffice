@@ -11,4 +11,5 @@ export interface ProjectProvider {
     idUsuMod: string
   ): Promise<HttpResponse<Record<string, unknown>>>
   update(profile: ProjectUpdate): Promise<HttpResponse<Record<string, unknown>>>
+  getById(projectId: string): Promise<HttpResponse<Record<string, unknown>>>
 }

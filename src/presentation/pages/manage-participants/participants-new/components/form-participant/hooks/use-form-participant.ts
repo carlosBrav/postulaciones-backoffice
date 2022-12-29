@@ -16,6 +16,7 @@ import useAuthToken from '@presentation/pages/hooks/use-auth-token/use-auth-toke
 import { useNavigate } from 'react-router-dom'
 import { ParameterManageContext } from '@presentation/pages/context/parameter-context'
 import { useEditParticipant } from '@main/adapters/participant/use-edit-participant'
+import { formStringDate } from '@presentation/libs/strings'
 
 function useFormParticipant(repository: ParticipantRepository, id: string) {
   let toastId: string
@@ -44,7 +45,13 @@ function useFormParticipant(repository: ParticipantRepository, id: string) {
     defaultValues: new ParticipantForm()
   })
 
-  const { fecNacimiento, fecVencimiento } = watch()
+  const {
+    fecNacimiento,
+    fecVencimiento,
+    flagAccesoTecno,
+    flagEmprendimiento,
+    flagVentaInternet
+  } = watch()
 
   const { listParticipants } = useContext(ParameterManageContext)
 
@@ -59,6 +66,7 @@ function useFormParticipant(repository: ParticipantRepository, id: string) {
   const onSubmit = (data: ParticipantForm) => {
     if (id) {
       const updateObject = new ParticipantUpdateRequest()
+      updateObject.idParticipante = +id
       updateObject.idTipDoc = data.idTipDoc
       updateObject.nombre = data.nombre
       updateObject.apellido = data.apellido
@@ -71,8 +79,8 @@ function useFormParticipant(repository: ParticipantRepository, id: string) {
       updateObject.edad = +data.edad
       updateObject.flagEmprendimiento = data.flagEmprendimiento
       updateObject.flagAccesoTecno = data.flagAccesoTecno
-      updateObject.fecNacimiento = data.fecNacimiento
-      updateObject.fecVencimiento = data.fecVencimiento
+      updateObject.fecNacimiento = formStringDate(data.fecNacimiento)
+      updateObject.fecVencimiento = formStringDate(data.fecVencimiento)
       updateObject.aniosEmprendimiento = +data.aniosEmprendimiento
       updateObject.flagVentaInternet = data.flagVentaInternet
       updateObject.idUsuCrea = authToken?.idUsuario as number
@@ -96,6 +104,7 @@ function useFormParticipant(repository: ParticipantRepository, id: string) {
       saludProtecc.idEdad = data.salud_idEdad
       saludProtecc.idNacionalidad = data.salud_idNacionalidad
       saludProtecc.idIdentGenero = data.salud_idIdentGenero
+      saludProtecc.idDocPosee = data.salud_idDocPosee
 
       const mediosVida = new MediosVidaRequest()
       mediosVida.idTipoCalculo = '00002'
@@ -138,8 +147,8 @@ function useFormParticipant(repository: ParticipantRepository, id: string) {
       createObject.edad = +data.edad
       createObject.flagEmprendimiento = data.flagEmprendimiento
       createObject.flagAccesoTecno = data.flagAccesoTecno
-      createObject.fecNacimiento = data.fecNacimiento
-      createObject.fecVencimiento = data.fecVencimiento
+      createObject.fecNacimiento = formStringDate(data.fecNacimiento)
+      createObject.fecVencimiento = formStringDate(data.fecVencimiento)
       createObject.aniosEmprendimiento = +data.aniosEmprendimiento
       createObject.flagVentaInternet = data.flagVentaInternet
       createObject.idUsuCrea = authToken?.idUsuario as number
@@ -163,6 +172,7 @@ function useFormParticipant(repository: ParticipantRepository, id: string) {
       saludProtecc.idEdad = data.salud_idEdad
       saludProtecc.idNacionalidad = data.salud_idNacionalidad
       saludProtecc.idIdentGenero = data.salud_idIdentGenero
+      saludProtecc.idDocPosee = data.salud_idDocPosee
 
       const mediosVida = new MediosVidaRequest()
       mediosVida.idTipoCalculo = '00002'
@@ -415,12 +425,12 @@ function useFormParticipant(repository: ParticipantRepository, id: string) {
     errors,
     fecNacimiento,
     fecVencimiento,
+    flagAccesoTecno,
+    flagEmprendimiento,
+    flagVentaInternet,
     handleSetValueFecVenc,
     handleSetValueFecNac,
     onSubmit,
-    editValuesGeneral,
-    editValuesVida,
-    editValuesSalud
   }
 }
 

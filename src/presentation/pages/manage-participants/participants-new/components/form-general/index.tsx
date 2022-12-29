@@ -16,7 +16,9 @@ type Props = {
   defaultFecVenc?: string
   handleFecNac: (data: string) => void
   handleFecVenc: (data: string) => void
-  id?: string
+  flagAccesoTecno?: boolean
+  flagEmprendimiento?: boolean
+  flagVentaInternet?: boolean
 }
 
 function FormGeneral({
@@ -26,9 +28,11 @@ function FormGeneral({
   defaultFecVenc = '',
   handleFecNac = () => {},
   handleFecVenc = () => {},
-  id = ''
+  flagAccesoTecno = false,
+  flagEmprendimiento = false,
+  flagVentaInternet = false
 }: Props) {
-  const {  type_document  } = useCriteriaGeneral()
+  const { type_document } = useCriteriaGeneral()
 
   return (
     <Grid container>
@@ -169,6 +173,7 @@ function FormGeneral({
           <Box marginBottom="10px">
             <CheckBoxComponent
               control={control}
+              defaultValue={flagAccesoTecno}
               label="Acceso a Tecnología"
               name="flagAccesoTecno"
             />
@@ -176,6 +181,7 @@ function FormGeneral({
           <Box marginBottom="10px">
             <CheckBoxComponent
               control={control}
+              defaultValue={flagEmprendimiento}
               label="Emprendimiento"
               name="flagEmprendimiento"
             />
@@ -183,6 +189,7 @@ function FormGeneral({
           <Box marginBottom="10px">
             <CheckBoxComponent
               control={control}
+              defaultValue={flagVentaInternet}
               label="Vende por Internet"
               name="flagVentaInternet"
             />

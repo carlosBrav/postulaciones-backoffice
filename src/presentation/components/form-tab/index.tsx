@@ -6,13 +6,21 @@ type Props = {
   isSelected?: boolean
   text: string
   onClick: () => void
+  disabled?: boolean
 }
 
-function FormTab({ isSelected = false, text = '', onClick }: Props) {
+function FormTab({
+  isSelected = false,
+  text = '',
+  onClick,
+  disabled = false
+}: Props) {
   return (
     <div
-      className={`form-tab ${isSelected ? 'form-tab__selected' : ''}`}
-      onClick={onClick}
+      className={`form-tab ${isSelected ? 'form-tab__selected' : ''} ${
+        disabled ? 'form-tab__disabled' : ''
+      }`}
+      onClick={disabled ? () => {} : onClick}
     >
       <TextCommon
         text={text}

@@ -21,7 +21,8 @@ export const TYPE_PARAMETER = {
   ident_genero: 'IDENTIDAD_GENERO',
   tipo_residencia: 'TIPO_RESIDENCIA',
   familiares_directos: 'FAMILIARES_DIRECTOS',
-  horas_trabajo: 'HORAS_TRABAJO'
+  horas_trabajo: 'HORAS_TRABAJO',
+  estado_proyecto: 'ESTADO_PROYECTO'
 }
 
 export const TYPE_CALCULO = {

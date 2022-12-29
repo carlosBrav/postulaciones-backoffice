@@ -20,6 +20,8 @@ type Props<T> = {
   idField: string
   fields: string[]
   headCells: any[]
+  isEditable?: boolean
+  isDeleteAble?: boolean
 }
 
 export default function EnhancedTable<T>({
@@ -30,7 +32,9 @@ export default function EnhancedTable<T>({
   handleOnOpen = () => {},
   idField = 'id',
   fields = [],
-  headCells =[]
+  headCells = [],
+  isEditable = true,
+  isDeleteAble = true
 }: Props<T>) {
   const [page, setPage] = React.useState(0)
   const [rowsPerPage, setRowsPerPage] = React.useState(15)
@@ -87,6 +91,8 @@ export default function EnhancedTable<T>({
           redirectEdit={redirectEdit}
           numSelected={rowsSelected.length}
           handleOnOpen={handleOnOpen}
+          isEditable={isEditable}
+          isDeleteAble={isDeleteAble}
         />
         <TableContainer>
           <Table

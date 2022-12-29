@@ -40,7 +40,7 @@ function ProjectsList({ repository }: Props) {
           redirectEdit={goToEdit}
           handleOnOpen={() => setOpenDelete(true)}
           idField="idProyecto"
-          fields={['idProyecto', 'idEstado', 'codigo', 'nombre', 'descripcion']}
+          fields={['idProyecto', 'nombre', 'jefe', 'dscEstado']}
           headCells={headCells}
         />
       </Box>

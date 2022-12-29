@@ -26,7 +26,7 @@ export class ProjectUseCase implements ProjectRepository {
   create(profile: ProjectRequest): Promise<ProjectResponse> {
     const source$ = from(this._projectProvider.create(profile)).pipe(
       map((response: any) => response.body),
-      map(this._projectMapping.toProjects),
+      map(this._projectMapping.toProject),
       catchError((error: any) => this._projectMapping.toError(error))
     )
     return firstValueFrom(source$) as Promise<ProjectResponse>

@@ -16,6 +16,7 @@ import { ManageUsersRouter } from '@presentation/pages/manage-users/manage-users
 import { ManageProfileRouter } from '@presentation/pages/manage-profiles/manage-profile-router'
 import { ManageProjectsRouter } from '@presentation/pages/manage-projects/manage-projects-router'
 import { ManageParticipantRouter } from '@presentation/pages/manage-participants/manage-participant-router'
+import { ParticipantFactory } from '@main/factories/participant-factory'
 
 function ManageRoutes() {
   const repositories = {
@@ -49,7 +50,8 @@ function ManageRoutes() {
 export default function AppRouter() {
   const repositories = {
     parameter: ParameterFactory,
-    profile: ProfileFactory
+    profile: ProfileFactory,
+    participant: ParticipantFactory
   }
   return (
     <Suspense fallback={<FullScreenLoader />}>
@@ -57,6 +59,7 @@ export default function AppRouter() {
         <ParameterProvider
           parameter={repositories.parameter}
           profile={repositories.profile}
+          participant={repositories.participant}
         >
           <HashRouter>{ManageRoutes()}</HashRouter>
         </ParameterProvider>

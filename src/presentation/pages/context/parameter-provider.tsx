@@ -3,21 +3,29 @@ import { ParameterManageContext } from './parameter-context'
 import { ParameterRepository } from '@domain/parameter'
 import { Profile, ProfileRepository } from '@domain/profiles'
 import useParameter from '@main/adapters/parameter/use-parameter-type-document'
+import { useParameterStatus } from '@main/adapters/parameter/use-parameter-status'
 import useProfile from '@main/adapters/profile/use-profile'
 import { Selector } from '@domain/common/model/selector'
 import { Toaster } from 'react-hot-toast'
 import { User } from '@domain/user'
 import { ProjectResponse } from '@domain/project'
-import { ParticipantResponse } from '@domain/participant'
+import { ParticipantRepository, ParticipantResponse } from '@domain/participant'
 import { useSaludData } from '@presentation/pages/hooks/use-salud-data'
 import { useVidaData } from '@presentation/pages/hooks/use-vida-data'
+import useParticipants from '@main/adapters/participant/use-participants'
 
 type Props = {
   parameter: ParameterRepository
   profile: ProfileRepository
+  participant: ParticipantRepository
 } & HTMLProps<HTMLDivElement>
 
-function ParameterProvider({ children, parameter, profile }: Props) {
+function ParameterProvider({
+  children,
+  parameter,
+  profile,
+  participant
+}: Props) {
   const [typeDocument, setTypeDocument] = useState<Selector[]>([])
   const [typeProfiles, setTypeProfiles] = useState<Selector[]>([])
   const [listUsers, setListUsers] = useState<User[]>([])
@@ -26,6 +34,24 @@ function ParameterProvider({ children, parameter, profile }: Props) {
   const [listParticipants, setListParticipants] = useState<
     ParticipantResponse[]
   >([])
+  const [estadoProyecto, setEstadoProyecto] = useState<Selector[]>([])
+
+  const {
+    mutate: mutateParticipants,
+    isLoading: isLoadingParticipants,
+    data: participants,
+    isSuccess: isSuccessParticipants
+  } = useParticipants(participant)
+
+  useEffect(()=>{
+    mutateParticipants()
+  },[])
+
+  useEffect(()  =>  {
+    if  (isSuccessParticipants)  {
+      setListParticipants(participants as ParticipantResponse[])
+    }
+  },  [isSuccessParticipants])
 
   const {
     isLoadingSalud,
@@ -78,6 +104,11 @@ function ParameterProvider({ children, parameter, profile }: Props) {
 
   const { isLoading, isSuccess, data } = useParameter(parameter)
   const {
+    isLoading: isLoadingStatus,
+    isSuccess: isSuccessStatus,
+    data: dataStatus
+  } = useParameterStatus(parameter)
+  const {
     isLoading: isLoadingProfile,
     isSuccess: isSuccessProfile,
     data: profiles,
@@ -109,6 +140,16 @@ function ParameterProvider({ children, parameter, profile }: Props) {
   }, [isSuccessProfile, profiles])
 
   useEffect(() => {
+    if (isSuccessStatus) {
+      setEstadoProyecto(
+        dataStatus?.map((val: any) =>
+          Selector.fromJson({ value: val.codigo, label: val.descripcion })
+        ) as Selector[]
+      )
+    }
+  }, [isSuccessStatus, dataStatus])
+
+  useEffect(() => {
     mutate()
   }, [])
 
@@ -119,6 +160,7 @@ function ParameterProvider({ children, parameter, profile }: Props) {
         setListProfiles,
         setListProjects,
         setListParticipants,
+        estadoProyecto,
         isLoadingSalud,
         saludEdad,
         saludSexo,

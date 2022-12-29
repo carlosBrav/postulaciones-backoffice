@@ -26,9 +26,11 @@ export default function DatePickerComponent({
 
   useEffect(() => {
     if (value !== '') {
+      console.log('value ', value)
+      console.log(parse(value, 'dd/MM/yyyy', new Date()))
       setInitValue(parse(value, 'dd/MM/yyyy', new Date()))
     }
-  }, [])
+  }, [value])
 
   return (
     <LocalizationProvider adapterLocale={es} dateAdapter={AdapterDateFns}>

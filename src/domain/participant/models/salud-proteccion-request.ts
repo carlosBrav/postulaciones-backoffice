@@ -5,6 +5,7 @@ class SaludProteccionRequest extends BaseModel {
   idSexo: string = ''
   idOrientacion: string = ''
   idDependientes: string = ''
+  idDocPosee: string = ''
   idOtrosDependientes: string = ''
   idEmbarazo: string = ''
   idCondFisica: string = ''

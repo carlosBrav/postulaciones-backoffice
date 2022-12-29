@@ -14,10 +14,18 @@ interface EnhancedTableToolbarProps {
   numSelected: number
   redirectEdit: () => void
   handleOnOpen: () => void
+  isEditable?: boolean
+  isDeleteAble?: boolean
 }
 
 export default function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
-  const { numSelected, redirectEdit, handleOnOpen } = props
+  const {
+    numSelected,
+    redirectEdit,
+    handleOnOpen,
+    isEditable = true,
+    isDeleteAble = true
+  } = props
 
   return numSelected ? (
     <Toolbar
@@ -25,8 +33,8 @@ export default function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
         pl: { sm: 2 },
         pr: { xs: 1, sm: 1 },
         ...{
-          bgcolor: (theme) => '#FFFFFF',
-        },
+          bgcolor: (theme) => '#FFFFFF'
+        }
       }}
     >
       {
@@ -43,13 +51,15 @@ export default function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
             }`}
           </Typography>
           <Box>
-            <Tooltip title="Eliminar">
-              <IconButton onClick={handleOnOpen}>
-                <DeleteIcon color="error" />
-              </IconButton>
-            </Tooltip>
+            {isDeleteAble && (
+              <Tooltip title="Eliminar">
+                <IconButton onClick={handleOnOpen}>
+                  <DeleteIcon color="error" />
+                </IconButton>
+              </Tooltip>
+            )}
 
-            {numSelected === 1 && (
+            {numSelected === 1 && isEditable && (
               <Tooltip title="Editar">
                 <IconButton onClick={redirectEdit}>
                   <EditIcon color="success" />

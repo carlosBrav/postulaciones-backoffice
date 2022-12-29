@@ -1,4 +1,4 @@
-@import '../../../../../../assets/media.scss';
+@import '../../../assets/media.scss';
 
 .form-tab {
   display: flex;
@@ -19,5 +19,11 @@
     @include respond-below(md) {
       font-size: 10px !important;
     }
+  }
+
+  &__disabled{
+    cursor: not-allowed;
+    background-color: #e7e6e6;
+    color: #afabab;
   }
 }

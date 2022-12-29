@@ -27,4 +27,9 @@ export class ProjectMapping {
     const { listProyecto } = json as any
     return listProyecto.map((val: any) => ProjectResponse.fromJson(val))
   }
+
+  toProject = (json: Record<string, unknown>[]): ProjectResponse => {
+    const { proyecto } = json as any
+    return ProjectResponse.fromJson({ ...proyecto })
+  }
 }

@@ -6,7 +6,6 @@ class ProjectForm extends BaseModel {
   nombre: string = ''
   descripcion: string = ''
   jefe: string = ''
-  terminos: string = ''
   flagLanding: boolean = false
 }
 
