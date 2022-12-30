@@ -6,7 +6,7 @@ const useDeleteParticipant = (
   repository: ParticipantRepository,
   idUsuMod: string
 ) => {
-  return useMutation((projects: string[]) =>
+  return useMutation((projects: number[]) =>
     repository.delete(projects, idUsuMod)
   )
 }

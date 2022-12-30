@@ -12,7 +12,8 @@ import { ParameterManageContext } from '@presentation/pages/context/parameter-co
 import {
   Participante,
   ProjectParticipantCreateReq,
-  ProjectParticipantDeleteRequest
+  ProjectParticipantDeleteRequest,
+  ProjectUpdate
 } from '@domain/project/models'
 import { useGetByIdProject } from '@main/adapters/project/use-get-by-id-project'
 import { useGetParticipants } from '@main/adapters/project/use-get-participants'
@@ -34,7 +35,8 @@ function useFormProject({ repository }: Props) {
   const {
     isLoading: isLoadingProjById,
     isSuccess: isSuccessProjById,
-    data: projectById
+    data: projectById,
+    refetch: refetchById
   } = useGetByIdProject(repository, id as string)
   const {
     isLoading: isLoadingCreate,
@@ -60,11 +62,24 @@ function useFormProject({ repository }: Props) {
   const authToken = getAuthToken(import.meta.env.VITE_APP_PARAM_AUTH)
 
   const onSubmit = (data: ProjectForm) => {
-    const projectRequest = ProjectRequest.fromJson({
-      ...data
-    }) as ProjectRequest
-    projectRequest.idUsuCrea = authToken?.idUsuario as number
-    mutateCreate(projectRequest)
+    if  (id)  {
+      const projectUpdate = ProjectUpdate.fromJson({
+        idProyecto: +id,
+        codigo: data.codigo,
+        nombre: data.nombre,
+        descripcion: data.descripcion,
+        jefe: data.jefe,
+        idEstado: data.idEstado,
+        idUsuMod: authToken?.idUsuario
+      }) as ProjectUpdate
+      mutateUpdate(projectUpdate)
+    }  else  {
+      const projectRequest = ProjectRequest.fromJson({
+        ...data
+      }) as ProjectRequest
+      projectRequest.idUsuCrea = authToken?.idUsuario as number
+      mutateCreate(projectRequest)
+    }
   }
 
   const {
@@ -98,18 +113,41 @@ function useFormProject({ repository }: Props) {
     mutateAddParticipants(data)
   }
 
+  const handleEmailParticipants = (data: ProjectParticipantCreateReq) => {
+    mutateAddParticipants(data)
+  }
+
   useEffect(() => {
     setValue('idEstado', '00001')
   }, [])
 
+
+  useEffect(() => {
+    if (isLoadingDeleteParticip) {
+      toastId = toast.loading('Eliminando participante...')
+    }
+  }, [isLoadingDeleteParticip])
+
   useEffect(() => {
     if (isSuccessDeleteParticip) {
+      toast.dismiss(toastId)
+      toast.success('Participante eliminado')
       refetchParticipantsProj()
     }
   }, [isSuccessDeleteParticip])
 
+
+
+  useEffect(() => {
+    if (isLoadingAddParticip) {
+      toastId = toast.loading('Agregando participante...')
+    }
+  }, [isLoadingAddParticip])
+
   useEffect(() => {
     if (isSuccessAddParticip) {
+      toast.dismiss(toastId)
+      toast.success('Participante agregado')
       refetchParticipantsProj()
     }
   }, [isSuccessAddParticip])
@@ -121,10 +159,16 @@ function useFormProject({ repository }: Props) {
   }, [isLoadingUpdate])
 
   useEffect(() => {
+    if (isLoadingUpdate) {
+      toastId = toast.loading('Actualizando proyecto...')
+    }
+  }, [isLoadingUpdate])
+
+  useEffect(() => {
     if (isSuccessUpdate) {
       toast.dismiss(toastId)
       toast.success('Proyecto actualizado')
-      navigate('/dashboard/manage-projects')
+      refetchById()
     }
   }, [isSuccessUpdate])
 
@@ -157,11 +201,13 @@ function useFormProject({ repository }: Props) {
   return {
     control,
     errors,
-    isLoadingCreate,
     tab,
     participants,
     participantsProject,
     idCurrentUsuario: authToken?.idUsuario,
+    isLoading: isLoadingProjById || isLoadingCreate || isLoadingUpdate 
+    || isLoadingParticipantsProj || isLoadingAddParticip || isLoadingDeleteParticip,
+    handleEmailParticipants,
     handleRefetchParticProj,
     handleAddParticipants,
     handleDeleteParticipants,

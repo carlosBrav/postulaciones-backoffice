@@ -10,6 +10,7 @@ import { ProjectRepository } from '@domain/project'
 import { FormGeneral } from '@presentation/pages/manage-projects/projects-new/components/project-form/components/form-general'
 import { FormParticipants } from '@presentation/pages/manage-projects/projects-new/components/project-form/components/form-participants'
 import { titles_tab, Tab } from '@presentation/pages/manage-projects/constants'
+import { FullScreenLoader } from '@presentation/components/full-screen-loader/full-screen-loader'
 
 type Props = {
   repository: ProjectRepository
@@ -23,17 +24,18 @@ function ProjectForm({ repository, id = '' }: Props) {
     setTab,
     control,
     errors,
-    isLoadingCreate,
-    handleRefetchParticProj,
     handleAddParticipants,
     handleDeleteParticipants,
+    handleEmailParticipants,
     participantsProject,
-    participants,
     idCurrentUsuario,
-    tab
+    tab,
+    isLoading
   } = useFormProject({ repository })
 
-  return (
+  return isLoading ? (
+    <FullScreenLoader />
+  ) : (
     <Box width="100%" marginTop="30px" display="flex" flexDirection="column">
       <Box width="100%" display="flex" flexDirection="row">
         {titles_tab.map((val, index) => (
@@ -61,14 +63,17 @@ function ProjectForm({ repository, id = '' }: Props) {
                 participantes={participantsProject}
                 idCurrentUsuario={idCurrentUsuario}
                 handleDeleteParticipants={handleDeleteParticipants}
+                handleEmailParticipants={handleEmailParticipants}
               />
             )}
           </Box>
-          <Box width="100%" marginTop="30px">
-            <Box maxWidth="150px">
-              <ButtonComponent type="submit" title="Guardar" />
+          {tab === 0 && (
+            <Box width="100%" marginTop="30px">
+              <Box maxWidth="150px">
+                <ButtonComponent type="submit" title="Guardar" />
+              </Box>
             </Box>
-          </Box>
+          )}
         </Box>
       </form>
     </Box>

@@ -24,9 +24,7 @@ export class ProjectService implements ProjectProvider {
   constructor(private _httpClient: HttpClient) {}
 
   deleteParticipants(
-    
     participants: ProjectParticipantDeleteRequest
-  
   ): Promise<HttpResponse<Record<string, unknown>>> {
     const request: HttpRequest<Record<string, unknown>> = {
       url: `${this.msNameDeleteParticip}`,

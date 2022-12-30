@@ -4,11 +4,12 @@ import { ButtonCustom } from '@presentation/components/button/buton-common'
 import { InputTextCustom } from '@presentation/components/input-text/custom'
 import DataTable from '@presentation/components/data-table'
 import { participantsProyectCells } from '@presentation/pages/manage-projects/constants'
-import { Participante, ProjectParticipantCreateReq, ProjectParticipantDelete, ProjectParticipantDeleteRequest } from '@domain/project'
+import { Participante, ProjectParticipantCreateReq, ProjectParticipantDelete, ProjectParticipantDeleteRequest, ProjectParticipantRequest } from '@domain/project'
 import { ModalParticipants } from '../modal-participants'
 import ModalComponent from '@presentation/components/modal'
 
 type Props = {
+  handleEmailParticipants: (data: ProjectParticipantCreateReq) => void
   handleAddParticipants: (data: ProjectParticipantCreateReq) => void
   handleDeleteParticipants: (data: ProjectParticipantDeleteRequest) => void
   participantes?: Participante[]
@@ -17,6 +18,7 @@ type Props = {
 }
 
 function FormParticipants({
+  handleEmailParticipants = (data: ProjectParticipantCreateReq) => {},
   handleAddParticipants = (data: ProjectParticipantCreateReq) => {},
   handleDeleteParticipants = (data: ProjectParticipantDeleteRequest) => {},
   participantes = [],
@@ -26,6 +28,7 @@ function FormParticipants({
   const [participantsSelected, setParticipantsSelected] = useState<any[]>([])
   const [openDelete, setOpenDelete] = useState<boolean>(false)
   const [openModal, setOpenModal] = useState<boolean>(false)
+  const [openModalEmail, setOpenModalEmail] = useState<boolean>(false)
   const [participantesFilter, setParticipantesFilter] = useState<
     Participante[]
   >([])
@@ -59,12 +62,28 @@ function FormParticipants({
   const handleDelete = () => {
     const deleteObject = new ProjectParticipantDeleteRequest()
     deleteObject.idProyecto = +id
-    deleteObject.listProyectoParticipante = participantsSelected.map((val)=> ProjectParticipantDelete.fromJson({
-      idParticipante: val.idParticipante
-    }))
+    deleteObject.listProyectoParticipante = participantsSelected.map((val) =>
+      ProjectParticipantDelete.fromJson({
+        idParticipante: val.idParticipante
+      })
+    )
     handleDeleteParticipants(deleteObject)
     setParticipantsSelected([])
     setOpenDelete(false)
+  }
+
+  const handleSentEmail = () => {
+    const ppcObject = new ProjectParticipantCreateReq()
+    ppcObject.idProyecto = +id
+    ppcObject.listProyectoParticipante = participantsSelected.map((val)=> ProjectParticipantRequest.fromJson({
+      idParticipante: val.idParticipante,
+      idEstado: "00002",
+      idResultado: "00003",
+      idUsuCrea: idCurrentUsuario
+    }))
+    handleEmailParticipants(ppcObject)
+    setOpenDelete(false)
+    setParticipantsSelected([])
   }
 
   return (
@@ -99,7 +118,7 @@ function FormParticipants({
           isCheckList={true}
           isMailAble={true}
           handleCheckList={() => {}}
-          handleEmail={() => {}}
+          handleEmail={() => setOpenModalEmail(true)}
           rowsSelected={participantsSelected}
           setRowsSelected={setParticipantsSelected}
           redirectEdit={() => {}}
@@ -120,6 +139,15 @@ function FormParticipants({
           headCells={participantsProyectCells}
         />
       </Grid>
+      {openModalEmail && (
+        <ModalComponent
+          onAccept={handleSentEmail}
+          onCancel={() => setOpenModalEmail(false)}
+          open={openModalEmail}
+          title=" Iniciar proceso de participante"
+          description="¿Está seguro que desea iniciar el proceso del participante?"
+        />
+      )}
       {openDelete && (
         <ModalComponent
           onAccept={handleDelete}
@@ -136,9 +164,7 @@ function FormParticipants({
           onAccept={handleAcceptModal}
           onCancel={() => setOpenModal(false)}
           open={openModal}
-          idsSelected={participantesFilter.map(
-            (val) => val.numDoc
-          )}
+          idsSelected={participantesFilter.map((val) => val.numDoc)}
         />
       )}
     </Grid>
