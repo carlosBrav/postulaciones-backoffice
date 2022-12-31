@@ -18,6 +18,7 @@ import {
 } from '@domain/project'
 import {
   Participante,
+  ParticipantEvaluation,
   ProjectParticipantCreateReq,
   ProjectParticipantDeleteRequest
 } from '../models'
@@ -27,6 +28,19 @@ export class ProjectUseCase implements ProjectRepository {
     public _projectProvider: ProjectProvider,
     private _projectMapping: ProjectMapping
   ) {}
+  getResultsByParticipant(
+    idParticipant: string,
+    idProject: string
+  ): Promise<ParticipantEvaluation[]> {
+    const source$ = from(
+      this._projectProvider.getResultsByParticipant(idParticipant, idProject)
+    ).pipe(
+      map((response: any) => response.body),
+      map(this._projectMapping.toEvaluations),
+      catchError((error: any) => this._projectMapping.toError(error))
+    )
+    return firstValueFrom(source$) as Promise<ParticipantEvaluation[]>
+  }
 
   deleteParticipants(
     participants: ProjectParticipantDeleteRequest

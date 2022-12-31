@@ -26,4 +26,8 @@ export interface ProjectProvider {
   deleteParticipants(
     participants: ProjectParticipantDeleteRequest
   ): Promise<HttpResponse<Record<string, unknown>>>
+  getResultsByParticipant(
+    idParticipant: string,
+    idProject: string
+  ): Promise<HttpResponse<Record<string, unknown>>>
 }

@@ -1,6 +1,6 @@
 import { HttpError } from '@core/http/errors/http-error'
 import { HttpStatusCode } from '@core/http/http-client'
-import { ProjectResponse } from '../models'
+import { ParticipantEvaluation, ProjectResponse } from '../models'
 import {
   AccessDeniedError,
   InvalidCredentialsError,
@@ -37,6 +37,15 @@ export class ProjectMapping {
     const { listProyectoParticipante } = json as any
     return listProyectoParticipante.map((val: any) =>
       ProjectResponse.fromJson(val)
+    )
+  }
+
+  toEvaluations = (
+    json: Record<string, unknown>[]
+  ): ParticipantEvaluation[] => {
+    const { listProyectoParticipanteEval } = json as any
+    return listProyectoParticipanteEval.map((val: any) =>
+      ParticipantEvaluation.fromJson(val)
     )
   }
 

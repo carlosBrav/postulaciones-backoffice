@@ -20,8 +20,23 @@ export class ProjectService implements ProjectProvider {
   private readonly msNamePartic = '/getProyectoParticipante?idProyecto='
   private readonly msNameCreateParticip = 'setProyectoParticipante'
   private readonly msNameDeleteParticip = 'delProyectoParticipante'
+  private readonly msNameGetEvaluation = 'getProyectoParticipanteEval'
 
   constructor(private _httpClient: HttpClient) {}
+
+  getResultsByParticipant(
+    idParticipant: string,
+
+    idProject: string
+  ): Promise<HttpResponse<Record<string, unknown>>> {
+    const request: HttpRequest<Record<string, unknown>> = {
+      url: `${this.msNameGetEvaluation}?idProyecto=${idProject}&idParticipante=${idParticipant}`,
+      method: HttpMethod.GET,
+      body: {},
+      headers: this._httpClient.getPrivateHeader()
+    }
+    return this._httpClient.request(request) as any
+  }
 
   deleteParticipants(
     participants: ProjectParticipantDeleteRequest

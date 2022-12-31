@@ -4,7 +4,8 @@ import { Route, Routes } from 'react-router-dom'
 import { FullScreenLoader } from '@presentation/components/full-screen-loader/full-screen-loader'
 import {
   ManageProjects,
-  ListProjects
+  ListProjects,
+  Evaluations
 } from '@presentation/pages/manage-projects/modules'
 import { ProjectFactory } from '@main/factories/project-factory'
 import LayoutBody from '@presentation/pages/layout/layout-body'
@@ -28,6 +29,10 @@ const ManageProjectsRouter = () => {
           <Route
             path="edit/:id"
             element={<ManageProjects repository={repositories.project} />}
+          />
+          <Route
+            path="evaluation/project/:idProyecto/participant/:idParticipante"
+            element={<Evaluations repository={repositories.project} />}
           />
         </Route>
       </Routes>

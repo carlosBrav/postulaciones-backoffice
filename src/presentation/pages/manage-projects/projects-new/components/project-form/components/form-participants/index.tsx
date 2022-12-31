@@ -4,9 +4,16 @@ import { ButtonCustom } from '@presentation/components/button/buton-common'
 import { InputTextCustom } from '@presentation/components/input-text/custom'
 import DataTable from '@presentation/components/data-table'
 import { participantsProyectCells } from '@presentation/pages/manage-projects/constants'
-import { Participante, ProjectParticipantCreateReq, ProjectParticipantDelete, ProjectParticipantDeleteRequest, ProjectParticipantRequest } from '@domain/project'
+import {
+  Participante,
+  ProjectParticipantCreateReq,
+  ProjectParticipantDelete,
+  ProjectParticipantDeleteRequest,
+  ProjectParticipantRequest
+} from '@domain/project'
 import { ModalParticipants } from '../modal-participants'
 import ModalComponent from '@presentation/components/modal'
+import { useNavigate } from 'react-router-dom'
 
 type Props = {
   handleEmailParticipants: (data: ProjectParticipantCreateReq) => void
@@ -25,6 +32,7 @@ function FormParticipants({
   id = '',
   idCurrentUsuario = 0
 }: Props) {
+  const navigate = useNavigate()
   const [participantsSelected, setParticipantsSelected] = useState<any[]>([])
   const [openDelete, setOpenDelete] = useState<boolean>(false)
   const [openModal, setOpenModal] = useState<boolean>(false)
@@ -75,15 +83,23 @@ function FormParticipants({
   const handleSentEmail = () => {
     const ppcObject = new ProjectParticipantCreateReq()
     ppcObject.idProyecto = +id
-    ppcObject.listProyectoParticipante = participantsSelected.map((val)=> ProjectParticipantRequest.fromJson({
-      idParticipante: val.idParticipante,
-      idEstado: "00002",
-      idResultado: "00003",
-      idUsuCrea: idCurrentUsuario
-    }))
+    ppcObject.listProyectoParticipante = participantsSelected.map((val) =>
+      ProjectParticipantRequest.fromJson({
+        idParticipante: val.idParticipante,
+        idEstado: '00002',
+        idResultado: '00003',
+        idUsuCrea: idCurrentUsuario
+      })
+    )
     handleEmailParticipants(ppcObject)
     setOpenDelete(false)
     setParticipantsSelected([])
+  }
+
+  const handleCheckList = () => {
+    navigate(
+      `/dashboard/manage-projects/evaluation/project/${id}/participant/${participantsSelected[0].idParticipante}`
+    )
   }
 
   return (
@@ -117,7 +133,7 @@ function FormParticipants({
           isEditable={false}
           isCheckList={true}
           isMailAble={true}
-          handleCheckList={() => {}}
+          handleCheckList={handleCheckList}
           handleEmail={() => setOpenModalEmail(true)}
           rowsSelected={participantsSelected}
           setRowsSelected={setParticipantsSelected}

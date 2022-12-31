@@ -7,3 +7,5 @@ export const ManageProjects = lazy(() =>
 export const ListProjects = lazy(() =>
   import('@presentation/pages/manage-projects/projects-list')
 )
+
+export const Evaluations = lazy(() => import('@presentation/pages/evaluation'))
