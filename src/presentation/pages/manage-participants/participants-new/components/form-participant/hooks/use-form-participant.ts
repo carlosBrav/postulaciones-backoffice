@@ -39,7 +39,8 @@ function useFormParticipant(repository: ParticipantRepository, id: string) {
     control,
     setValue,
     watch,
-    formState: { errors }
+    formState: { errors },
+    clearErrors
   } = useForm({
     resolver: yupResolver(useValidationParticipant),
     defaultValues: new ParticipantForm()
@@ -57,10 +58,12 @@ function useFormParticipant(repository: ParticipantRepository, id: string) {
 
   const handleSetValueFecNac = (data: string) => {
     setValue('fecNacimiento', data)
+    clearErrors('fecNacimiento')
   }
 
   const handleSetValueFecVenc = (data: string) => {
     setValue('fecVencimiento', data)
+    clearErrors('fecVencimiento')
   }
 
   const onSubmit = (data: ParticipantForm) => {

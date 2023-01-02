@@ -45,14 +45,14 @@ function FormGeneral({
               data={type_document}
               idLabel="type_document_label"
               idSelect="type_document_select"
-              label="Tipo de documento"
+              label="Tipo de documento*"
               error={!!errors?.idTipDoc}
               helperText={errors?.idTipDoc?.message as string}
             />
           </Box>
           <Box marginBottom="20px">
             <InputTextComponent
-              label="Nombres"
+              label="Nombres*"
               name="nombre"
               control={control}
               id="name"
@@ -62,7 +62,7 @@ function FormGeneral({
           </Box>
           <Box marginBottom="20px">
             <InputTextComponent
-              label="Correo"
+              label="Correo*"
               name="email"
               control={control}
               id="email"
@@ -72,7 +72,7 @@ function FormGeneral({
           </Box>
           <Box marginBottom="20px">
             <InputTextComponent
-              label="Provincia"
+              label="Provincia*"
               name="provincia"
               control={control}
               id="provincia"
@@ -83,7 +83,7 @@ function FormGeneral({
           <Box marginBottom="20px">
             <DatePickerComponent
               onHandleDate={handleFecNac}
-              title="Fecha de Nacimiento"
+              title="Fecha de Nacimiento*"
               value={defaultFecNac}
             />
           </Box>
@@ -91,7 +91,7 @@ function FormGeneral({
         <Grid item md={4} xs={12}>
           <Box marginBottom="20px">
             <InputTextComponent
-              label="Número de documento"
+              label="Número de documento*"
               name="numDoc"
               control={control}
               id="numDoc"
@@ -101,7 +101,7 @@ function FormGeneral({
           </Box>
           <Box marginBottom="20px">
             <InputTextComponent
-              label="Apellidos"
+              label="Apellidos*"
               name="apellido"
               control={control}
               id="apellido"
@@ -111,7 +111,7 @@ function FormGeneral({
           </Box>
           <Box marginBottom="20px">
             <InputTextComponent
-              label="Teléfono"
+              label="Teléfono*"
               name="fono"
               control={control}
               id="fono"
@@ -121,7 +121,7 @@ function FormGeneral({
           </Box>
           <Box marginBottom="20px">
             <InputTextComponent
-              label="Región"
+              label="Región*"
               name="region"
               control={control}
               id="region"
@@ -132,7 +132,7 @@ function FormGeneral({
           <Box marginBottom="20px">
             <DatePickerComponent
               onHandleDate={handleFecVenc}
-              title="Fecha de Vencimiento"
+              title="Fecha de Vencimiento*"
               value={defaultFecVenc}
             />
           </Box>
@@ -149,7 +149,7 @@ function FormGeneral({
           </Box>
           <Box marginBottom="20px">
             <InputTextComponent
-              label="Distrito"
+              label="Distrito*"
               name="distrito"
               control={control}
               id="distrito"
@@ -159,7 +159,7 @@ function FormGeneral({
           </Box>
           <Box marginBottom="20px">
             <InputNumberComponent
-              label="Edad"
+              label="Edad*"
               name="edad"
               control={control}
               id="edad"

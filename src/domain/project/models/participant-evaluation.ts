@@ -9,6 +9,7 @@ class ParticipantEvaluation extends BaseModel {
   score: number = 0.0
   dscEvaluacion: string = ''
   dscEstado: string = ''
+  videoURL: string = ''
   idTipo: string = ''
   listProyectoParticipanteEvalSec: ParticipantEvaluationSec[] = []
 }

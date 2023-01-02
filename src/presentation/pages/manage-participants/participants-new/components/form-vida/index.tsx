@@ -50,7 +50,7 @@ function FormVida({
               data={vidaSexo}
               idLabel="sexo_label"
               idSelect="sexo_select"
-              label="Sexo"
+              label="Sexo*"
               error={!!errors?.vida_idSexo}
               helperText={errors?.vida_idSexo?.message as string}
             />
@@ -62,7 +62,7 @@ function FormVida({
               data={vidaOtrosDep}
               idLabel="otros_dep_label"
               idSelect="otros_dep_select"
-              label="Otros Dependientes"
+              label="Otros Dependientes*"
               error={!!errors?.vida_idOtrosDependientes}
               helperText={errors?.vida_idOtrosDependientes?.message as string}
             />
@@ -74,7 +74,7 @@ function FormVida({
               data={vidaCondicAloj}
               idLabel="cond_alojam_label"
               idSelect="cond_alojam_select"
-              label="Condición de Alojamiento"
+              label="Condición de Alojamiento*"
               error={!!errors?.vida_idCondAlojamiento}
               helperText={errors?.vida_idCondAlojamiento?.message as string}
             />
@@ -86,7 +86,7 @@ function FormVida({
               data={vidaRedSoportePeru}
               idLabel="red_soporte_label"
               idSelect="red_soporte_select"
-              label="Red de Soporte en Perú"
+              label="Red de Soporte en Perú*"
               error={!!errors?.vida_idRedSoporte}
               helperText={errors?.vida_idRedSoporte?.message as string}
             />
@@ -98,7 +98,7 @@ function FormVida({
               data={vidaNivelEduc}
               idLabel="nivel_educativo_label"
               idSelect="nivel_educativo_select"
-              label="Nivel Educativo"
+              label="Nivel Educativo*"
               error={!!errors?.vida_idNivelEducativo}
               helperText={errors?.vida_idNivelEducativo?.message as string}
             />
@@ -110,7 +110,7 @@ function FormVida({
               data={vidaEdad}
               idLabel="edad_label"
               idSelect="edad_select"
-              label="Edad"
+              label="Edad*"
               error={!!errors?.vida_idEdad}
               helperText={errors?.vida_idEdad?.message as string}
             />
@@ -122,7 +122,7 @@ function FormVida({
               data={vidaFamDirectos}
               idLabel="idFamDirectos_label"
               idSelect="idFamDirectos_select"
-              label="Familiares Directos"
+              label="Familiares Directos*"
               error={!!errors?.vida_idFamDirectos}
               helperText={errors?.vida_idFamDirectos?.message as string}
             />
@@ -136,7 +136,7 @@ function FormVida({
               data={vidaOrientacSexual}
               idLabel="orientac_sex_label"
               idSelect="orientac_sex_select"
-              label="Orientación sexual"
+              label="Orientación sexual*"
               error={!!errors?.vida_idOrientacion}
               helperText={errors?.vida_idOrientacion?.message as string}
             />
@@ -148,7 +148,7 @@ function FormVida({
               data={vidaEmbarazo}
               idLabel="embarazo_label"
               idSelect="embarazo_select"
-              label="Embarazo | Lactancia"
+              label="Embarazo | Lactancia*"
               error={!!errors?.vida_idEmbarazo}
               helperText={errors?.vida_idEmbarazo?.message as string}
             />
@@ -160,7 +160,7 @@ function FormVida({
               data={vidaHacinamiento}
               idLabel="hacinamiento_label"
               idSelect="hacinamiento_select"
-              label="Hacinamiento"
+              label="Hacinamiento*"
               error={!!errors?.vida_idHacimiento}
               helperText={errors?.vida_idHacimiento?.message as string}
             />
@@ -172,7 +172,7 @@ function FormVida({
               data={vidaCondicMigrat}
               idLabel="cond_migrat_label"
               idSelect="cond_migrat_select"
-              label="Condición Migratoria"
+              label="Condición Migratoria*"
               error={!!errors?.vida_idCondMigratoria}
               helperText={errors?.vida_idCondMigratoria?.message as string}
             />
@@ -184,7 +184,7 @@ function FormVida({
               data={vidaCondicLaboral}
               idLabel="condic_laboral_label"
               idSelect="condic_laboral_select"
-              label="Condición Laboral"
+              label="Condición Laboral*"
               error={!!errors?.vida_idCondLaboral}
               helperText={errors?.vida_idCondLaboral?.message as string}
             />
@@ -196,7 +196,7 @@ function FormVida({
               data={vidaNacionalidad}
               idLabel="nacionalidad_label"
               idSelect="nacionalidad_select"
-              label="Nacionalidad"
+              label="Nacionalidad*"
               error={!!errors?.vida_idNacionalidad}
               helperText={errors?.vida_idNacionalidad?.message as string}
             />
@@ -208,7 +208,7 @@ function FormVida({
               data={vidaIdentGenero}
               idLabel="identidad_genero_label"
               idSelect="identidad_genero_select"
-              label="Identidad de Género"
+              label="Identidad de Género*"
               error={!!errors?.vida_idIdentGenero}
               helperText={errors?.vida_idIdentGenero?.message as string}
             />
@@ -222,7 +222,7 @@ function FormVida({
               data={vidaDependientes}
               idLabel="dependientes_label"
               idSelect="dependientes_select"
-              label="Dependientes (menores de 5 años)"
+              label="Dependientes (menores de 5 años)*"
               error={!!errors?.vida_idDependientes}
               helperText={errors?.vida_idDependientes?.message as string}
             />
@@ -234,7 +234,7 @@ function FormVida({
               data={vidaCondicFisica}
               idLabel="condicion_fisica_label"
               idSelect="condicion_fisica_select"
-              label="Condición Física"
+              label="Condición Física*"
               error={!!errors?.vida_idCondFisica}
               helperText={errors?.vida_idCondFisica?.message as string}
             />
@@ -246,7 +246,7 @@ function FormVida({
               data={vidaSobrevVBG}
               idLabel="sobreviviente_vbg_label"
               idSelect="sobreviviente_vbg_select"
-              label="Sobreviviente de VBG"
+              label="Sobreviviente de VBG*"
               error={!!errors?.vida_idSobreviviente}
               helperText={errors?.vida_idSobreviviente?.message as string}
             />
@@ -258,7 +258,7 @@ function FormVida({
               data={vidaDocumentPosee}
               idLabel="doc_posee_label"
               idSelect="doc_posee_select"
-              label="Documento que posee"
+              label="Documento que posee*"
               error={!!errors?.vida_idDocPosee}
               helperText={errors?.vida_idDocPosee?.message as string}
             />
@@ -270,7 +270,7 @@ function FormVida({
               data={vidaIngresoPromMen}
               idLabel="ingreso_prom_label"
               idSelect="ingreso_prom_select"
-              label="Ingreso Promedio Mensual"
+              label="Ingreso Promedio Mensual*"
               error={!!errors?.vida_idIngresoProm}
               helperText={errors?.vida_idIngresoProm?.message as string}
             />
@@ -282,7 +282,7 @@ function FormVida({
               data={vidaTipoResidencia}
               idLabel="tipo_residencia_label"
               idSelect="tipo_residencia_select"
-              label="Tipo de Residencia"
+              label="Tipo de Residencia*"
               error={!!errors?.vida_idTipoResidencia}
               helperText={errors?.vida_idTipoResidencia?.message as string}
             />
@@ -294,7 +294,7 @@ function FormVida({
               data={vidaHorasTrabajo}
               idLabel="horas_trabajo_label"
               idSelect="horas_trabajo_select"
-              label="Horas de Trabajo Diarias"
+              label="Horas de Trabajo Diarias*"
               error={!!errors?.vida_idHorasTrabajo}
               helperText={errors?.vida_idHorasTrabajo?.message as string}
             />

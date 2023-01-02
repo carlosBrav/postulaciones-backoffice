@@ -51,7 +51,7 @@ function EvaluacionPreliminar({ evaluation1, evaluation2 }: Props) {
 
   useEffect(() => {
     if (evaluation1) {
-      setFinishTest(evaluation1.idEstado === '00001')
+      setFinishTest(evaluation1.idEstado === '00002')
     }
   }, [evaluation1])
 

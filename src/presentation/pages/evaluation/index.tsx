@@ -29,6 +29,9 @@ function Evaluation({ repository }: Props) {
 
   const [evaluation1, setEvaluation1] = useState<ParticipantEvaluation>()
   const [evaluation2, setEvaluation2] = useState<ParticipantEvaluation>()
+  const [evaluation3, setEvaluation3] = useState<ParticipantEvaluation>()
+  const [evaluation4, setEvaluation4] = useState<ParticipantEvaluation>()
+  const [evaluation5, setEvaluation5] = useState<ParticipantEvaluation>()
 
   const { isLoading, isSuccess, data } = useGetEvaluations(
     idParticipante as string,
@@ -40,6 +43,9 @@ function Evaluation({ repository }: Props) {
     if (isSuccess) {
       setEvaluation1(data?.find((val) => val.idTipo === '00001'))
       setEvaluation2(data?.find((val) => val.idTipo === '00002'))
+      setEvaluation3(data?.find((val) => val.idTipo === '00003'))
+      setEvaluation4(data?.find((val) => val.idTipo === '00004'))
+      setEvaluation5(data?.find((val) => val.idTipo === '00005'))
     }
   }, [isSuccess])
 
@@ -80,9 +86,17 @@ function Evaluation({ repository }: Props) {
                 evaluation2={evaluation2 as ParticipantEvaluation}
               />
             )}
-            {tab === 1 && <PotencialEmprendedor />}
-            {tab === 2 && <Pitch />}
-            {tab === 3 && <Entrevista />}
+            {tab === 1 && (
+              <PotencialEmprendedor
+                evaluation={evaluation3 as ParticipantEvaluation}
+              />
+            )}
+            {tab === 2 && (
+              <Pitch evaluation={evaluation4 as ParticipantEvaluation} />
+            )}
+            {tab === 3 && (
+              <Entrevista evaluation={evaluation5 as ParticipantEvaluation} />
+            )}
           </Box>
         </Box>
       </Box>
