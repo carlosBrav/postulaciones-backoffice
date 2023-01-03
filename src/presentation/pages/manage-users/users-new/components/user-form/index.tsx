@@ -12,7 +12,7 @@ type Props = {
   repository: UserRepository
 }
 
-function UserForm({repository}: Props) {
+function UserForm({ repository }: Props) {
   const {
     handleFileChange,
     handleFileClear,
@@ -24,15 +24,15 @@ function UserForm({repository}: Props) {
     type_profiles,
     file,
     idTipDoc,
-    isLoadingCreate
+    isLoading
   } = useFormUser({ repository })
 
   return (
     <Box width="100%" marginTop="30px">
       <form className="form-user" onSubmit={handleSubmit(onSubmit)}>
         <Grid container spacing={2}>
-          <Grid item md={6} xs={12}>
-            <Box marginBottom="20px">
+          <Grid item container spacing={2}>
+            <Grid item md={4} xs={12}>
               <SelectComponent
                 name="idTipDoc"
                 control={control}
@@ -43,10 +43,10 @@ function UserForm({repository}: Props) {
                 error={!!errors?.idTipDoc}
                 helperText={errors?.idTipDoc?.message as string}
               />
-            </Box>
-            <Box marginBottom="20px">
+            </Grid>
+            <Grid item md={4} xs={12}>
               <InputTextComponent
-                label="Documento"
+                label="Número de Documento"
                 name="numDoc"
                 control={control}
                 id="number_document"
@@ -54,8 +54,8 @@ function UserForm({repository}: Props) {
                 maxLength={idTipDoc === '00001' ? 8 : 9}
                 helperText={errors?.numDoc?.message as string}
               />
-            </Box>
-            <Box marginBottom="20px">
+            </Grid>
+            <Grid item md={4} xs={12}>
               <InputTextComponent
                 label="Código"
                 name="codigo"
@@ -64,18 +64,20 @@ function UserForm({repository}: Props) {
                 type="text"
                 helperText={errors?.codigo?.message as string}
               />
-            </Box>
-            <Box marginBottom="20px">
+            </Grid>
+          </Grid>
+          <Grid item container spacing={2}>
+            <Grid item md={4} xs={12}>
               <InputTextComponent
-                label="Nombre"
+                label="Nombres"
                 name="nombre"
                 control={control}
                 id="nombre"
                 type="text"
                 helperText={errors?.nombre?.message as string}
               />
-            </Box>
-            <Box marginBottom="20px">
+            </Grid>
+            <Grid item md={4} xs={12}>
               <InputTextComponent
                 label="Apellido Paterno"
                 name="apePat"
@@ -84,10 +86,8 @@ function UserForm({repository}: Props) {
                 type="text"
                 helperText={errors?.apePat?.message as string}
               />
-            </Box>
-          </Grid>
-          <Grid item md={6} xs={12}>
-            <Box marginBottom="20px">
+            </Grid>
+            <Grid item md={4} xs={12}>
               <InputTextComponent
                 label="Apellido Materno"
                 name="apeMat"
@@ -96,8 +96,11 @@ function UserForm({repository}: Props) {
                 type="text"
                 helperText={errors?.apeMat?.message as string}
               />
-            </Box>
-            <Box marginBottom="20px">
+            </Grid>
+          </Grid>
+
+          <Grid item container spacing={2}>
+            <Grid item md={4} xs={12}>
               <InputTextComponent
                 label="Correo"
                 name="email"
@@ -106,8 +109,8 @@ function UserForm({repository}: Props) {
                 type="text"
                 helperText={errors?.email?.message as string}
               />
-            </Box>
-            <Box marginBottom="20px">
+            </Grid>
+            <Grid item md={4} xs={12}>
               <InputTextComponent
                 label="Celular"
                 name="celular"
@@ -117,7 +120,20 @@ function UserForm({repository}: Props) {
                 maxLength={9}
                 helperText={errors?.celular?.message as string}
               />
-            </Box>
+            </Grid>
+            <Grid item md={4} xs={12}>
+              <InputTextComponent
+                label="Password"
+                name="clave"
+                control={control}
+                id="clave"
+                type="password"
+                helperText={errors?.clave?.message as string}
+              />
+            </Grid>
+          </Grid>
+
+          <Grid item md={4} xs={12}>
             <Box marginBottom="20px">
               <SelectComponent
                 name="idPerfil"
@@ -130,28 +146,12 @@ function UserForm({repository}: Props) {
                 helperText={errors?.idPerfil?.message as string}
               />
             </Box>
-            <Box marginBottom="20px">
-              <InputTextComponent
-                label="Usuario"
-                name="login"
-                control={control}
-                id="login"
-                type="text"
-                helperText={errors?.login?.message as string}
-              />
-            </Box>
-            <Box marginBottom="20px">
-              <InputTextComponent
-                label="Clave"
-                name="clave"
-                control={control}
-                id="clave"
-                type="password"
-                helperText={errors?.clave?.message as string}
-              />
-            </Box>
           </Grid>
-          <Grid item md={6} xs={12}>
+        </Grid>
+
+        <Grid item container spacing={2}>
+          <Grid item md={4} xs={12}></Grid>
+          <Grid item md={4} xs={12}>
             <FileComponent
               file={file as File}
               handleClear={() => handleFileClear()}
@@ -161,16 +161,17 @@ function UserForm({repository}: Props) {
               name={'file'}
             />
           </Grid>
-          <Grid item container xs={12}>
-            <Box width="100%" maxWidth="200px">
-              <ButtonComponent
-                variant="contained"
-                disabled={isLoadingCreate}
-                title="Guardar"
-                type="submit"
-              />
-            </Box>
-          </Grid>
+          <Grid item md={4} xs={12}></Grid>
+        </Grid>
+        <Grid item container xs={12}>
+          <Box width="100%" maxWidth="200px" marginTop="20px">
+            <ButtonComponent
+              variant="contained"
+              disabled={isLoading}
+              title="Guardar"
+              type="submit"
+            />
+          </Box>
         </Grid>
       </form>
     </Box>

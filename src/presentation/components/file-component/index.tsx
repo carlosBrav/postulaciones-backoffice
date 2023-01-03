@@ -27,7 +27,12 @@ export default function FileComponent({
       <span className="upload-file-description__delete" onClick={handleClear}>
         <img width={20} height={20} src={IconDelete} alt="icono-close" />
       </span>
-      <img width={60} height={60} alt="image" src={(typeof file === 'string') ? file  : URL.createObjectURL(file)} />
+      <img
+        width={250}
+        height={250}
+        alt="image"
+        src={typeof file === 'string' ? file : URL.createObjectURL(file)}
+      />
     </div>
   ) : (
     <DragDropFiles

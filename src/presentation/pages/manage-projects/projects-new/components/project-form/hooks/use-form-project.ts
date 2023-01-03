@@ -159,12 +159,6 @@ function useFormProject({ repository }: Props) {
   }, [isLoadingUpdate])
 
   useEffect(() => {
-    if (isLoadingUpdate) {
-      toastId = toast.loading('Actualizando proyecto...')
-    }
-  }, [isLoadingUpdate])
-
-  useEffect(() => {
     if (isSuccessUpdate) {
       toast.dismiss(toastId)
       toast.success('Proyecto actualizado')
@@ -205,8 +199,11 @@ function useFormProject({ repository }: Props) {
     participants,
     participantsProject,
     idCurrentUsuario: authToken?.idUsuario,
-    isLoading: isLoadingProjById || isLoadingCreate || isLoadingUpdate 
-    || isLoadingParticipantsProj || isLoadingAddParticip || isLoadingDeleteParticip,
+    isLoading:
+      isLoadingCreate ||
+      isLoadingUpdate ||
+      isLoadingAddParticip ||
+      isLoadingDeleteParticip,
     handleEmailParticipants,
     handleRefetchParticProj,
     handleAddParticipants,

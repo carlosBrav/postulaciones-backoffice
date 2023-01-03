@@ -21,7 +21,8 @@ function FormComponent({ auth }: Props) {
     type_document,
     errorAuth,
     document_number,
-    document_type
+    document_type,
+    error
   } = useFormLogin(auth)
 
   const [maxLength, setMaxLength] = useState<number>(8)
@@ -98,7 +99,7 @@ function FormComponent({ auth }: Props) {
         {errorAuth && (
           <Box width="100%" marginTop="10px">
             <FormHelperText style={{ fontSize: 15 }} error>
-              Documento y/o clave errónea
+              {error as string}
             </FormHelperText>
           </Box>
         )}

@@ -10,7 +10,7 @@ import {useNavigate} from 'react-router-dom'
 import { AuthenticationManageContext } from '../authentication/context/authentication-context'
 
 export default function MainComponent() {
-  const [open, setOpen] = React.useState(false)
+  const [open, setOpen] = React.useState(true)
   const navigate = useNavigate()
   const { isAuthenticated } = React.useContext(AuthenticationManageContext)
   const handleDrawerOpen = () => {
@@ -33,7 +33,7 @@ export default function MainComponent() {
       <AppBarComponent
         onClick={handleDrawerOpen}
         open={open}
-        title={'¡Bienvenido!'}
+        title={'SISTEMA DE SELECCIÓN DE EMPREDEDORES'}
       />
       <DrawerMainComponent onClick={handleDrawerClose} open={open} />
       <Box component="main" sx={{ flexGrow: 1, p: 2 }}>

@@ -55,8 +55,6 @@ function useFormLogin(auth: AuthenticationRepository) {
     }
   }, [isError])
 
-  console.log('data error ', error)
-
 
   return {
     onSubmit,
@@ -68,7 +66,8 @@ function useFormLogin(auth: AuthenticationRepository) {
     type_document,
     errorAuth,
     document_number,
-    document_type
+    document_type,
+    error
   }
 }
 

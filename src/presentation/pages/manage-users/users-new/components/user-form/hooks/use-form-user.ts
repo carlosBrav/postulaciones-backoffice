@@ -149,11 +149,11 @@ function useFormUser({ repository }: Props) {
     type_profiles,
     file,
     idTipDoc,
-    isLoadingCreate,
+    isLoading: isLoadingCreate || isLoadingUpdate,
     handleSubmit,
     handleFileChange,
     handleFileClear,
-    onSubmit,
+    onSubmit
   }
 }
 
