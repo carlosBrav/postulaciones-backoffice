@@ -1,10 +1,11 @@
-import { Box } from '@mui/material'
-import ButtonComponent from '@presentation/components/button'
+import { Box, FormHelperText } from '@mui/material'
+import { ButtonComponent } from '@presentation/components/button'
 import LinkComponent from '@presentation/pages/authentication/login/components/form-right/components/link-common'
 import InputTextComponent from '@presentation/components/input-text'
+import InputNumericComponent from '@presentation/components/input-text/numeric'
 import useFormLogin from '@presentation/pages/authentication/login/components/form-right/components/form/hooks/use-form-login'
 import SelectComponent from '@presentation/components/select'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { AuthenticationRepository } from '@domain/authentication/repositories/authentication-repository'
 
 type Props = {
@@ -12,8 +13,37 @@ type Props = {
 }
 
 function FormComponent({ auth }: Props) {
-  const { onSubmit, handleSubmit, control, type_document } = useFormLogin(auth)
-  console.log('type_document ', type_document)
+  const {
+    onSubmit,
+    handleSubmit,
+    setValue,
+    control,
+    type_document,
+    errorAuth,
+    document_number,
+    document_type
+  } = useFormLogin(auth)
+
+  const [maxLength, setMaxLength] = useState<number>(8)
+
+  useEffect(() => {
+    if (document_type !== '00001') {
+      setMaxLength(12)
+    } else {
+      setMaxLength(8)
+    }
+  }, [document_type])
+
+  useEffect(() => {
+    if (document_type !== '') {
+      setValue('document_number', '')
+    }
+  }, [document_type])
+
+  const handleOchangeDocument = (data: string) => {
+    setValue('document_number', data)
+  }
+
   return (
     <Box minWidth="60%">
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -28,12 +58,15 @@ function FormComponent({ auth }: Props) {
           />
         </Box>
         <Box marginBottom="30px">
-          <InputTextComponent
+          <InputNumericComponent
             label="Documento"
             name="document_number"
             control={control}
             id="number_document"
             type="text"
+            maxLength={maxLength}
+            value={document_number}
+            onChange={handleOchangeDocument}
           />
         </Box>
         <Box marginBottom="30px">
@@ -55,9 +88,20 @@ function FormComponent({ auth }: Props) {
           justifyContent="center"
         >
           <Box width="200px">
-            <ButtonComponent type="submit" title="Ingresar" />
+            <ButtonComponent
+              variant="contained"
+              type="submit"
+              title="Ingresar"
+            />
           </Box>
         </Box>
+        {errorAuth && (
+          <Box width="100%" marginTop="10px">
+            <FormHelperText style={{ fontSize: 15 }} error>
+              Documento y/o clave errónea
+            </FormHelperText>
+          </Box>
+        )}
       </form>
     </Box>
   )

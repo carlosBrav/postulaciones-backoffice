@@ -1,9 +1,7 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { Box, Grid } from '@mui/material'
-import SelectComponent from '@presentation/components/select'
 import InputTextComponent from '@presentation/components/input-text'
-import ButtonComponent from '@presentation/components/button'
-import FileComponent from '@presentation/components/file-component'
+import { ButtonComponent } from '@presentation/components/button'
 import useFormProfile from '@presentation/pages/manage-profiles/profile-new/components/profile-form/hooks/use-form-profile'
 import './styles.scss'
 import { ProfileRepository } from '@domain/profiles'
@@ -13,9 +11,11 @@ type Props = {
 }
 
 function ProfileForm({ repository }: Props) {
-  const { handleSubmit, onSubmit, control, errors } = useFormProfile({
-    repository,
-  })
+  const { handleSubmit, onSubmit, control, errors, isLoading } = useFormProfile(
+    {
+      repository
+    }
+  )
 
   return (
     <Box width="100%" marginTop="30px">
@@ -35,7 +35,12 @@ function ProfileForm({ repository }: Props) {
           </Grid>
           <Grid item container xs={12}>
             <Box width="100%" maxWidth="200px">
-              <ButtonComponent title="Guardar" type="submit" />
+              <ButtonComponent
+                disabled={isLoading}
+                variant="contained"
+                title="Guardar"
+                type="submit"
+              />
             </Box>
           </Grid>
         </Grid>

@@ -3,7 +3,7 @@ import Box from '@mui/material/Box'
 import FormHelperText from '@mui/material/FormHelperText'
 import FormTab from '@presentation/components/form-tab'
 import './styles.scss'
-import ButtonComponent from '@presentation/components/button'
+import { ButtonComponent } from '@presentation/components/button'
 import FormGeneral from '@presentation/pages/manage-participants/participants-new/components/form-general'
 import FormSalud from '@presentation/pages/manage-participants/participants-new/components/form-salud'
 import FormVida from '@presentation/pages/manage-participants/participants-new/components/form-vida'
@@ -40,7 +40,7 @@ function FormParticipant({ repository, parameter, id }: Props) {
     flagEmprendimiento,
     flagVentaInternet
   } = useFormParticipant(repository, id as string)
-  console.log('errors ', errors)
+
   return (
     <Box width="100%" marginTop="30px">
       <Box width="100%" display="flex" flexDirection="column">
@@ -80,16 +80,19 @@ function FormParticipant({ repository, parameter, id }: Props) {
             <Box width="100%" marginTop="30px">
               <Box maxWidth="400px">
                 <Box maxWidth="150px">
-                  <ButtonComponent type="submit" title="Guardar" />
+                  <ButtonComponent
+                    variant="contained"
+                    type="submit"
+                    title="Guardar"
+                  />
                 </Box>
                 <Box width="100%" marginTop="8px">
-                {!isEmpty(errors) && (
-                  <FormHelperText error>
-                    Hay datos requeridos que faltan completar
-                  </FormHelperText>
-                )}
+                  {!isEmpty(errors) && (
+                    <FormHelperText error>
+                      Hay datos requeridos que faltan completar
+                    </FormHelperText>
+                  )}
                 </Box>
-                
               </Box>
             </Box>
           </Box>

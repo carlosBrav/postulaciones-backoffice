@@ -1,8 +1,8 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { Box, Grid } from '@mui/material'
 import SelectComponent from '@presentation/components/select'
 import InputTextComponent from '@presentation/components/input-text'
-import ButtonComponent from '@presentation/components/button'
+import { ButtonComponent } from '@presentation/components/button'
 import FileComponent from '@presentation/components/file-component'
 import useFormUser from '@presentation/pages/manage-users/users-new/components/user-form/hooks/use-form-user'
 import './styles.scss'
@@ -164,6 +164,7 @@ function UserForm({repository}: Props) {
           <Grid item container xs={12}>
             <Box width="100%" maxWidth="200px">
               <ButtonComponent
+                variant="contained"
                 disabled={isLoadingCreate}
                 title="Guardar"
                 type="submit"

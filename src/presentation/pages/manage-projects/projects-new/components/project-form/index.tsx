@@ -1,8 +1,6 @@
-import React, { useEffect, useState } from 'react'
-import { Box, Grid } from '@mui/material'
-import SelectComponent from '@presentation/components/select'
-import InputTextComponent from '@presentation/components/input-text'
-import ButtonComponent from '@presentation/components/button'
+import React from 'react'
+import { Box } from '@mui/material'
+import { ButtonComponent } from '@presentation/components/button'
 import useFormProject from '@presentation/pages/manage-projects/projects-new/components/project-form/hooks/use-form-project'
 import './styles.scss'
 import FormTab from '@presentation/components/form-tab'
@@ -70,7 +68,11 @@ function ProjectForm({ repository, id = '' }: Props) {
           {tab === 0 && (
             <Box width="100%" marginTop="30px">
               <Box maxWidth="150px">
-                <ButtonComponent type="submit" title="Guardar" />
+                <ButtonComponent
+                  variant="contained"
+                  type="submit"
+                  title="Guardar"
+                />
               </Box>
             </Box>
           )}

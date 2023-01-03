@@ -16,6 +16,6 @@ export class AuthenticationUseCase implements AuthenticationRepository {
       map(this._authMapping.toUser),
       catchError((error: Error) => this._authMapping.toError(error))
     )
-    return firstValueFrom(source$) as Promise<User>
+    return firstValueFrom(source$)
   }
 }

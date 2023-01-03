@@ -1,25 +1,21 @@
 import { HttpError } from '@core/http/errors/http-error'
 import { HttpStatusCode } from '@core/http/http-client'
 import { ParticipantResponse } from '../models'
-import {
-  AccessDeniedError,
-  InvalidCredentialsError,
-  UnexpectedError
-} from '@domain/authentication/errors'
+import { Observable, throwError } from 'rxjs'
 
 export class ParticipantMapping {
-  toError = (error: Error): any => {
+  toError = (error: Error): Observable<any> => {
     if (error instanceof HttpError) {
       switch (error.statusCode) {
         case HttpStatusCode.unauthorized:
-          return new InvalidCredentialsError()
+          return throwError('Credenciales inválidas')
         case HttpStatusCode.forbidden:
-          return new AccessDeniedError()
+          return throwError('Acceso denegado')
         default:
-          return new UnexpectedError()
+          return throwError('Ocurrió un error desconocido')
       }
     } else {
-      throw new UnexpectedError()
+      return throwError('Ocurrió un error desconocido')
     }
   }
 

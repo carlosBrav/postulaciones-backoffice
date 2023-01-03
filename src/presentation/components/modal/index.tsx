@@ -3,14 +3,16 @@ import Button, { ButtonProps } from '@mui/material/Button'
 import Dialog from '@mui/material/Dialog'
 import DialogTitle from '@mui/material/DialogTitle'
 import * as React from 'react'
+import { ButtonComponent } from '@presentation/components/button'
 
 const CustomButton = styled(Button)<ButtonProps>(({ theme }) => ({
   textTransform: 'capitalize',
   color: theme.palette.getContrastText('#572364'),
   backgroundColor: '#572364',
   '&:hover': {
-    backgroundColor: '#572364',
+    backgroundColor: '#572364'
   },
+  theme
 }))
 
 interface SimpleDialogProps {
@@ -45,18 +47,27 @@ export default function Modal(props: SimpleDialogProps) {
         )}
         <DialogActions>
           {isModalInformation ? (
-            <CustomButton variant="contained" onClick={onCancel}>
-              Aceptar
-            </CustomButton>
+            <ButtonComponent
+              variant="contained"
+              title="Aceptar"
+              type="button"
+              onClick={onCancel}
+            />
           ) : (
             <>
-              <CustomButton variant="outlined" onClick={onCancel}>
-                Cancelar
-              </CustomButton>
+              <ButtonComponent
+                variant="outlined"
+                type="button"
+                title="Cancelar"
+                onClick={onCancel}
+              />
 
-              <CustomButton variant="contained" onClick={onAccept}>
-                Aceptar
-              </CustomButton>
+              <ButtonComponent
+                variant="contained"
+                type="button"
+                title="Aceptar"
+                onClick={onAccept}
+              />
             </>
           )}
         </DialogActions>

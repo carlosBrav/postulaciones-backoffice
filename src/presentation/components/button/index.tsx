@@ -1,27 +1,48 @@
 import { Button, ButtonProps, styled } from '@mui/material'
 import React from 'react'
-
-const ColorButton = styled(Button)<ButtonProps>(({ theme }) => ({
-  textTransform: 'capitalize',
-  color: theme.palette.getContrastText('#572364'),
-  backgroundColor: '#572364',
-  '&:hover': {
-    backgroundColor: '#572364',
-  },
-}))
+import './styles.scss'
 
 type Props = {
   title: string
-  type: 'button'|'submit'
+  type: 'button' | 'submit'
+  variant: 'contained' | 'outlined' | 'text'
   disabled?: boolean
+  onClick?: () => void
 }
 
-function ButtonComponent({ title, type, disabled = false }: Props) {
-  return (
-    <ColorButton disabled={disabled} type={type} fullWidth variant="contained">
+function ButtonComponent({
+  title,
+  type,
+  disabled = false,
+  variant,
+  onClick
+}: Props) {
+  return type === 'submit' ? (
+    <Button
+      disabled={disabled}
+      type={type}
+      fullWidth
+      variant={variant}
+      className={`${
+        variant === 'contained' ? 'button-common--primary' : 'button-common'
+      }`}
+    >
       {title}
-    </ColorButton>
+    </Button>
+  ) : (
+    <Button
+      disabled={disabled}
+      type={type}
+      fullWidth
+      variant={variant}
+      onClick={onClick}
+      className={`${
+        variant === 'contained' ? 'button-common--primary' : 'button-common'
+      }`}
+    >
+      {title}
+    </Button>
   )
 }
 
-export default ButtonComponent
+export { ButtonComponent }

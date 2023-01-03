@@ -1,0 +1,17 @@
+.button-common{
+  color: #572364 !important;
+  border-color: #572364 !important;
+
+  &--primary{
+    color: #FFF !important;
+    background-color: #572364 !important;
+  }
+
+  &--primary:hover{
+    background-color: #572364 !important;
+  }
+}
+
+.button-common:hover{
+  background-color: #572364 !important;
+}

@@ -1,6 +1,7 @@
 import { HttpError } from '@core/http/errors/http-error'
 import { HttpStatusCode } from '@core/http/http-client'
 import { ParticipantEvaluation, ProjectResponse } from '../models'
+import { Observable, throwError } from 'rxjs'
 import {
   AccessDeniedError,
   InvalidCredentialsError,
@@ -8,18 +9,18 @@ import {
 } from '@domain/authentication/errors'
 
 export class ProjectMapping {
-  toError = (error: Error): any => {
+  toError = (error: Error): Observable<any> => {
     if (error instanceof HttpError) {
       switch (error.statusCode) {
         case HttpStatusCode.unauthorized:
-          return new InvalidCredentialsError()
+          return throwError('Credenciales inválidas')
         case HttpStatusCode.forbidden:
-          return new AccessDeniedError()
+          return throwError('Acceso denegado')
         default:
-          return new UnexpectedError()
+          return throwError('Ocurrió un error desconocido')
       }
     } else {
-      throw new UnexpectedError()
+      return throwError('Ocurrió un error desconocido')
     }
   }
 
