@@ -1,5 +1,5 @@
 import { Box, TextField, Typography } from '@mui/material'
-import { DatePicker } from '@mui/x-date-pickers'
+import { DesktopDatePicker } from '@mui/x-date-pickers'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import React, { useEffect } from 'react'
@@ -19,31 +19,32 @@ export default function DatePickerComponent({
 }: Props) {
   const [initValue, setInitValue] = React.useState<Date | null>(null)
 
-  const handleDatePicker = (date: Date) => {
-    setInitValue(date)
-    onHandleDate(format(date, 'dd/MM/yyyy'))
+  const handleDatePicker = (date: Date | null) => {
+    if  (!isNaN(date?.getTime() as number))  {
+      setInitValue(date)
+      onHandleDate(format(date as Date, 'dd/MM/yyyy'))
+    }
   }
 
   useEffect(() => {
-    if (value !== '') {
-      console.log('value ', value)
+    if (value !== '' && value.length >= 8) {
       console.log(parse(value, 'dd/MM/yyyy', new Date()))
       setInitValue(parse(value, 'dd/MM/yyyy', new Date()))
     }
   }, [value])
 
+  console.log('value ', value)
+
   return (
     <LocalizationProvider adapterLocale={es} dateAdapter={AdapterDateFns}>
       <Box width="100%">
-        <DatePicker
+        <DesktopDatePicker
           className="data-picker"
           key={'init'}
           label={title}
           inputFormat="dd/MM/yyyy"
-          value={initValue as Date}
-          onChange={(newValue) => {
-            handleDatePicker(newValue as Date)
-          }}
+          value={initValue}
+          onChange={handleDatePicker}
           renderInput={(params) => <TextField {...params} />}
         />
       </Box>

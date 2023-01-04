@@ -7,7 +7,7 @@ export const useValidationParticipant = yup
     nombre: yup.string().required('Dato es requerido'),
     apellido: yup.string().required('Dato es requerido'),
     numDoc: yup.string().required('Dato es requerido'),
-    email: yup.string().required('Dato es requerido'),
+    email: yup.string().email().required('Dato es requerido'),
     fono: yup.string().required('Dato es requerido'),
     distrito: yup.string().required('Dato es requerido'),
     provincia: yup.string().required('Dato es requerido'),
