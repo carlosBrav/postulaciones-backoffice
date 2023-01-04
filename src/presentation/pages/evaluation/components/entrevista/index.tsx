@@ -52,20 +52,19 @@ function Entrevista({ evaluation }: Props) {
       <Grid item xs={12}>
         <Box width="100%" padding="10px">
           <Box maxWidth="50%">
-          {evalSecInd && (
-            <>
-              <RangeComponent />
-              {evalSecInd.map((val, index) => (
-                <QuizComponent
-                  key={index}
-                  id={index}
-                  title={val.dscIndicador}
-                />
-              ))}
-            </>
-          )}
+            {evalSecInd && (
+              <>
+                <RangeComponent />
+                {evalSecInd.map((val, index) => (
+                  <QuizComponent
+                    key={index}
+                    value={val.respuesta}
+                    title={val.dscIndicador}
+                  />
+                ))}
+              </>
+            )}
           </Box>
-          
         </Box>
       </Grid>
     </Grid>

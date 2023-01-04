@@ -4,11 +4,11 @@ import TextCommon from '@presentation/components/text-common'
 import './styles.scss'
 
 type Props = {
-  id: number
   title: string
+  value: number
 }
 
-function QuizComponent({ id, title }: Props) {
+function QuizComponent({ title, value = 0 }: Props) {
   const valuetext = (value: number) => `${value}`
   //const { response, setResponse } = useContext(PostulacionesContext)
 
@@ -30,12 +30,14 @@ function QuizComponent({ id, title }: Props) {
       <Box width="200px">
         <Slider
           //onChange={handleChange}
-          defaultValue={0}
+          defaultValue={value}
           getAriaValueText={valuetext}
           valueLabelDisplay="auto"
           step={1}
           min={0}
           max={4}
+          color="secondary"
+          sx={{ height: 10 }}
         />
       </Box>
     </div>

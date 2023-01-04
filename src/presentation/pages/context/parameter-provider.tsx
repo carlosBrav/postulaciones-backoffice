@@ -13,6 +13,7 @@ import { ParticipantRepository, ParticipantResponse } from '@domain/participant'
 import { useSaludData } from '@presentation/pages/hooks/use-salud-data'
 import { useVidaData } from '@presentation/pages/hooks/use-vida-data'
 import useParticipants from '@main/adapters/participant/use-participants'
+import { useResultParticipant } from '@main/adapters/parameter/use-result-particp-project'
 
 type Props = {
   parameter: ParameterRepository
@@ -35,6 +36,12 @@ function ParameterProvider({
     ParticipantResponse[]
   >([])
   const [estadoProyecto, setEstadoProyecto] = useState<Selector[]>([])
+  const [listStatusParticipant, setListStatusParticipant] = useState<
+    Selector[]
+  >([])
+
+  const { data: dataResultParticipant, isSuccess: isSuccessDataResultPart } =
+    useResultParticipant(parameter)
 
   const {
     mutate: mutateParticipants,
@@ -150,6 +157,16 @@ function ParameterProvider({
   }, [isSuccessStatus, dataStatus])
 
   useEffect(() => {
+    if (isSuccessDataResultPart) {
+      setListStatusParticipant(
+        dataResultParticipant?.map((val: any) =>
+          Selector.fromJson({ value: val.codigo, label: val.descripcion })
+        ) as Selector[]
+      )
+    }
+  }, [isSuccessDataResultPart])
+
+  useEffect(() => {
     mutate()
   }, [])
 
@@ -160,6 +177,7 @@ function ParameterProvider({
         setListProfiles,
         setListProjects,
         setListParticipants,
+        listStatusParticipant,
         estadoProyecto,
         isLoadingSalud,
         saludEdad,

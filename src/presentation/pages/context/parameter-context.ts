@@ -14,6 +14,7 @@ type ParameterContext = {
   listProfiles: Profile[]
   listProjects: ProjectResponse[]
   listParticipants: ParticipantResponse[]
+  listStatusParticipant: Selector[]
   saludEdad: Selector[]
   saludSexo: Selector[]
   saludOtrosDep: Selector[]
@@ -66,6 +67,7 @@ const defaultContent: ParameterContext = {
   isLoadingVida: false,
   isLoading: false,
   isLoadingSalud: false,
+  listStatusParticipant: [],
   estadoProyecto: [],
   type_document: [],
   type_profiles: [],

@@ -6,6 +6,7 @@ import PotencialEmprendedor from '@presentation/pages/evaluation/components/pote
 import Pitch from '@presentation/pages/evaluation/components/pitch'
 import Entrevista from '@presentation/pages/evaluation/components/entrevista'
 import { useGetEvaluations } from '@main/adapters/project/use-get-evaluations'
+import {} from '@main/adapters/parameter/use-criteria'
 import { ParticipantEvaluation, ProjectRepository } from '@domain/project'
 import { useNavigate, useParams } from 'react-router-dom'
 import { FullScreenLoader } from '@presentation/components/full-screen-loader/full-screen-loader'

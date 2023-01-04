@@ -78,7 +78,7 @@ function Pitch({ evaluation }: Props) {
                   {evalSecInd.map((val, index) => (
                     <QuizComponent
                       key={index}
-                      id={index}
+                      value={val.respuesta}
                       title={val.dscIndicador}
                     />
                   ))}

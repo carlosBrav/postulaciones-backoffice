@@ -93,7 +93,9 @@ function PotencialEmprendedor({ evaluation }: Props) {
                     </TableCell>
                     <TableCell align="center">{row.score}</TableCell>
                     <TableCell align="center">{row.factor}</TableCell>
-                    <TableCell align="center">{row.puntaje}</TableCell>
+                    <TableCell align="center">
+                      {row.score + row.factor}
+                    </TableCell>
                   </TableRow>
                 ))}
               </TableBody>

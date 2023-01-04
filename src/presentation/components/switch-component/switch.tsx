@@ -15,7 +15,9 @@ function SwitchComponent({ onChange, value, label }: Props) {
   return (
     <FormControl fullWidth>
       <FormControlLabel
-        control={<Switch onChange={handleChange} checked={value} />}
+        control={
+          <Switch onChange={handleChange} checked={value} color="secondary" />
+        }
         label={label}
       />
     </FormControl>

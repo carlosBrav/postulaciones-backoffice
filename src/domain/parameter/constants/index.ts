@@ -22,7 +22,8 @@ export const TYPE_PARAMETER = {
   tipo_residencia: 'TIPO_RESIDENCIA',
   familiares_directos: 'FAMILIARES_DIRECTOS',
   horas_trabajo: 'HORAS_TRABAJO',
-  estado_proyecto: 'ESTADO_PROYECTO'
+  estado_proyecto: 'ESTADO_PROYECTO',
+  resultado_particip_proy: 'RESULTADO_PARTICIPANTE_PROYECTO'
 }
 
 export const TYPE_CALCULO = {
