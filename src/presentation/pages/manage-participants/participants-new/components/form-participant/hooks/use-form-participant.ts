@@ -40,7 +40,8 @@ function useFormParticipant(repository: ParticipantRepository, id: string) {
     setValue,
     watch,
     formState: { errors },
-    clearErrors
+    clearErrors,
+    setError
   } = useForm({
     resolver: yupResolver(useValidationParticipant),
     defaultValues: new ParticipantForm()
@@ -51,7 +52,11 @@ function useFormParticipant(repository: ParticipantRepository, id: string) {
     fecVencimiento,
     flagAccesoTecno,
     flagEmprendimiento,
-    flagVentaInternet
+    flagVentaInternet,
+    email,
+    numDoc,
+    idTipDoc,
+    fono
   } = watch()
 
   const { listParticipants } = useContext(ParameterManageContext)
@@ -383,6 +388,22 @@ function useFormParticipant(repository: ParticipantRepository, id: string) {
     )
   }
 
+  const handleDocumentValue = (data: string) => {
+    setValue('numDoc', data)
+    clearErrors('numDoc')
+  }
+
+  const handleFonoValue = (data: string) => {
+    setValue('fono', data)
+    clearErrors('fono')
+  }
+
+  const handleTypeDocument = (data: string) => {
+    setValue('idTipDoc', data)
+    setValue('numDoc', '')
+    clearErrors('idTipDoc')
+  }
+
   useEffect(() => {
     if (id) {
       editValuesGeneral()
@@ -419,21 +440,39 @@ function useFormParticipant(repository: ParticipantRepository, id: string) {
     }
   }, [isSuccessCreate])
 
+  useEffect(() => {
+    if (email.length > 0) {
+      if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
+        setError('email', {
+          message: 'Formato de email erróneo'
+        })
+      } else {
+        clearErrors('email')
+      }
+    }
+  }, [email])
+
   return {
-    tab,
     setTab,
     handleSubmit,
-    control,
     watch,
+    handleSetValueFecVenc,
+    handleSetValueFecNac,
+    onSubmit,
+    handleDocumentValue,
+    handleTypeDocument,
+    handleFonoValue,
+    control,
     errors,
     fecNacimiento,
     fecVencimiento,
     flagAccesoTecno,
     flagEmprendimiento,
     flagVentaInternet,
-    handleSetValueFecVenc,
-    handleSetValueFecNac,
-    onSubmit,
+    numDoc,
+    idTipDoc,
+    fono,
+    tab
   }
 }
 

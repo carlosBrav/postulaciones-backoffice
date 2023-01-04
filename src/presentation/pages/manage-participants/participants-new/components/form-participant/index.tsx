@@ -19,9 +19,12 @@ type Props = {
 }
 
 const titles_tap = [
-  'INFORMACION GENERAL',
-  'INFORMACION SALUD Y PROTECCION',
-  'INFORMACION MEDIOS DE VIDA'
+  { label: 'INFORMACION GENERAL', disabled: false },
+  { label: 'INFORMACION SALUD Y PROTECCION', disabled: true },
+  {
+    label: 'INFORMACION MEDIOS DE VIDA',
+    disabled: false
+  }
 ]
 
 function FormParticipant({ repository, parameter, id }: Props) {
@@ -32,13 +35,19 @@ function FormParticipant({ repository, parameter, id }: Props) {
     onSubmit,
     handleSetValueFecNac,
     handleSetValueFecVenc,
+    handleDocumentValue,
+    handleTypeDocument,
+    handleFonoValue,
     control,
     errors,
     fecNacimiento,
     fecVencimiento,
     flagAccesoTecno,
     flagEmprendimiento,
-    flagVentaInternet
+    flagVentaInternet,
+    numDoc,
+    idTipDoc,
+    fono
   } = useFormParticipant(repository, id as string)
 
   return (
@@ -48,9 +57,10 @@ function FormParticipant({ repository, parameter, id }: Props) {
           {titles_tap.map((val, index) => (
             <FormTab
               key={index}
-              text={val}
+              text={val.label}
               isSelected={tab === index}
               onClick={() => setTab(index)}
+              disabled={val.disabled}
             />
           ))}
         </Box>
@@ -70,8 +80,14 @@ function FormParticipant({ repository, parameter, id }: Props) {
                   flagAccesoTecno={flagAccesoTecno}
                   flagEmprendimiento={flagEmprendimiento}
                   flagVentaInternet={flagVentaInternet}
+                  numDoc={numDoc}
+                  handleDocumentValue={handleDocumentValue}
+                  handleTypeDocument={handleTypeDocument}
                   control={control}
                   errors={errors}
+                  idTipDoc={idTipDoc}
+                  fono={fono}
+                  handleFonoValue={handleFonoValue}
                 />
               )}
               {tab === 1 && <FormSalud control={control} errors={errors} />}

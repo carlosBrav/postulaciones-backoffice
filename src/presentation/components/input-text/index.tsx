@@ -31,7 +31,7 @@ export default function InputComponent({
       control={control}
       render={({ field }) => (
         <TextField
-        label={label}
+          label={label}
           placeholder={placeholder}
           id={id}
           fullWidth

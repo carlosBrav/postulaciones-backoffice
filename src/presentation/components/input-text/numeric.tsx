@@ -30,9 +30,16 @@ export default function InputComponent({
   onChange = () => {}
 }: Props) {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (/[0-9]/.test(event.target.value)) {
+    if (event.target.value.length === 0) {
       onChange(event.target.value)
+    } else {
+      if (event.target.value.length > 0 && /^\d+$/.test(event.target.value)) {
+        onChange(event.target.value)
+      }
     }
+    // if (event.target.value.length > 0 && /[0-9]/.test(event.target.value)) {
+
+    // }
   }
   return (
     <Controller
@@ -46,7 +53,6 @@ export default function InputComponent({
           fullWidth
           style={{ borderRadius: 8 }}
           multiline={isMultiline}
-          {...field}
           error={!!helperText}
           inputProps={{ maxLength }}
           helperText={helperText}
