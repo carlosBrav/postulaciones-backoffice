@@ -25,6 +25,9 @@ type Props = {
 }
 
 function useFormProject({ repository }: Props) {
+  const { listParticipantsProject, setListParticipantsProject } = useContext(
+    ParameterManageContext
+  )
   const params = useParams()
   const { id } = params
   let toastId: string
@@ -191,6 +194,12 @@ function useFormProject({ repository }: Props) {
       setParticipants(projectById?.listParticipante as Participante[])
     }
   }, [isSuccessProjById])
+
+  useEffect(() => {
+    if (isSuccessParticipantsProj) {
+      setListParticipantsProject([...(participantsProject as Participante[])])
+    }
+  }, [isSuccessParticipantsProj])
 
   return {
     control,

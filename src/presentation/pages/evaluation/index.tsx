@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Box } from '@mui/material'
 import FormTab from '@presentation/components/form-tab'
 import EvaluacionPreliminar from '@presentation/pages/evaluation/components/evaluacion-preliminar'
@@ -6,11 +6,17 @@ import PotencialEmprendedor from '@presentation/pages/evaluation/components/pote
 import Pitch from '@presentation/pages/evaluation/components/pitch'
 import Entrevista from '@presentation/pages/evaluation/components/entrevista'
 import { useGetEvaluations } from '@main/adapters/project/use-get-evaluations'
-import {} from '@main/adapters/parameter/use-criteria'
-import { ParticipantEvaluation, ProjectRepository } from '@domain/project'
+import { ButtonComponent } from '@presentation/components/button'
+import {
+  Participante,
+  ParticipantEvaluation,
+  ProjectRepository
+} from '@domain/project'
 import { useNavigate, useParams } from 'react-router-dom'
 import { FullScreenLoader } from '@presentation/components/full-screen-loader/full-screen-loader'
 import HeaderComponent from '@presentation/components/header'
+import { ParameterManageContext } from '../context/parameter-context'
+import SelectComponent from '@presentation/components/select/select'
 
 const titles_tab = [
   'EVALUACION PRELIMINAR',
@@ -24,9 +30,14 @@ type Props = {
 }
 
 function Evaluation({ repository }: Props) {
+  const { listParticipantsProject, listStatusParticipant } = useContext(
+    ParameterManageContext
+  )
   const params = useParams()
   const navigate = useNavigate()
   const { idProyecto, idParticipante } = params
+  const [participantData, setParticipantData] = useState<Participante>()
+  const [statusParticipant, setStatusParticipant] = useState<string>('')
 
   const [evaluation1, setEvaluation1] = useState<ParticipantEvaluation>()
   const [evaluation2, setEvaluation2] = useState<ParticipantEvaluation>()
@@ -50,11 +61,29 @@ function Evaluation({ repository }: Props) {
     }
   }, [isSuccess])
 
+  useEffect(() => {
+    if (idParticipante) {
+      setParticipantData(
+        listParticipantsProject.find(
+          (val) => `${val.idParticipante}` === idParticipante
+        )
+      )
+    }
+  }, [idParticipante])
+
+  useEffect(() => {
+    if (participantData) {
+      setStatusParticipant(participantData.idResultado)
+    }
+  }, [participantData])
+
   const goToProjects = () => {
     navigate(`/dashboard/manage-projects/edit/${idProyecto}`)
   }
 
   const [tab, setTab] = useState<number>(0)
+
+  console.log('participantData ', participantData)
   return isLoading ? (
     <FullScreenLoader />
   ) : (
@@ -98,6 +127,32 @@ function Evaluation({ repository }: Props) {
             {tab === 3 && (
               <Entrevista evaluation={evaluation5 as ParticipantEvaluation} />
             )}
+          </Box>
+          <Box
+            width="100%"
+            display="flex"
+            flexDirection="row"
+            justifyContent="space-between"
+            marginTop="20px"
+          >
+            <Box maxWidth="150px">
+              <ButtonComponent
+                variant="contained"
+                type="button"
+                title="Guardar"
+                onClick={() => {}}
+              />
+            </Box>
+            <Box maxWidth="200px" width="100%">
+              <SelectComponent
+                data={listStatusParticipant}
+                idLabel="estado_particip_proj_label"
+                idSelect="estado_particip_proj_select"
+                onChange={setStatusParticipant}
+                value={statusParticipant}
+                placeholder="Estado"
+              />
+            </Box>
           </Box>
         </Box>
       </Box>

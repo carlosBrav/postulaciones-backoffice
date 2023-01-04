@@ -2,7 +2,7 @@ import { createContext } from 'react'
 import { Selector } from '@domain/common/model/selector'
 import { User } from '@domain/user'
 import { Profile } from '@domain/profiles'
-import { ProjectResponse } from '@domain/project'
+import { Participante, ProjectResponse } from '@domain/project'
 import { ParticipantResponse } from '@domain/participant'
 
 type ParameterContext = {
@@ -14,6 +14,7 @@ type ParameterContext = {
   listProfiles: Profile[]
   listProjects: ProjectResponse[]
   listParticipants: ParticipantResponse[]
+  listParticipantsProject: Participante[]
   listStatusParticipant: Selector[]
   saludEdad: Selector[]
   saludSexo: Selector[]
@@ -58,6 +59,7 @@ type ParameterContext = {
   vidaHorasTrabajo: Selector[]
   vidaFamDirectos: Selector[]
   vidaTipoResidencia: Selector[]
+  setListParticipantsProject: (data: Participante[]) => void
   setListProjects: (projects: ProjectResponse[]) => void
   setListUsers: (users: User[]) => void
   setListProfiles: (profiels: Profile[]) => void
@@ -74,6 +76,7 @@ const defaultContent: ParameterContext = {
   listUsers: [],
   listProfiles: [],
   listProjects: [],
+  listParticipantsProject: [],
   listParticipants: [],
   saludEdad: [],
   saludSexo: [],
@@ -116,6 +119,7 @@ const defaultContent: ParameterContext = {
   vidaHorasTrabajo: [],
   vidaFamDirectos: [],
   vidaTipoResidencia: [],
+  setListParticipantsProject: () => {},
   setListProjects: () => {},
   setListUsers: () => {},
   setListProfiles: () => {},

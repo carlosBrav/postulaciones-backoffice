@@ -8,7 +8,7 @@ import useProfile from '@main/adapters/profile/use-profile'
 import { Selector } from '@domain/common/model/selector'
 import { Toaster } from 'react-hot-toast'
 import { User } from '@domain/user'
-import { ProjectResponse } from '@domain/project'
+import { Participante, ProjectResponse } from '@domain/project'
 import { ParticipantRepository, ParticipantResponse } from '@domain/participant'
 import { useSaludData } from '@presentation/pages/hooks/use-salud-data'
 import { useVidaData } from '@presentation/pages/hooks/use-vida-data'
@@ -38,6 +38,9 @@ function ParameterProvider({
   const [estadoProyecto, setEstadoProyecto] = useState<Selector[]>([])
   const [listStatusParticipant, setListStatusParticipant] = useState<
     Selector[]
+  >([])
+  const [listParticipantsProject, setListParticipantsProject] = useState<
+    Participante[]
   >([])
 
   const { data: dataResultParticipant, isSuccess: isSuccessDataResultPart } =
@@ -177,6 +180,8 @@ function ParameterProvider({
         setListProfiles,
         setListProjects,
         setListParticipants,
+        setListParticipantsProject,
+        listParticipantsProject,
         listStatusParticipant,
         estadoProyecto,
         isLoadingSalud,
