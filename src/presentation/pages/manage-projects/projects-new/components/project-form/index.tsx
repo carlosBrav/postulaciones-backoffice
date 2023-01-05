@@ -28,7 +28,8 @@ function ProjectForm({ repository, id = '' }: Props) {
     participantsProject,
     idCurrentUsuario,
     tab,
-    isLoading
+    isLoading,
+    idEstado
   } = useFormProject({ repository })
 
   return isLoading ? (
@@ -62,6 +63,7 @@ function ProjectForm({ repository, id = '' }: Props) {
                 idCurrentUsuario={idCurrentUsuario}
                 handleDeleteParticipants={handleDeleteParticipants}
                 handleEmailParticipants={handleEmailParticipants}
+                disabledActions={idEstado === '00002'}
               />
             )}
           </Box>
@@ -72,6 +74,7 @@ function ProjectForm({ repository, id = '' }: Props) {
                   variant="contained"
                   type="submit"
                   title="Guardar"
+                  disabled={idEstado === '00002'}
                 />
               </Box>
             </Box>

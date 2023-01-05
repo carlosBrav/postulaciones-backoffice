@@ -18,7 +18,7 @@ type Props<T> = {
   redirectEdit: () => void
   handleOnOpen: () => void
   handleEmail?: () => void
-  handleCheckList?: () => void
+  handleEvaluations?: () => void
   idField: string
   fields: string[]
   headCells: any[]
@@ -35,7 +35,7 @@ export default function EnhancedTable<T>({
   redirectEdit = () => {},
   handleOnOpen = () => {},
   handleEmail = () => {},
-  handleCheckList = () => {},
+  handleEvaluations = () => {},
   idField = 'id',
   fields = [],
   headCells = [],
@@ -103,7 +103,7 @@ export default function EnhancedTable<T>({
           isDeleteAble={isDeleteAble}
           isCheckList={isCheckList}
           isMailAble={isMailAble}
-          handleCheckList={handleCheckList}
+          handleEvaluations={handleEvaluations}
           handleEmail={handleEmail}
         />
         <TableContainer>

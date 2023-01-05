@@ -25,7 +25,7 @@ function ButtonComponent({
       variant={variant}
       className={`${
         variant === 'contained' ? 'button-common--primary' : 'button-common'
-      }`}
+      } ${disabled ? ' button-common--disabled' : ''}`}
     >
       {title}
     </Button>

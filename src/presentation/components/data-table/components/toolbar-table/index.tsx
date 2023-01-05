@@ -15,7 +15,7 @@ interface EnhancedTableToolbarProps {
   redirectEdit: () => void
   handleOnOpen: () => void
   handleEmail?: () => void
-  handleCheckList?: () => void
+  handleEvaluations?: () => void
   isEditable?: boolean
   isDeleteAble?: boolean
   isMailAble?: boolean
@@ -28,11 +28,11 @@ export default function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
     redirectEdit,
     handleOnOpen,
     handleEmail = () => {},
-    handleCheckList = () => {},
+    handleEvaluations = () => {},
     isEditable = true,
     isDeleteAble = true,
     isMailAble = false,
-    isCheckList = false,
+    isCheckList = false
   } = props
 
   return numSelected ? (
@@ -59,8 +59,7 @@ export default function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
             }`}
           </Typography>
           <Box>
-
-          {isMailAble && (
+            {isMailAble && (
               <Tooltip title="Enviar email">
                 <IconButton onClick={handleEmail}>
                   <EmailIcon color="primary" />
@@ -68,9 +67,9 @@ export default function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
               </Tooltip>
             )}
 
-          {isCheckList && (
+            {isCheckList && (
               <Tooltip title="Listar">
-                <IconButton onClick={handleCheckList}>
+                <IconButton onClick={handleEvaluations}>
                   <BallotIcon color="success" />
                 </IconButton>
               </Tooltip>

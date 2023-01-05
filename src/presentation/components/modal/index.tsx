@@ -47,12 +47,21 @@ export default function Modal(props: SimpleDialogProps) {
         )}
         <DialogActions>
           {isModalInformation ? (
-            <ButtonComponent
-              variant="contained"
-              title="Aceptar"
-              type="button"
-              onClick={onCancel}
-            />
+            <Box
+              width="100%"
+              display="flex"
+              flexDirection="row"
+              justifyContent="center"
+            >
+              <Box maxWidth="150px" width="100%">
+                <ButtonComponent
+                  variant="contained"
+                  title="Aceptar"
+                  type="button"
+                  onClick={onCancel}
+                />
+              </Box>
+            </Box>
           ) : (
             <>
               <ButtonComponent

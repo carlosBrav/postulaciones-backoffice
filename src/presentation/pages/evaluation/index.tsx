@@ -51,6 +51,8 @@ function Evaluation({ repository }: Props) {
     repository
   )
 
+  console.log('data ', data)
+
   useEffect(() => {
     if (isSuccess) {
       setEvaluation1(data?.find((val) => val.idTipo === '00001'))

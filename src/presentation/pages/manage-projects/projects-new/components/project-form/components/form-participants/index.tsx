@@ -22,6 +22,7 @@ type Props = {
   participantes?: Participante[]
   id?: string
   idCurrentUsuario?: number
+  disabledActions?: boolean
 }
 
 function FormParticipants({
@@ -30,7 +31,8 @@ function FormParticipants({
   handleDeleteParticipants = (data: ProjectParticipantDeleteRequest) => {},
   participantes = [],
   id = '',
-  idCurrentUsuario = 0
+  idCurrentUsuario = 0,
+  disabledActions = false
 }: Props) {
   const navigate = useNavigate()
   const [participantsSelected, setParticipantsSelected] = useState<any[]>([])
@@ -41,6 +43,7 @@ function FormParticipants({
     Participante[]
   >([])
   const [search, setSearch] = useState<string>('')
+  const [noEvaluation, setNoEvaluation] = useState<boolean>(false)
 
   useEffect(() => {
     if (participantes && participantes.length > 0) {
@@ -96,10 +99,17 @@ function FormParticipants({
     setParticipantsSelected([])
   }
 
-  const handleCheckList = () => {
-    navigate(
-      `/dashboard/manage-projects/evaluation/project/${id}/participant/${participantsSelected[0].idParticipante}`
-    )
+  const handleEvaluations = () => {
+    const isNotAllowed =
+      participantsSelected.filter((val) => val.dscEstado === 'Pendiente')
+        .length > 0
+    if (isNotAllowed) {
+      setNoEvaluation(true)
+    } else {
+      navigate(
+        `/dashboard/manage-projects/evaluation/project/${id}/participant/${participantsSelected[0].idParticipante}`
+      )
+    }
   }
 
   return (
@@ -113,6 +123,7 @@ function FormParticipants({
         >
           <Box maxWidth="200px">
             <ButtonCustom
+              disabled={disabledActions}
               onClick={() => setOpenModal(true)}
               title={'Agregar Participante'}
               type="button"
@@ -133,7 +144,7 @@ function FormParticipants({
           isEditable={false}
           isCheckList={true}
           isMailAble={true}
-          handleCheckList={handleCheckList}
+          handleEvaluations={handleEvaluations}
           handleEmail={() => setOpenModalEmail(true)}
           rowsSelected={participantsSelected}
           setRowsSelected={setParticipantsSelected}
@@ -155,6 +166,16 @@ function FormParticipants({
           headCells={participantsProyectCells}
         />
       </Grid>
+      {noEvaluation && (
+        <ModalComponent
+          onAccept={() => setNoEvaluation(false)}
+          onCancel={() => setNoEvaluation(false)}
+          isModalInformation={noEvaluation}
+          open={noEvaluation}
+          title="Evaluación del Participante"
+          description="No se puede evaluar participantes en estado Pendiente."
+        />
+      )}
       {openModalEmail && (
         <ModalComponent
           onAccept={handleSentEmail}

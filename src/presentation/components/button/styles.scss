@@ -10,6 +10,14 @@
   &--primary:hover{
     background-color: #572364 !important;
   }
+
+  &--disabled{
+    background-color: gray !important;
+  }
+
+  &--disabled:hover{
+    cursor: not-allowed !important;
+  }
 }
 
 .button-common:hover{

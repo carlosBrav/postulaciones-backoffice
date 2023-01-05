@@ -25,9 +25,7 @@ type Props = {
 }
 
 function useFormProject({ repository }: Props) {
-  const { listParticipantsProject, setListParticipantsProject } = useContext(
-    ParameterManageContext
-  )
+  const { setListParticipantsProject } = useContext(ParameterManageContext)
   const params = useParams()
   const { id } = params
   let toastId: string
@@ -62,6 +60,8 @@ function useFormProject({ repository }: Props) {
     resolver: yupResolver(validateProjectForm),
     defaultValues: new ProjectForm()
   })
+  const { idEstado } = watch()
+
   const authToken = getAuthToken(import.meta.env.VITE_APP_PARAM_AUTH)
 
   const onSubmit = (data: ProjectForm) => {
@@ -202,6 +202,7 @@ function useFormProject({ repository }: Props) {
   }, [isSuccessParticipantsProj])
 
   return {
+    idEstado,
     control,
     errors,
     tab,
