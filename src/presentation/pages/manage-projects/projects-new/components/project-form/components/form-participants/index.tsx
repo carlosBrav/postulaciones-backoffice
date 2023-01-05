@@ -87,7 +87,7 @@ function FormParticipants({
   const handleSentEmail = () => {
     const ppcObject = new ProjectParticipantCreateReq()
     ppcObject.idProyecto = +id
-    ppcObject.idusuMod = idCurrentUsuario
+    ppcObject.idUsuMod = idCurrentUsuario
     ppcObject.listProyectoParticipante = participantsSelected.map((val) =>
       ProjectParticipantRequest.fromJson({
         idParticipante: val.idParticipante,
