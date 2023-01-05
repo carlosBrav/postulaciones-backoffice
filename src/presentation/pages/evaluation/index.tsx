@@ -53,7 +53,9 @@ function Evaluation({ repository }: Props) {
     statusEM,
     statusEP,
     statusEnt,
-    statusPitch
+    statusPitch,
+    pitchEvalSecInd,
+    entrevistaEvalSecInd
   } = useContext(ParameterManageContext)
   let toastId: string
   const params = useParams()
@@ -62,7 +64,13 @@ function Evaluation({ repository }: Props) {
   const [participantData, setParticipantData] = useState<Participante>()
   const [statusParticipant, setStatusParticipant] = useState<string>('')
 
-  const { isLoading, isSuccess, data } = useGetEvaluations(
+  // const { isLoading, isSuccess, data, refetch } = useGetEvaluations(
+  //   idParticipante as string,
+  //   idProyecto as string,
+  //   repository
+  // )
+
+  const { isLoading, isSuccess, data, mutate } = useGetEvaluations(
     idParticipante as string,
     idProyecto as string,
     repository
@@ -73,6 +81,12 @@ function Evaluation({ repository }: Props) {
     isSuccess: isSuccessUpdateParticipant,
     mutate: mutateUpdateParticipant
   } = useUpdateParticipant(repository)
+
+  useEffect(() => {
+    if (idParticipante && idProyecto) {
+      mutate()
+    }
+  }, [idProyecto, idParticipante])
 
   useEffect(() => {
     if (isSuccess) {
@@ -159,7 +173,7 @@ function Evaluation({ repository }: Props) {
       evalSec.idSeccion = val.idSeccion
       evalSec.factor = val.factor
       let evalSecInd: ProyectoParticipanteEvalInd[] = []
-      val.listProyectoParticipanteEvalSecInd.forEach((secInd) => {
+      pitchEvalSecInd.forEach((secInd) => {
         const evalInd = new ProyectoParticipanteEvalInd()
         evalInd.idIndicador = secInd.idIndicador
         evalInd.respuesta = secInd.respuesta
@@ -172,7 +186,7 @@ function Evaluation({ repository }: Props) {
 
     ////////////////////////////////
     const itemVal5 = new ProyectoParticiapnteItemEval()
-    itemVal5.idEvaluacion = 4
+    itemVal5.idEvaluacion = 5
     itemVal5.idEstado = statusEnt ? '00002' : '00001'
     itemVal5.idTipo = '00005'
     itemVal5.score = evaluation5?.score as number
@@ -183,7 +197,7 @@ function Evaluation({ repository }: Props) {
       evalSec.idSeccion = val.idSeccion
       evalSec.factor = val.factor
       let evalSecInd: ProyectoParticipanteEvalInd[] = []
-      val.listProyectoParticipanteEvalSecInd.forEach((secInd) => {
+      entrevistaEvalSecInd.forEach((secInd) => {
         const evalInd = new ProyectoParticipanteEvalInd()
         evalInd.idIndicador = secInd.idIndicador
         evalInd.respuesta = secInd.respuesta
@@ -202,6 +216,7 @@ function Evaluation({ repository }: Props) {
       itemVal5
     ]
     updateProyParticp.listProyectoParticipante = [item]
+    console.log('updateProyParticp ', JSON.stringify(updateProyParticp))
     mutateUpdateParticipant(updateProyParticp)
   }
 
@@ -215,6 +230,7 @@ function Evaluation({ repository }: Props) {
     if (isSuccessUpdateParticipant) {
       toast.dismiss(toastId)
       toast.success('Datos del participante actualizado')
+      mutate()
     }
   }, [isSuccessUpdateParticipant])
 
