@@ -33,7 +33,7 @@ const validateScore = (score: number) => {
       color: '#fdff66'
     }
   }
-  if (score >= 0.1 && score <= 0.75) {
+  if (score >= 0 && score <= 0.75) {
     return {
       title: 'Baja',
       color: '#ff3e3f'
