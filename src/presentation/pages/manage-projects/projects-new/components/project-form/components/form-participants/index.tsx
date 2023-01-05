@@ -14,6 +14,7 @@ import {
 import { ModalParticipants } from '../modal-participants'
 import ModalComponent from '@presentation/components/modal'
 import { useNavigate } from 'react-router-dom'
+import { ProjectParticipReqEval } from '@domain/project/models/project-particip-request-eval'
 
 type Props = {
   handleEmailParticipants: (data: ProjectParticipantCreateReq) => void
@@ -86,12 +87,20 @@ function FormParticipants({
   const handleSentEmail = () => {
     const ppcObject = new ProjectParticipantCreateReq()
     ppcObject.idProyecto = +id
+    ppcObject.idusuMod = idCurrentUsuario
     ppcObject.listProyectoParticipante = participantsSelected.map((val) =>
       ProjectParticipantRequest.fromJson({
         idParticipante: val.idParticipante,
         idEstado: '00002',
         idResultado: '00003',
-        idUsuCrea: idCurrentUsuario
+        listProyectoParticipanteEval: [1, 2].map((data) =>
+          ProjectParticipReqEval.fromJson({
+            idEvaluacion: data,
+            idEstado: '00001',
+            idTipo: `0000${data}`,
+            score: data === 1 ? val.scoreSalPro : val.scoreMedVid
+          })
+        )
       })
     )
     handleEmailParticipants(ppcObject)

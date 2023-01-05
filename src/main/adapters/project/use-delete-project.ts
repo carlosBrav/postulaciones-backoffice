@@ -7,4 +7,4 @@ const useDeleteProject = (repository: ProjectRepository, idUsuCrea: string) => {
     repository.delete(projectsId, idUsuCrea)
   )
 }
-export default useDeleteProject
+export { useDeleteProject }

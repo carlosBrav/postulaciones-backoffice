@@ -2,13 +2,17 @@ import { useContext, useEffect, useState } from 'react'
 import useProjects from '@main/adapters/project/use-projects'
 //import useProfilesDelete from '@main/adapters/profile/use-profile-delete'
 //import { Profile, ProfileRepository } from '@domain/profiles'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { ParameterManageContext } from '@presentation/pages/context/parameter-context'
 import useAuthToken from '@presentation/pages/hooks/use-auth-token/use-auth-token'
 import { ProjectResponse, ProjectRepository } from '@domain/project'
+import { useDeleteProject } from '@main/adapters/project/use-delete-project'
+import { toast } from 'react-hot-toast'
 
 export default function useProjectList(repository: ProjectRepository) {
   const { getAuthToken } = useAuthToken()
+  let toastId: string
+  const authToken = getAuthToken(import.meta.env.VITE_APP_PARAM_AUTH as string)
   const {
     data: projects,
     mutate: mutateProjects,
@@ -19,6 +23,12 @@ export default function useProjectList(repository: ProjectRepository) {
   const [openDelete, setOpenDelete] = useState<boolean>(false)
   const [projectsSelected, setProjectsSelected] = useState<any[]>([])
   const { listProjects, setListProjects } = useContext(ParameterManageContext)
+
+  const {
+    isLoading: isLoadingDelete,
+    isSuccess: isSuccessDelete,
+    mutate: mutateDelete
+  } = useDeleteProject(repository, `${authToken?.idUsuario}`)
 
   const navigate = useNavigate()
   const goToEdit = () => {
@@ -38,17 +48,23 @@ export default function useProjectList(repository: ProjectRepository) {
     mutateProjects()
   }, [])
 
-  // const handleDeleteProfile = () => {
-  //   mutateDelete(contentsSelected)
-  // }
+  const handleDeleteProject = () => {
+    mutateDelete(projectsSelected.map((project) => `${project.idProyecto}`))
+  }
 
-  // useEffect(() => {
-  //   if (isSuccessDelete) {
-  //     setOpenDelete(false)
-  //     setListProfiles(listProfiles.filter((val)=> !contentsSelected.find((data)=> data.idPerfil === val.idPerfil)))
-  //     setContentsSelected([])
-  //   }
-  // }, [isSuccessDelete])
+  useEffect(() => {
+    if (isLoadingDelete) {
+      toastId = toast.loading('Eliminando proyecto...')
+    }
+  }, [isLoadingDelete])
+
+  useEffect(() => {
+    if (isSuccessDelete) {
+      toast.dismiss(toastId)
+      toast.success('Proyecto eliminado')
+      mutateProjects()
+    }
+  }, [isSuccessDelete])
 
   return {
     isLoadingProjects,
@@ -57,6 +73,7 @@ export default function useProjectList(repository: ProjectRepository) {
     listProjects,
     projectsSelected,
     setProjectsSelected,
+    handleDeleteProject,
     goToEdit,
     setOpenDelete,
     //handleDeleteProfile,
