@@ -9,7 +9,8 @@ import {
   ProjectParticipantCreateReq,
   ProjectParticipantDeleteRequest,
   ProjectRequest,
-  ProjectUpdate
+  ProjectUpdate,
+  UpdateParticipanteProyecto
 } from '@domain/project/models'
 
 export class ProjectService implements ProjectProvider {
@@ -24,9 +25,20 @@ export class ProjectService implements ProjectProvider {
 
   constructor(private _httpClient: HttpClient) {}
 
+  updateResultParticipant(
+    request: UpdateParticipanteProyecto
+  ): Promise<HttpResponse<Record<string, unknown>>> {
+    const requestS: HttpRequest<Record<string, unknown>> = {
+      url: `${this.msNameCreateParticip}`,
+      method: HttpMethod.POST,
+      body: request.toJson(),
+      headers: this._httpClient.getPrivateHeader()
+    }
+    return this._httpClient.request(requestS) as any
+  }
+
   getResultsByParticipant(
     idParticipant: string,
-
     idProject: string
   ): Promise<HttpResponse<Record<string, unknown>>> {
     const request: HttpRequest<Record<string, unknown>> = {

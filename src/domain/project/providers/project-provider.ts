@@ -3,7 +3,8 @@ import {
   ProjectParticipantCreateReq,
   ProjectRequest,
   ProjectUpdate,
-  ProjectParticipantDeleteRequest
+  ProjectParticipantDeleteRequest,
+  UpdateParticipanteProyecto
 } from '../models'
 
 export interface ProjectProvider {
@@ -29,5 +30,8 @@ export interface ProjectProvider {
   getResultsByParticipant(
     idParticipant: string,
     idProject: string
+  ): Promise<HttpResponse<Record<string, unknown>>>
+  updateResultParticipant(
+    request: UpdateParticipanteProyecto
   ): Promise<HttpResponse<Record<string, unknown>>>
 }

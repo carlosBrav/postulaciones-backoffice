@@ -2,10 +2,33 @@ import { createContext } from 'react'
 import { Selector } from '@domain/common/model/selector'
 import { User } from '@domain/user'
 import { Profile } from '@domain/profiles'
-import { Participante, ProjectResponse } from '@domain/project'
+import {
+  Participante,
+  ParticipantEvaluation,
+  ProjectResponse
+} from '@domain/project'
 import { ParticipantResponse } from '@domain/participant'
+import { ParticipantEvaluationSecInd } from '@domain/project/models/participant-evaluation-sec-ind'
 
 type ParameterContext = {
+  statusEP: boolean
+  setStatusEP: (data: boolean) => void
+  statusEM: boolean
+  setStatusEM: (data: boolean) => void
+  statusPitch: boolean
+  setStatusPitch: (data: boolean) => void
+  statusEnt: boolean
+  setStatusEnt: (data: boolean) => void
+  evaluation1: ParticipantEvaluation | null
+  setEvaluation1: (data: ParticipantEvaluation) => void
+  evaluation2: ParticipantEvaluation | null
+  setEvaluation2: (data: ParticipantEvaluation) => void
+  evaluation3: ParticipantEvaluation | null
+  setEvaluation3: (data: ParticipantEvaluation) => void
+  evaluation4: ParticipantEvaluation | null
+  setEvaluation4: (data: ParticipantEvaluation) => void
+  evaluation5: ParticipantEvaluation | null
+  setEvaluation5: (data: ParticipantEvaluation) => void
   isLoading: boolean
   estadoProyecto: Selector[]
   type_document: Selector[]
@@ -59,6 +82,10 @@ type ParameterContext = {
   vidaHorasTrabajo: Selector[]
   vidaFamDirectos: Selector[]
   vidaTipoResidencia: Selector[]
+  pitchEvalSecInd: ParticipantEvaluationSecInd[]
+  entrevistaEvalSecInd: ParticipantEvaluationSecInd[]
+  setEntrevistaEvalSecInd: (data: ParticipantEvaluationSecInd[]) => void
+  setPitchEvalSecInd: (data: ParticipantEvaluationSecInd[]) => void
   setListParticipantsProject: (data: Participante[]) => void
   setListProjects: (projects: ProjectResponse[]) => void
   setListUsers: (users: User[]) => void
@@ -119,6 +146,28 @@ const defaultContent: ParameterContext = {
   vidaHorasTrabajo: [],
   vidaFamDirectos: [],
   vidaTipoResidencia: [],
+  entrevistaEvalSecInd: [],
+  statusEP: false,
+  setStatusEP: () => {},
+  statusEM: false,
+  setStatusEM: () => {},
+  statusPitch: false,
+  setStatusPitch: () => {},
+  statusEnt: false,
+  setStatusEnt: () => {},
+  setEntrevistaEvalSecInd: () => {},
+  evaluation1: null,
+  setEvaluation1: () => {},
+  evaluation2: null,
+  setEvaluation2: () => {},
+  evaluation3: null,
+  setEvaluation3: () => {},
+  evaluation4: null,
+  setEvaluation4: () => {},
+  evaluation5: null,
+  pitchEvalSecInd: [],
+  setPitchEvalSecInd: () => {},
+  setEvaluation5: () => {},
   setListParticipantsProject: () => {},
   setListProjects: () => {},
   setListUsers: () => {},

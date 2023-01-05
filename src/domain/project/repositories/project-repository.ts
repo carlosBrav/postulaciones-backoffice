@@ -5,7 +5,8 @@ import {
   Participante,
   ProjectParticipantCreateReq,
   ProjectParticipantDeleteRequest,
-  ParticipantEvaluation
+  ParticipantEvaluation,
+  UpdateParticipanteProyecto
 } from '../models'
 export interface ProjectRepository {
   getAll(): Promise<ProjectResponse[]>
@@ -22,4 +23,5 @@ export interface ProjectRepository {
     idParticipant: string,
     idProject: string
   ): Promise<ParticipantEvaluation[]>
+  updateResultParticipant(request: UpdateParticipanteProyecto): Promise<boolean>
 }

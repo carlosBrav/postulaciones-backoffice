@@ -1,7 +1,7 @@
 import { ParticipantEvaluation } from '@domain/project'
 import { Box, Button, Grid } from '@mui/material'
 import { SwitchComponent } from '@presentation/components/switch-component/switch'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 
 import Table from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'
@@ -11,13 +11,14 @@ import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 import Paper from '@mui/material/Paper'
 import { ParticipantEvaluationSec } from '@domain/project/models/participant-evaluation-sec'
+import { ParameterManageContext } from '@presentation/pages/context/parameter-context'
 
 type Props = {
   evaluation: ParticipantEvaluation
 }
 
 function PotencialEmprendedor({ evaluation }: Props) {
-  const [finishTest, setFinishTest] = useState<boolean>(false)
+  const { statusEM, setStatusEM } = useContext(ParameterManageContext)
   const [evalSec, setEvalSec] = useState<ParticipantEvaluationSec[]>([])
 
   useEffect(() => {
@@ -39,8 +40,8 @@ function PotencialEmprendedor({ evaluation }: Props) {
         >
           <Box maxWidth="200px">
             <SwitchComponent
-              onChange={setFinishTest}
-              value={finishTest}
+              onChange={setStatusEM}
+              value={statusEM}
               label="Completar Prueba"
             />
           </Box>

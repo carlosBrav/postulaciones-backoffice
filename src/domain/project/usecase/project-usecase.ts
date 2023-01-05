@@ -20,7 +20,8 @@ import {
   Participante,
   ParticipantEvaluation,
   ProjectParticipantCreateReq,
-  ProjectParticipantDeleteRequest
+  ProjectParticipantDeleteRequest,
+  UpdateParticipanteProyecto
 } from '../models'
 
 export class ProjectUseCase implements ProjectRepository {
@@ -28,6 +29,19 @@ export class ProjectUseCase implements ProjectRepository {
     public _projectProvider: ProjectProvider,
     private _projectMapping: ProjectMapping
   ) {}
+
+  updateResultParticipant(
+    request: UpdateParticipanteProyecto
+  ): Promise<boolean> {
+    const source$ = from(
+      this._projectProvider.updateResultParticipant(request)
+    ).pipe(
+      map((response: any) => response.body),
+      //map(this._projectMapping.toParticipants),
+      catchError((error: any) => this._projectMapping.toError(error))
+    )
+    return firstValueFrom(source$) as Promise<boolean>
+  }
   getResultsByParticipant(
     idParticipant: string,
     idProject: string

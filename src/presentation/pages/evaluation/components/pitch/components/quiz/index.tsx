@@ -2,22 +2,32 @@ import React from 'react'
 import { Box, Slider } from '@mui/material'
 import TextCommon from '@presentation/components/text-common'
 import './styles.scss'
+import cloneDeep from 'lodash/cloneDeep'
+import { ParticipantEvaluationSecInd } from '@domain/project/models/participant-evaluation-sec-ind'
 
 type Props = {
   title: string
   value: number
+  id: number
+  changeResponse: (score: number, id: number) => void
 }
 
-function QuizComponent({ title, value = 0 }: Props) {
+function QuizComponent({
+  title,
+  value = 0,
+  changeResponse = () => {},
+  id = 0
+}: Props) {
   const valuetext = (value: number) => `${value}`
-  //const { response, setResponse } = useContext(PostulacionesContext)
 
   const handleChange = (event: Event, newValue: number | number[]) => {
-    // const selectResponse = response.find((val) => val.id === `${id}`)
-    // const indexResponse = response.indexOf(selectResponse as ResponseForm)
-    // const cloneResponse = cloneDeep(response)
-    // cloneResponse[indexResponse].value = `${newValue}`
-    // setResponse(cloneResponse)
+    // const findData = data.find((val) => val.idIndicador === id)
+    // console.log('find data ', findData)
+    // const indexResponse = data.indexOf(findData as ParticipantEvaluationSecInd)
+    // const cloneResponse = cloneDeep(data)
+    // cloneResponse[indexResponse].respuesta = newValue as number
+    // setData(cloneResponse)
+    changeResponse(newValue as number,  id)
   }
 
   return (
@@ -29,8 +39,9 @@ function QuizComponent({ title, value = 0 }: Props) {
       </div>
       <Box width="200px">
         <Slider
-          //onChange={handleChange}
-          defaultValue={value}
+          key={`slider-${id}`}
+          onChange={handleChange}
+          value={value}
           getAriaValueText={valuetext}
           valueLabelDisplay="auto"
           step={1}

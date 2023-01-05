@@ -8,12 +8,17 @@ import useProfile from '@main/adapters/profile/use-profile'
 import { Selector } from '@domain/common/model/selector'
 import { Toaster } from 'react-hot-toast'
 import { User } from '@domain/user'
-import { Participante, ProjectResponse } from '@domain/project'
+import {
+  Participante,
+  ParticipantEvaluation,
+  ProjectResponse
+} from '@domain/project'
 import { ParticipantRepository, ParticipantResponse } from '@domain/participant'
 import { useSaludData } from '@presentation/pages/hooks/use-salud-data'
 import { useVidaData } from '@presentation/pages/hooks/use-vida-data'
 import useParticipants from '@main/adapters/participant/use-participants'
 import { useResultParticipant } from '@main/adapters/parameter/use-result-particp-project'
+import { ParticipantEvaluationSecInd } from '@domain/project/models/participant-evaluation-sec-ind'
 
 type Props = {
   parameter: ParameterRepository
@@ -42,6 +47,21 @@ function ParameterProvider({
   const [listParticipantsProject, setListParticipantsProject] = useState<
     Participante[]
   >([])
+  const [evaluation1, setEvaluation1] = useState<ParticipantEvaluation>()
+  const [evaluation2, setEvaluation2] = useState<ParticipantEvaluation>()
+  const [evaluation3, setEvaluation3] = useState<ParticipantEvaluation>()
+  const [evaluation4, setEvaluation4] = useState<ParticipantEvaluation>()
+  const [evaluation5, setEvaluation5] = useState<ParticipantEvaluation>()
+  const [pitchEvalSecInd, setPitchEvalSecInd] = useState<
+    ParticipantEvaluationSecInd[]
+  >([])
+  const [entrevistaEvalSecInd, setEntrevistaEvalSecInd] = useState<
+    ParticipantEvaluationSecInd[]
+  >([])
+  const [statusEP, setStatusEP] = useState<boolean>(false)
+  const [statusEM, setStatusEM] = useState<boolean>(false)
+  const [statusPitch, setStatusPitch] = useState<boolean>(false)
+  const [statusEnt, setStatusEnt] = useState<boolean>(false)
 
   const { data: dataResultParticipant, isSuccess: isSuccessDataResultPart } =
     useResultParticipant(parameter)
@@ -53,15 +73,15 @@ function ParameterProvider({
     isSuccess: isSuccessParticipants
   } = useParticipants(participant)
 
-  useEffect(()=>{
+  useEffect(() => {
     mutateParticipants()
-  },[])
+  }, [])
 
-  useEffect(()  =>  {
-    if  (isSuccessParticipants)  {
+  useEffect(() => {
+    if (isSuccessParticipants) {
       setListParticipants(participants as ParticipantResponse[])
     }
-  },  [isSuccessParticipants])
+  }, [isSuccessParticipants])
 
   const {
     isLoadingSalud,
@@ -176,11 +196,33 @@ function ParameterProvider({
   return (
     <ParameterManageContext.Provider
       value={{
+        statusEP,
+        setStatusEP,
+        statusEM,
+        setStatusEM,
+        statusPitch,
+        setStatusPitch,
+        statusEnt,
+        setStatusEnt,
+        entrevistaEvalSecInd,
+        setEntrevistaEvalSecInd,
+        pitchEvalSecInd,
+        setPitchEvalSecInd,
         setListUsers,
         setListProfiles,
         setListProjects,
         setListParticipants,
         setListParticipantsProject,
+        evaluation1: evaluation1 as ParticipantEvaluation,
+        setEvaluation1,
+        evaluation2: evaluation2 as ParticipantEvaluation,
+        setEvaluation2,
+        evaluation3: evaluation3 as ParticipantEvaluation,
+        setEvaluation3,
+        evaluation4: evaluation4 as ParticipantEvaluation,
+        setEvaluation4,
+        evaluation5: evaluation5 as ParticipantEvaluation,
+        setEvaluation5,
         listParticipantsProject,
         listStatusParticipant,
         estadoProyecto,

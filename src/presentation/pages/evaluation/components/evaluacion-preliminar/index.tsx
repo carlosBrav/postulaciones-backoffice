@@ -1,8 +1,9 @@
 import { Box, Grid, Button } from '@mui/material'
 import { SwitchComponent } from '@presentation/components/switch-component/switch'
 import TextCommon from '@presentation/components/text-common'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { ParticipantEvaluation } from '@domain/project'
+import { ParameterManageContext } from '@presentation/pages/context/parameter-context'
 
 type Props = {
   evaluation1: ParticipantEvaluation
@@ -41,17 +42,17 @@ const validateScore = (score: number) => {
 }
 
 function EvaluacionPreliminar({ evaluation1, evaluation2 }: Props) {
-  const [finishTest, setFinishTest] = useState<boolean>(false)
-  //const { dscEstado, score: score1 } = evaluation1
   const [paletteSalud, setPaletteSalud] = useState<Palette>(emptyPalette)
   const [paletteVida, setPaletteVida] = useState<Palette>(emptyPalette)
-  //const { score: score2 } = evaluation2
   const [score1, setScore1] = useState<number>(0)
   const [score2, setScore2] = useState<number>(0)
+  const { statusEP, setStatusEP} = useContext(
+    ParameterManageContext
+  )
 
   useEffect(() => {
     if (evaluation1) {
-      setFinishTest(evaluation1.idEstado === '00002')
+      setStatusEP(evaluation1.idEstado === '00002')
     }
   }, [evaluation1])
 
@@ -84,8 +85,8 @@ function EvaluacionPreliminar({ evaluation1, evaluation2 }: Props) {
         >
           <Box maxWidth="200px">
             <SwitchComponent
-              onChange={setFinishTest}
-              value={finishTest}
+              onChange={setStatusEP}
+              value={statusEP}
               label="Completar Prueba"
             />
           </Box>

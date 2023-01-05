@@ -6,31 +6,44 @@ import { SwitchComponent } from '@presentation/components/switch-component/switc
 import { cloneDeep } from 'lodash'
 import { RangeComponent } from './components/range'
 import { QuizComponent } from './components/quiz'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
+import { ParameterManageContext } from '@presentation/pages/context/parameter-context'
 
 type Props = {
   evaluation: ParticipantEvaluation
 }
 
 function Pitch({ evaluation }: Props) {
-  const [finishTest, setFinishTest] = useState<boolean>(false)
+  const { pitchEvalSecInd, setPitchEvalSecInd, statusPitch, setStatusPitch } =
+    useContext(ParameterManageContext)
+  // const [finishTest, setFinishTest] = useState<boolean>(false)
 
   const [evaluate, setEvaluate] = useState<ParticipantEvaluation>()
   const [evalSec, setEvalSec] = useState<ParticipantEvaluationSec[]>([])
-  const [evalSecInd, setEvalSecInd] = useState<ParticipantEvaluationSecInd[]>(
-    []
-  )
+  // const [evalSecInd, setEvalSecInd] = useState<ParticipantEvaluationSecInd[]>(
+  //   []
+  // )
 
   useEffect(() => {
     if (evaluation) {
       setEvaluate(cloneDeep(evaluation))
       setEvalSec([...evaluation.listProyectoParticipanteEvalSec])
-      setEvalSecInd([
+      setPitchEvalSecInd([
         ...evaluation.listProyectoParticipanteEvalSec[0]
           .listProyectoParticipanteEvalSecInd
       ])
     }
   }, [evaluation])
+
+  const changeResponse = (score: number, id: number) => {
+    const findData = pitchEvalSecInd.find((val) => val.idIndicador === id)
+    const indexResponse = pitchEvalSecInd.indexOf(
+      findData as ParticipantEvaluationSecInd
+    )
+    const cloneResponse = cloneDeep(pitchEvalSecInd)
+    cloneResponse[indexResponse].respuesta = score
+    setPitchEvalSecInd(cloneResponse)
+  }
 
   return (
     <Grid container>
@@ -45,8 +58,8 @@ function Pitch({ evaluation }: Props) {
         >
           <Box maxWidth="200px">
             <SwitchComponent
-              onChange={setFinishTest}
-              value={finishTest}
+              onChange={setStatusPitch}
+              value={statusPitch}
               label="Completar Prueba"
             />
           </Box>
@@ -72,14 +85,16 @@ function Pitch({ evaluation }: Props) {
           </Grid>
           <Grid item md={6} xs={12}>
             <Box width="100%" padding="10px">
-              {evalSecInd && (
+              {pitchEvalSecInd && (
                 <>
                   <RangeComponent />
-                  {evalSecInd.map((val, index) => (
+                  {pitchEvalSecInd.map((val, index) => (
                     <QuizComponent
                       key={index}
                       value={val.respuesta}
                       title={val.dscIndicador}
+                      id={val.idIndicador}
+                      changeResponse={changeResponse}
                     />
                   ))}
                 </>
