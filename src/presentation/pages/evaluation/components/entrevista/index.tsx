@@ -22,10 +22,12 @@ function Entrevista({ evaluation }: Props) {
 
   useEffect(() => {
     if (evaluation) {
-      setEntrevistaEvalSecInd([
-        ...evaluation.listProyectoParticipanteEvalSec[0]
-          .listProyectoParticipanteEvalSecInd
-      ])
+      if  (entrevistaEvalSecInd.length === 0)  {
+        setEntrevistaEvalSecInd([
+          ...evaluation.listProyectoParticipanteEvalSec[0]
+            .listProyectoParticipanteEvalSecInd
+        ])
+      }
     }
   }, [evaluation])
 

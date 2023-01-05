@@ -28,10 +28,12 @@ function Pitch({ evaluation }: Props) {
     if (evaluation) {
       setEvaluate(cloneDeep(evaluation))
       setEvalSec([...evaluation.listProyectoParticipanteEvalSec])
-      setPitchEvalSecInd([
-        ...evaluation.listProyectoParticipanteEvalSec[0]
-          .listProyectoParticipanteEvalSecInd
-      ])
+      if  (pitchEvalSecInd.length === 0)  {
+        setPitchEvalSecInd([
+          ...evaluation.listProyectoParticipanteEvalSec[0]
+            .listProyectoParticipanteEvalSecInd
+        ])
+      }
     }
   }, [evaluation])
 
