@@ -1,14 +1,14 @@
 .button-common{
-  color: #572364 !important;
-  border-color: #572364 !important;
+  color: #1A5EAF !important;
+  border-color: #1A5EAF !important;
 
   &--primary{
     color: #FFF !important;
-    background-color: #572364 !important;
+    background-color: #1A5EAF !important;
   }
 
   &--primary:hover{
-    background-color: #572364 !important;
+    background-color: #1A5EAF !important;
   }
 
   &--disabled{
@@ -21,5 +21,5 @@
 }
 
 .button-common:hover{
-  background-color: #572364 !important;
+  background-color: #1A5EAF !important;
 }

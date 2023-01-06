@@ -1,6 +1,6 @@
 import React from 'react'
 import { Box, Grid } from '@mui/material'
-import LoginImage from '@presentation/assets/images/png/login_image.png'
+import LoginImage from '@presentation/assets/images/png/logo_alma_llanera.png'
 import TextCommon from '@presentation/components/text-common'
 import './styles.scss'
 
@@ -41,7 +41,7 @@ const FormRight = () => {
             </Box>
           </Box>
           <Box display="flex" flexDirection="column" alignItems="center">
-            <img alt="image" src={LoginImage} />
+            <img width="400px" height="300px" alt="image" src={LoginImage} />
           </Box>
         </Box>
       </div>

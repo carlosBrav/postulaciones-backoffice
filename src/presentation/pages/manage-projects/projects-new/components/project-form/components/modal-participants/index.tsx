@@ -87,7 +87,7 @@ function ModalParticipants({
             flexDirection="row"
             justifyContent="space-between"
             padding="15px"
-            style={{ backgroundColor: '#572364' }}
+            style={{ backgroundColor: '#1A5EAF' }}
           >
             <TextCommon
               text="Agregar Participantes"

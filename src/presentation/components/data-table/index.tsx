@@ -149,7 +149,7 @@ export default function EnhancedTable<T>({
                           }}
                           sx={{
                             '&.Mui-checked': {
-                              color: '#572364'
+                              color: '#1A5EAF'
                             }
                           }}
                         />

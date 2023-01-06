@@ -5,16 +5,6 @@ import DialogTitle from '@mui/material/DialogTitle'
 import * as React from 'react'
 import { ButtonComponent } from '@presentation/components/button'
 
-const CustomButton = styled(Button)<ButtonProps>(({ theme }) => ({
-  textTransform: 'capitalize',
-  color: theme.palette.getContrastText('#572364'),
-  backgroundColor: '#572364',
-  '&:hover': {
-    backgroundColor: '#572364'
-  },
-  theme
-}))
-
 interface SimpleDialogProps {
   open: boolean
   title: string

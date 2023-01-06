@@ -18,7 +18,7 @@ const TextCommon = ({
   const handleColor = () => {
     switch (type) {
       case 'primary':
-        return '#572364'
+        return '#1A5EAF'
       case 'secondary':
         return '#FFFFFF'
       default:

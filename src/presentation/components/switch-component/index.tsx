@@ -8,8 +8,6 @@ import {
   FormLabel
 } from '@mui/material'
 
-const labelInfo = { inputProps: { 'aria-label': 'Switch demo' } }
-
 type Props = {
   value?: boolean
   label: string
