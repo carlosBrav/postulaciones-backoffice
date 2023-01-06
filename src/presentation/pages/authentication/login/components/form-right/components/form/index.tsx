@@ -22,28 +22,11 @@ function FormComponent({ auth }: Props) {
     errorAuth,
     document_number,
     document_type,
-    error
+    error,
+    errors,
+    handleOchangeDocument,
+    maxLength
   } = useFormLogin(auth)
-
-  const [maxLength, setMaxLength] = useState<number>(8)
-
-  useEffect(() => {
-    if (document_type !== '00001') {
-      setMaxLength(12)
-    } else {
-      setMaxLength(8)
-    }
-  }, [document_type])
-
-  useEffect(() => {
-    if (document_type !== '') {
-      setValue('document_number', '')
-    }
-  }, [document_type])
-
-  const handleOchangeDocument = (data: string) => {
-    setValue('document_number', data)
-  }
 
   return (
     <Box minWidth="60%">
@@ -56,6 +39,7 @@ function FormComponent({ auth }: Props) {
             idLabel="type_document_label"
             idSelect="type_document_select"
             label="Tipo de documento"
+            helperText={errors.document_type?.message as string}
           />
         </Box>
         <Box marginBottom="30px">
@@ -68,6 +52,7 @@ function FormComponent({ auth }: Props) {
             maxLength={maxLength}
             value={document_number}
             onChange={handleOchangeDocument}
+            helperText={errors.document_number?.message as string}
           />
         </Box>
         <Box marginBottom="30px">
@@ -77,6 +62,7 @@ function FormComponent({ auth }: Props) {
             name="password"
             control={control}
             id="password_user"
+            helperText={errors.password?.message as string}
           />
         </Box>
         <Box marginBottom="30px">

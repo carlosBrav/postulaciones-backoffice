@@ -43,6 +43,7 @@ export default function SelectComponent({
         <FormControl fullWidth error={error} sx={{ height: '56px' }}>
           <InputLabel id={idLabel}>{label}</InputLabel>
           <Select
+            error={!!helperText}
             disabled={disabled}
             label={label}
             id={idSelect}
@@ -57,7 +58,11 @@ export default function SelectComponent({
             ))}
           </Select>
 
-          <FormHelperText style={{  marginTop: 1  }}>{helperText}</FormHelperText>
+          {helperText && (
+            <FormHelperText error style={{ marginTop: 3 }}>
+              {helperText}
+            </FormHelperText>
+          )}
         </FormControl>
       )}
     />

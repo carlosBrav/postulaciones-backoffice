@@ -105,18 +105,6 @@ function FormGeneral({
         </Grid>
         <Grid item md={4} xs={12}>
           <InputTextComponent
-            label="Distrito*"
-            name="distrito"
-            control={control}
-            id="distrito"
-            type="text"
-            helperText={errors?.distrito?.message as string}
-          />
-        </Grid>
-      </Grid>
-      <Grid item container spacing={2}>
-        <Grid item md={4} xs={12}>
-          <InputTextComponent
             label="Correo*"
             name="email"
             control={control}
@@ -125,28 +113,19 @@ function FormGeneral({
             helperText={errors?.email?.message as string}
           />
         </Grid>
-        <Grid item md={4} xs={12}>
-          <InputNumericComponent
-            label="Teléfono*"
-            name="fono"
-            control={control}
-            id="fono"
-            helperText={errors?.fono?.message as string}
-            value={fono}
-            onChange={handleFonoValue}
-          />
-        </Grid>
-        <Grid item md={4} xs={12}>
-          <InputNumberComponent
-            label="Edad*"
-            name="edad"
-            control={control}
-            id="edad"
-            helperText={errors?.edad?.message as string}
-          />
-        </Grid>
       </Grid>
       <Grid item container spacing={2}>
+        <Grid item md={4} xs={12}>
+          <InputTextComponent
+            label="Distrito*"
+            name="distrito"
+            control={control}
+            id="distrito"
+            type="text"
+            helperText={errors?.distrito?.message as string}
+          />
+        </Grid>
+
         <Grid item md={4} xs={12}>
           <InputTextComponent
             label="Provincia*"
@@ -170,12 +149,34 @@ function FormGeneral({
       </Grid>
       <Grid item container spacing={2}>
         <Grid item md={4} xs={12}>
+          <InputNumericComponent
+            label="Teléfono*"
+            name="fono"
+            control={control}
+            id="fono"
+            helperText={errors?.fono?.message as string}
+            value={fono}
+            onChange={handleFonoValue}
+          />
+        </Grid>
+        <Grid item md={4} xs={12}>
+          <InputNumberComponent
+            label="Edad*"
+            name="edad"
+            control={control}
+            id="edad"
+            helperText={errors?.edad?.message as string}
+          />
+        </Grid>
+        <Grid item md={4} xs={12}>
           <DatePickerComponent
             onHandleDate={handleFecNac}
             title="Fecha de Nacimiento*"
             value={defaultFecNac}
           />
         </Grid>
+      </Grid>
+      <Grid item container spacing={2}>
         <Grid item md={4} xs={12}>
           <DatePickerComponent
             onHandleDate={handleFecVenc}

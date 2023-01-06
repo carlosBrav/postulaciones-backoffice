@@ -19,7 +19,8 @@ function useFormLogin(auth: AuthenticationRepository) {
     getValues,
     setValue,
     formState: { errors },
-    watch
+    watch,
+    clearErrors
   } = useForm({
     resolver: yupResolver(validationFormLogin),
     defaultValues: {
@@ -41,6 +42,27 @@ function useFormLogin(auth: AuthenticationRepository) {
 
   const { document_number, document_type } = watch()
 
+  const [maxLength, setMaxLength] = useState<number>(8)
+
+  useEffect(() => {
+    if (document_type !== '00001') {
+      setMaxLength(12)
+    } else {
+      setMaxLength(8)
+    }
+  }, [document_type])
+
+  useEffect(() => {
+    if (document_type !== '') {
+      setValue('document_number', '')
+    }
+  }, [document_type])
+
+  const handleOchangeDocument = (data: string) => {
+    setValue('document_number', data)
+    clearErrors('document_number')
+  }
+
   useEffect(()=>{
     if(isSuccess){
       setErrorAuth(false)
@@ -61,6 +83,8 @@ function useFormLogin(auth: AuthenticationRepository) {
     handleSubmit,
     getValues,
     setValue,
+    handleOchangeDocument,
+    maxLength,
     errors,
     control,
     type_document,
