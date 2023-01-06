@@ -1,6 +1,12 @@
+@import '../../../../../assets/scss/media.scss';
+
 .form-left {
   width: 100%;
   height: 100vh;
   min-height: 100vh;
   background-color: #1A5EAF;
+
+  @include respond-below(sm){
+    display: none;
+  }
 }
