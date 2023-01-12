@@ -37,9 +37,6 @@ export default function InputComponent({
         onChange(event.target.value)
       }
     }
-    // if (event.target.value.length > 0 && /[0-9]/.test(event.target.value)) {
-
-    // }
   }
   return (
     <Controller
