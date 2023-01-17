@@ -9,6 +9,7 @@ class ParticipantEvaluationSec extends BaseModel {
   score: number = 0
   factor: number = 0
   puntaje: number = 0
+  correccion: number = 0
   dscSeccion: string = ''
   listProyectoParticipanteEvalSecInd: ParticipantEvaluationSecInd[] = []
 }

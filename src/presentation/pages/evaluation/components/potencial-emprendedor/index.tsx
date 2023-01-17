@@ -92,10 +92,10 @@ function PotencialEmprendedor({ evaluation }: Props) {
                     <TableCell style={{ color: '#572364' }} align="left">
                       {row.dscSeccion}
                     </TableCell>
-                    <TableCell align="center">{row.score}</TableCell>
-                    <TableCell align="center">{row.factor}</TableCell>
+                    <TableCell align="center">{row.puntaje+row.factor}</TableCell>
+                    <TableCell align="center">{row.correccion}</TableCell>
                     <TableCell align="center">
-                      {row.score + row.factor}
+                      {row.score}
                     </TableCell>
                   </TableRow>
                 ))}
