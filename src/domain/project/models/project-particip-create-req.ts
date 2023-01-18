@@ -4,6 +4,7 @@ import { ProjectParticipantRequest } from './project-particip-request'
 class ProjectParticipantCreateReq extends BaseModel {
   idProyecto: number = 0
   listProyectoParticipante: ProjectParticipantRequest[] = []
+  idUsuCrea: number = 0
   idUsuMod: number = 0
 }
 

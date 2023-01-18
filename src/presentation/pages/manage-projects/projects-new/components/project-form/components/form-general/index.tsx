@@ -9,10 +9,12 @@ import { SwitchComponent } from '@presentation/components/switch-component'
 type Props = {
   control: any
   errors: any
+  estado: string
 }
 
-function FormGeneral({ control, errors }: Props) {
+function FormGeneral({ control, errors, estado = '' }: Props) {
   const { estadoProyecto } = useContext(ParameterManageContext)
+  console.log('estado proyecto ', estadoProyecto)
   return (
     <Grid container spacing={2}>
       <Grid item container md={8} xs={12} spacing={2}>
@@ -76,7 +78,7 @@ function FormGeneral({ control, errors }: Props) {
               idLabel="estado_proyecto_label"
               idSelect="estado_proyecto_select"
               label="Estado"
-              disabled
+              disabled={estado === '00002'}
             />
           </Box>
         </Grid>

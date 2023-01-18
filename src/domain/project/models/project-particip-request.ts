@@ -4,7 +4,6 @@ class ProjectParticipantRequest extends BaseModel {
   idParticipante: number = 0
   idEstado: string = ''
   idResultado: string = ''
-  idUsuCrea: number = 0
   listProyectoParticipanteEval: ProjectParticipReqEval[] = []
 }
 

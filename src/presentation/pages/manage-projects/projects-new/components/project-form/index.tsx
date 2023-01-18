@@ -54,7 +54,13 @@ function ProjectForm({ repository, id = '' }: Props) {
             padding="20px 10px 10px 10px"
             style={{ border: '1px solid rgba(0, 0, 0, 0.12)' }}
           >
-            {tab === 0 && <FormGeneral control={control} errors={errors} />}
+            {tab === 0 && (
+              <FormGeneral
+                estado={idEstado}
+                control={control}
+                errors={errors}
+              />
+            )}
             {tab === 1 && (
               <FormParticipants
                 handleAddParticipants={handleAddParticipants}

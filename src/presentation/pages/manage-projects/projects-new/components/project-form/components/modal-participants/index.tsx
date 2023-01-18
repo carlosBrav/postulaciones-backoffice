@@ -40,12 +40,14 @@ function ModalParticipants({
   const handleAccept = () => {
     const ppcObject = new ProjectParticipantCreateReq()
     ppcObject.idProyecto = +id
-    ppcObject.listProyectoParticipante = participantsSelected.map((val)=> ProjectParticipantRequest.fromJson({
-      idParticipante: val.idParticipante,
-      idEstado: "00001",
-      idResultado: "00003",
-      idUsuCrea: idCurrentUsuario
-    }))
+    ppcObject.idUsuCrea = idCurrentUsuario
+    ppcObject.listProyectoParticipante = participantsSelected.map((val) =>
+      ProjectParticipantRequest.fromJson({
+        idParticipante: val.idParticipante,
+        idEstado: '00001',
+        idResultado: '00003'
+      })
+    )
     onAccept(ppcObject)
   }
 
