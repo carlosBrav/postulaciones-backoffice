@@ -21,13 +21,7 @@ function QuizComponent({
   const valuetext = (value: number) => `${value}`
 
   const handleChange = (event: Event, newValue: number | number[]) => {
-    // const findData = data.find((val) => val.idIndicador === id)
-    // console.log('find data ', findData)
-    // const indexResponse = data.indexOf(findData as ParticipantEvaluationSecInd)
-    // const cloneResponse = cloneDeep(data)
-    // cloneResponse[indexResponse].respuesta = newValue as number
-    // setData(cloneResponse)
-    changeResponse(newValue as number,  id)
+    changeResponse(newValue as number, id)
   }
 
   return (
@@ -45,8 +39,8 @@ function QuizComponent({
           getAriaValueText={valuetext}
           valueLabelDisplay="auto"
           step={1}
-          min={0}
-          max={4}
+          min={1}
+          max={5}
           color="secondary"
           sx={{ height: 10 }}
         />

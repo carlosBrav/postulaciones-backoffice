@@ -37,6 +37,12 @@ function Pitch({ evaluation }: Props) {
     }
   }, [evaluation])
 
+  useEffect(() => {
+    if (evaluation) {
+      setStatusPitch(evaluation.idEstado === '00002')
+    }
+  }, [evaluation])
+
   const changeResponse = (score: number, id: number) => {
     const findData = pitchEvalSecInd.find((val) => val.idIndicador === id)
     const indexResponse = pitchEvalSecInd.indexOf(

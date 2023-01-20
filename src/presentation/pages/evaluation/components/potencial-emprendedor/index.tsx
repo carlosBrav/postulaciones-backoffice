@@ -27,6 +27,12 @@ function PotencialEmprendedor({ evaluation }: Props) {
     }
   }, [evaluation])
 
+  useEffect(() => {
+    if (evaluation) {
+      setStatusEM(evaluation.idEstado === '00002')
+    }
+  }, [evaluation])
+
   return (
     <Grid container>
       <Grid item xs={12}>

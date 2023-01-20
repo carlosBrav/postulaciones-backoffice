@@ -6,7 +6,7 @@ class ParticipantEvaluationSecInd extends BaseModel {
   idEvaluacion: number = 0
   idSeccion: number = 0
   idIndicador: number = 0
-  respuesta: number = 0
+  respuesta: number = 1
   dscIndicador: string = ''
 }
 

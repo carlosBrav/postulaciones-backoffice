@@ -31,6 +31,12 @@ function Entrevista({ evaluation }: Props) {
     }
   }, [evaluation])
 
+  useEffect(() => {
+    if (evaluation) {
+      setStatusEnt(evaluation.idEstado === '00002')
+    }
+  }, [evaluation])
+
   const changeResponse = (score: number, id: number) => {
     const findData = entrevistaEvalSecInd.find((val) => val.idIndicador === id)
     const indexResponse = entrevistaEvalSecInd.indexOf(
