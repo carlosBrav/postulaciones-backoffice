@@ -1,52 +1,25 @@
-import { ParticipantEvaluation } from '@domain/project'
 import { ParticipantEvaluationSecInd } from '@domain/project/models/participant-evaluation-sec-ind'
 import { Grid, Box, Button } from '@mui/material'
 import { SwitchComponent } from '@presentation/components/switch-component/switch'
-import React, { useContext, useEffect, useState } from 'react'
+import React from 'react'
 import { RangeComponent } from '@presentation/pages/evaluation/components/pitch/components/range'
 import { QuizComponent } from '@presentation/pages/evaluation/components/pitch/components/quiz'
-import { ParameterManageContext } from '@presentation/pages/context/parameter-context'
-import { cloneDeep } from 'lodash'
 
 type Props = {
-  evaluation: ParticipantEvaluation
+  setStatusEnt: (status: boolean) => void
+  statusEnt: boolean
+  dscEstado: string
+  entrevistaEvalSecInd: ParticipantEvaluationSecInd[]
+  changeResponse: (score: number, id: number) => void
 }
 
-function Entrevista({ evaluation }: Props) {
-  const {
-    entrevistaEvalSecInd,
-    setEntrevistaEvalSecInd,
-    statusEnt,
-    setStatusEnt
-  } = useContext(ParameterManageContext)
-
-  useEffect(() => {
-    if (evaluation) {
-      if  (entrevistaEvalSecInd.length === 0)  {
-        setEntrevistaEvalSecInd([
-          ...evaluation.listProyectoParticipanteEvalSec[0]
-            .listProyectoParticipanteEvalSecInd
-        ])
-      }
-    }
-  }, [evaluation])
-
-  useEffect(() => {
-    if (evaluation) {
-      setStatusEnt(evaluation.idEstado === '00002')
-    }
-  }, [evaluation])
-
-  const changeResponse = (score: number, id: number) => {
-    const findData = entrevistaEvalSecInd.find((val) => val.idIndicador === id)
-    const indexResponse = entrevistaEvalSecInd.indexOf(
-      findData as ParticipantEvaluationSecInd
-    )
-    const cloneResponse = cloneDeep(entrevistaEvalSecInd)
-    cloneResponse[indexResponse].respuesta = score
-    setEntrevistaEvalSecInd(cloneResponse)
-  }
-
+function Entrevista({
+  setStatusEnt,
+  changeResponse,
+  statusEnt,
+  dscEstado,
+  entrevistaEvalSecInd
+}: Props) {
   return (
     <Grid container>
       <Grid item xs={12}>
@@ -67,7 +40,7 @@ function Entrevista({ evaluation }: Props) {
           </Box>
           <Box maxWidth="200px">
             <Button variant="outlined" color="success">
-              {evaluation ? evaluation.dscEstado : ''}
+              {dscEstado}
             </Button>
           </Box>
         </Box>

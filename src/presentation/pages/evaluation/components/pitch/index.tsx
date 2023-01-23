@@ -1,58 +1,30 @@
-import { ParticipantEvaluation } from '@domain/project'
-import { ParticipantEvaluationSec } from '@domain/project/models/participant-evaluation-sec'
-import { ParticipantEvaluationSecInd } from '@domain/project/models/participant-evaluation-sec-ind'
 import { Box, Button, Grid } from '@mui/material'
 import { SwitchComponent } from '@presentation/components/switch-component/switch'
-import { cloneDeep } from 'lodash'
 import { RangeComponent } from './components/range'
 import { QuizComponent } from './components/quiz'
-import React, { useContext, useEffect, useState } from 'react'
-import { ParameterManageContext } from '@presentation/pages/context/parameter-context'
+import React from 'react'
+import {
+  ParticipantEvaluation,
+  ParticipantEvaluationSecInd
+} from '@domain/project'
 
 type Props = {
-  evaluation: ParticipantEvaluation
+  setStatusPitch: (status: boolean) => void
+  changeResponse: (score: number, id: number) => void
+  statusPitch: boolean
+  dscEstado: string
+  evaluate: ParticipantEvaluation
+  pitchEvalSecInd: ParticipantEvaluationSecInd[]
 }
 
-function Pitch({ evaluation }: Props) {
-  const { pitchEvalSecInd, setPitchEvalSecInd, statusPitch, setStatusPitch } =
-    useContext(ParameterManageContext)
-  // const [finishTest, setFinishTest] = useState<boolean>(false)
-
-  const [evaluate, setEvaluate] = useState<ParticipantEvaluation>()
-  const [evalSec, setEvalSec] = useState<ParticipantEvaluationSec[]>([])
-  // const [evalSecInd, setEvalSecInd] = useState<ParticipantEvaluationSecInd[]>(
-  //   []
-  // )
-
-  useEffect(() => {
-    if (evaluation) {
-      setEvaluate(cloneDeep(evaluation))
-      setEvalSec([...evaluation.listProyectoParticipanteEvalSec])
-      if  (pitchEvalSecInd.length === 0)  {
-        setPitchEvalSecInd([
-          ...evaluation.listProyectoParticipanteEvalSec[0]
-            .listProyectoParticipanteEvalSecInd
-        ])
-      }
-    }
-  }, [evaluation])
-
-  useEffect(() => {
-    if (evaluation) {
-      setStatusPitch(evaluation.idEstado === '00002')
-    }
-  }, [evaluation])
-
-  const changeResponse = (score: number, id: number) => {
-    const findData = pitchEvalSecInd.find((val) => val.idIndicador === id)
-    const indexResponse = pitchEvalSecInd.indexOf(
-      findData as ParticipantEvaluationSecInd
-    )
-    const cloneResponse = cloneDeep(pitchEvalSecInd)
-    cloneResponse[indexResponse].respuesta = score
-    setPitchEvalSecInd(cloneResponse)
-  }
-
+function Pitch({
+  setStatusPitch,
+  changeResponse,
+  statusPitch,
+  dscEstado,
+  evaluate,
+  pitchEvalSecInd
+}: Props) {
   return (
     <Grid container>
       <Grid item xs={12}>
@@ -73,7 +45,7 @@ function Pitch({ evaluation }: Props) {
           </Box>
           <Box maxWidth="200px">
             <Button variant="outlined" color="success">
-              {evaluation ? evaluation.dscEstado : ''}
+              {dscEstado}
             </Button>
           </Box>
         </Box>

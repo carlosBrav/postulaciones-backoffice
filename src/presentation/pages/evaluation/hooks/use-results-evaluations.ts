@@ -202,7 +202,7 @@ function useResultsEvaluations(repository: ProjectRepository) {
       itemVal5
     ]
     updateProyParticp.listProyectoParticipante = [item]
-    //console.log('update proy particip ', updateProyParticp)
+    console.log('update proy particip ', updateProyParticp)
     mutateUpdateParticipant(updateProyParticp)
   }
 

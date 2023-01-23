@@ -6,14 +6,15 @@ import PotencialEmprendedor from '@presentation/pages/evaluation/components/pote
 import Pitch from '@presentation/pages/evaluation/components/pitch'
 import Entrevista from '@presentation/pages/evaluation/components/entrevista'
 import { ButtonComponent } from '@presentation/components/button'
-import {
-  ParticipantEvaluation,
-  ProjectRepository
-} from '@domain/project'
+import { ParticipantEvaluation, ProjectRepository } from '@domain/project'
 import { FullScreenLoader } from '@presentation/components/full-screen-loader/full-screen-loader'
 import HeaderComponent from '@presentation/components/header'
 import SelectComponent from '@presentation/components/select/select'
-import {useResultsEvaluations} from '@presentation/pages/evaluation/hooks/use-results-evaluations'
+import { useResultsEvaluations } from '@presentation/pages/evaluation/hooks/use-results-evaluations'
+import { useEvaluacionPreliminar } from '@presentation/pages/evaluation/hooks/use-evaluacion-preliminar'
+import { usePotencialEmprendedor } from '@presentation/pages/evaluation/hooks/use-potencial-emprendedor'
+import { usePitch } from '@presentation/pages/evaluation/hooks/use-pitch'
+import { useEntrevista } from '@presentation/pages/evaluation/hooks/use-entrevista'
 
 const titles_tab = [
   'EVALUACION PRELIMINAR',
@@ -41,8 +42,42 @@ function Evaluation({ repository }: Props) {
     handleOnSave,
     setStatusParticipant,
     goToProjects,
-    setTab,
+    setTab
   } = useResultsEvaluations(repository)
+
+  const {
+    paletteSalud,
+    paletteVida,
+    score1,
+    score2,
+    statusEP,
+    dscEstadoEP,
+    setStatusEP
+  } = useEvaluacionPreliminar({
+    evaluation1: evaluation1 as ParticipantEvaluation,
+    evaluation2: evaluation2 as ParticipantEvaluation
+  })
+
+  const { dscEstadoEM, evalSec, setStatusEM, statusEM } =
+    usePotencialEmprendedor(evaluation3 as ParticipantEvaluation)
+
+  const {
+    changeResponse: changeResponsePitch,
+    evaluate,
+    pitchEvalSecInd,
+    setStatusPitch,
+    statusPitch,
+    dscPitch
+  } = usePitch(evaluation4 as ParticipantEvaluation)
+
+  const {
+    changeResponse: changeResponseEntrevista,
+    dscEstadoEntrevista,
+    entrevistaEvalSecInd,
+    setStatusEnt,
+    statusEnt
+  } = useEntrevista(evaluation5 as ParticipantEvaluation)
+
   return isLoadingEvaluations ? (
     <FullScreenLoader />
   ) : (
@@ -71,20 +106,41 @@ function Evaluation({ repository }: Props) {
           >
             {tab === 0 && (
               <EvaluacionPreliminar
-                evaluation1={evaluation1 as ParticipantEvaluation}
-                evaluation2={evaluation2 as ParticipantEvaluation}
+                dscEstado={dscEstadoEP}
+                paletteSalud={paletteSalud}
+                paletteVida={paletteVida}
+                score1={score1}
+                score2={score2}
+                setStatusEP={setStatusEP}
+                statusEP={statusEP}
               />
             )}
             {tab === 1 && (
               <PotencialEmprendedor
-                evaluation={evaluation3 as ParticipantEvaluation}
+                dscEstado={dscEstadoEM}
+                evalSec={evalSec}
+                setStatusEM={setStatusEM}
+                statusEM={statusEM}
               />
             )}
             {tab === 2 && (
-              <Pitch evaluation={evaluation4 as ParticipantEvaluation} />
+              <Pitch
+                changeResponse={changeResponsePitch}
+                dscEstado={dscPitch}
+                evaluate={evaluate as ParticipantEvaluation}
+                pitchEvalSecInd={pitchEvalSecInd}
+                setStatusPitch={setStatusPitch}
+                statusPitch={statusPitch}
+              />
             )}
             {tab === 3 && (
-              <Entrevista evaluation={evaluation5 as ParticipantEvaluation} />
+              <Entrevista
+                changeResponse={changeResponseEntrevista}
+                dscEstado={dscEstadoEntrevista}
+                entrevistaEvalSecInd={entrevistaEvalSecInd}
+                setStatusEnt={setStatusEnt}
+                statusEnt={statusEnt}
+              />
             )}
           </Box>
           <Box

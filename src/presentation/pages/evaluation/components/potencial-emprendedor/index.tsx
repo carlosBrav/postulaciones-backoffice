@@ -1,7 +1,7 @@
-import { ParticipantEvaluation } from '@domain/project'
+
 import { Box, Button, Grid } from '@mui/material'
 import { SwitchComponent } from '@presentation/components/switch-component/switch'
-import React, { useContext, useEffect, useState } from 'react'
+import React from 'react'
 
 import Table from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'
@@ -9,30 +9,22 @@ import TableCell from '@mui/material/TableCell'
 import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
-import Paper from '@mui/material/Paper'
 import { ParticipantEvaluationSec } from '@domain/project/models/participant-evaluation-sec'
-import { ParameterManageContext } from '@presentation/pages/context/parameter-context'
 
 type Props = {
-  evaluation: ParticipantEvaluation
+  setStatusEM: (status: boolean) => void
+  statusEM: boolean
+  dscEstado: string
+  evalSec: ParticipantEvaluationSec[]
 }
 
-function PotencialEmprendedor({ evaluation }: Props) {
-  const { statusEM, setStatusEM } = useContext(ParameterManageContext)
-  const [evalSec, setEvalSec] = useState<ParticipantEvaluationSec[]>([])
-
-  useEffect(() => {
-    if (evaluation) {
-      setEvalSec([...evaluation.listProyectoParticipanteEvalSec])
-    }
-  }, [evaluation])
-
-  useEffect(() => {
-    if (evaluation) {
-      setStatusEM(evaluation.idEstado === '00002')
-    }
-  }, [evaluation])
-
+function PotencialEmprendedor({
+  setStatusEM,
+  statusEM,
+  dscEstado,
+  evalSec
+}: Props) {
+  
   return (
     <Grid container>
       <Grid item xs={12}>
@@ -53,7 +45,7 @@ function PotencialEmprendedor({ evaluation }: Props) {
           </Box>
           <Box maxWidth="200px">
             <Button variant="outlined" color="success">
-              {evaluation ? evaluation.dscEstado : ''}
+              {dscEstado}
             </Button>
           </Box>
         </Box>
@@ -92,7 +84,7 @@ function PotencialEmprendedor({ evaluation }: Props) {
               <TableBody>
                 {evalSec.map((row: ParticipantEvaluationSec) => (
                   <TableRow
-                    key={row.idEvaluacion}
+                    key={row.idSeccion}
                     sx={{ 'td, th': { border: 0 } }}
                   >
                     <TableCell style={{ color: '#572364' }} align="left">

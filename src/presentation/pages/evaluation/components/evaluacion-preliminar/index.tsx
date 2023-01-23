@@ -1,76 +1,28 @@
 import { Box, Grid, Button } from '@mui/material'
 import { SwitchComponent } from '@presentation/components/switch-component/switch'
 import TextCommon from '@presentation/components/text-common'
-import React, { useContext, useEffect, useState } from 'react'
-import { ParticipantEvaluation } from '@domain/project'
-import { ParameterManageContext } from '@presentation/pages/context/parameter-context'
+import React from 'react'
 
 type Props = {
-  evaluation1: ParticipantEvaluation
-  evaluation2: ParticipantEvaluation
+  statusEP: boolean
+  setStatusEP: (status: boolean) => void
+  dscEstado: string
+  score1: number
+  score2: number
+  paletteSalud: any
+  paletteVida: any
 }
 
-type Palette = {
-  title: string
-  color: string
-}
-
-const emptyPalette: Palette = {
-  title: '',
-  color: '#FFF'
-}
-
-const validateScore = (score: number) => {
-  if (score >= 2.0 && score <= 3.0) {
-    return {
-      title: 'Alta',
-      color: '#8ecd48'
-    }
-  }
-  if (score >= 0.76 && score <= 1.99) {
-    return {
-      title: 'Media',
-      color: '#fdff66'
-    }
-  }
-  if (score >= 0 && score <= 0.75) {
-    return {
-      title: 'Baja',
-      color: '#ff3e3f'
-    }
-  }
-}
-
-function EvaluacionPreliminar({ evaluation1, evaluation2 }: Props) {
-  const [paletteSalud, setPaletteSalud] = useState<Palette>(emptyPalette)
-  const [paletteVida, setPaletteVida] = useState<Palette>(emptyPalette)
-  const [score1, setScore1] = useState<number>(0)
-  const [score2, setScore2] = useState<number>(0)
-  const { statusEP, setStatusEP} = useContext(
-    ParameterManageContext
-  )
-
-  useEffect(() => {
-    if (evaluation1) {
-      setStatusEP(evaluation1.idEstado === '00002')
-    }
-  }, [evaluation1])
-
-  useEffect(() => {
-    if (evaluation1) {
-      const result = validateScore(evaluation1.score)
-      setPaletteSalud(result as Palette)
-      setScore1(evaluation1.score)
-    }
-  }, [evaluation1])
-
-  useEffect(() => {
-    if (evaluation2) {
-      const result = validateScore(evaluation2.score)
-      setPaletteVida(result as Palette)
-      setScore2(evaluation2.score)
-    }
-  }, [evaluation2])
+function EvaluacionPreliminar({
+  statusEP,
+  setStatusEP,
+  dscEstado,
+  score1,
+  score2,
+  paletteSalud,
+  paletteVida,
+}: Props) {
+  
 
   return (
     <Grid container>
@@ -92,7 +44,7 @@ function EvaluacionPreliminar({ evaluation1, evaluation2 }: Props) {
           </Box>
           <Box maxWidth="200px">
             <Button variant="outlined" color="success">
-              {evaluation1 ? evaluation1.dscEstado : ''}
+              {dscEstado}
             </Button>
           </Box>
         </Box>
