@@ -14,7 +14,6 @@ type Props = {
 
 function FormGeneral({ control, errors, estado = '' }: Props) {
   const { estadoProyecto } = useContext(ParameterManageContext)
-  console.log('estado proyecto ', estadoProyecto)
   return (
     <Grid container spacing={2}>
       <Grid item container md={8} xs={12} spacing={2}>

@@ -28,12 +28,9 @@ export default function DatePickerComponent({
 
   useEffect(() => {
     if (value !== '' && value.length >= 8) {
-      console.log(parse(value, 'dd/MM/yyyy', new Date()))
       setInitValue(parse(value, 'dd/MM/yyyy', new Date()))
     }
   }, [value])
-
-  console.log('value ', value)
 
   return (
     <LocalizationProvider adapterLocale={es} dateAdapter={AdapterDateFns}>
